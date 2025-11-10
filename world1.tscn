@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bnfddw5nnbpgo"]
+[gd_scene load_steps=24 format=3 uid="uid://bnfddw5nnbpgo"]
 
 [ext_resource type="Script" uid="uid://qnif0vl2cpfq" path="res://character_body_3d.gd" id="1_rf4cw"]
 [ext_resource type="Texture2D" uid="uid://q7i2vhx0ny7l" path="res://light/texture_01.png" id="2_u8a3u"]
@@ -10,17 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://csrpdkkic80ua" path="res://red/texture_01.png" id="8_y6ugg"]
 [ext_resource type="Texture2D" uid="uid://b5cptxu2t0iri" path="res://orange/texture_01.png" id="9_hpbrx"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rf4cw"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+[sub_resource type="Sky" id="Sky_u8a3u"]
 
-[sub_resource type="Sky" id="Sky_7dtx0"]
-sky_material = SubResource("ProceduralSkyMaterial_rf4cw")
-
-[sub_resource type="Environment" id="Environment_rro2w"]
+[sub_resource type="Environment" id="Environment_armay"]
 background_mode = 1
-sky = SubResource("Sky_7dtx0")
-tonemap_mode = 2
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_u8a3u")
+ambient_light_energy = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wmgn3"]
 albedo_texture = ExtResource("2_u8a3u")
@@ -59,12 +55,8 @@ albedo_texture = ExtResource("5_xr4jf")
 
 [node name="world" type="Node3D"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 2.9473267, 0)
-shadow_enabled = true
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_rro2w")
+environment = SubResource("Environment_armay")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4288611, 0)
