@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="OrbitSweep (Copy)"
+config/name="OrbitSweep"
 run/main_scene="uid://bnfddw5nnbpgo"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://Textures/icon.svg"
