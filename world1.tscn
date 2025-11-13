@@ -1,34 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://bnfddw5nnbpgo"]
+[gd_scene load_steps=20 format=3 uid="uid://bnfddw5nnbpgo"]
 
-[ext_resource type="Script" uid="uid://qnif0vl2cpfq" path="res://character_body_3d.gd" id="1_rf4cw"]
-[ext_resource type="Texture2D" uid="uid://q7i2vhx0ny7l" path="res://light/texture_01.png" id="2_u8a3u"]
-[ext_resource type="Texture2D" uid="uid://bea2wg3nmblwl" path="res://black/texture_01.png" id="3_armay"]
-[ext_resource type="Texture2D" uid="uid://c00i7kfuhqraa" path="res://light/texture_02.png" id="4_k08es"]
-[ext_resource type="Texture2D" uid="uid://bblkf8t5n2tcj" path="res://black/texture_02.png" id="5_xr4jf"]
-[ext_resource type="Texture2D" uid="uid://dnrql3yvtujki" path="res://green/texture_01.png" id="6_0bnnm"]
-[ext_resource type="Texture2D" uid="uid://uoojfpsgd7e7" path="res://purple/texture_01.png" id="7_j8dmm"]
-[ext_resource type="Texture2D" uid="uid://csrpdkkic80ua" path="res://red/texture_01.png" id="8_y6ugg"]
-[ext_resource type="Texture2D" uid="uid://b5cptxu2t0iri" path="res://orange/texture_01.png" id="9_hpbrx"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rf4cw"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_7dtx0"]
-sky_material = SubResource("ProceduralSkyMaterial_rf4cw")
-
-[sub_resource type="Environment" id="Environment_rro2w"]
-background_mode = 1
-sky = SubResource("Sky_7dtx0")
-tonemap_mode = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wmgn3"]
-albedo_texture = ExtResource("2_u8a3u")
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_7dtx0"]
-material = SubResource("StandardMaterial3D_wmgn3")
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rro2w"]
+[ext_resource type="Texture2D" uid="uid://bea2wg3nmblwl" path="res://Textures/black/texture_01.png" id="3_armay"]
+[ext_resource type="Texture2D" uid="uid://c00i7kfuhqraa" path="res://Textures/light/texture_02.png" id="4_k08es"]
+[ext_resource type="Texture2D" uid="uid://bblkf8t5n2tcj" path="res://Textures/black/texture_02.png" id="5_xr4jf"]
+[ext_resource type="Texture2D" uid="uid://dnrql3yvtujki" path="res://Textures/green/texture_01.png" id="6_0bnnm"]
+[ext_resource type="Texture2D" uid="uid://uoojfpsgd7e7" path="res://Textures/purple/texture_01.png" id="7_j8dmm"]
+[ext_resource type="Texture2D" uid="uid://csrpdkkic80ua" path="res://Textures/red/texture_01.png" id="8_y6ugg"]
+[ext_resource type="Texture2D" uid="uid://b5cptxu2t0iri" path="res://Textures/orange/texture_01.png" id="9_hpbrx"]
+[ext_resource type="PackedScene" uid="uid://b1j33svxmsro6" path="res://New Controller/SourceFPSController.tscn" id="10_armay"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1r560"]
 albedo_texture = ExtResource("3_armay")
@@ -51,6 +30,10 @@ albedo_texture = ExtResource("8_y6ugg")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qjai"]
 albedo_texture = ExtResource("9_hpbrx")
 
+[sub_resource type="BoxMesh" id="BoxMesh_u8a3u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_armay"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wtbqh"]
 albedo_texture = ExtResource("5_xr4jf")
 
@@ -58,38 +41,6 @@ albedo_texture = ExtResource("5_xr4jf")
 albedo_texture = ExtResource("5_xr4jf")
 
 [node name="world" type="Node3D"]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 2.9473267, 0)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_rro2w")
-
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4288611, 0)
-script = ExtResource("1_rf4cw")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-mesh = SubResource("CapsuleMesh_7dtx0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("CapsuleShape3D_rro2w")
-
-[node name="Head" type="Node3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49845815, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Head"]
-
-[node name="SpotLight3D" type="SpotLight3D" parent="CharacterBody3D/Head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, -0.4)
-light_energy = 0.0
-shadow_enabled = true
-distance_fade_enabled = true
-distance_fade_begin = 10.0
-distance_fade_shadow = 20.0
-spot_range = 20.0
-spot_angle = 30.0
 
 [node name="Map" type="Node3D" parent="."]
 
@@ -143,10 +94,21 @@ omni_range = 16.074173
 omni_shadow_mode = 0
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="Map"]
+physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9473457, 2.250709, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.201157, 19.330595, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/RigidBody3D"]
+mesh = SubResource("BoxMesh_u8a3u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/RigidBody3D"]
+shape = SubResource("BoxShape3D_armay")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.123293, 3.4371579, 0)
+use_collision = true
 size = Vector3(10, 7, 10)
 material = SubResource("StandardMaterial3D_wtbqh")
 
@@ -161,3 +123,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8188953, -1.6092706, 0)
 operation = 2
 size = Vector3(1, 2.637207, 1.9550781)
 material = SubResource("StandardMaterial3D_r80sc")
+
+[node name="CharacterBody3DSource\'" parent="." instance=ExtResource("10_armay")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1896324, 0)
