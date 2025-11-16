@@ -17,6 +17,18 @@ albedo_texture = ExtResource("2_varjv")
 
 [node name="CharacterBody3DSource\'" type="CharacterBody3D"]
 script = ExtResource("1_xqcc5")
+look_sensitivity = null
+controller_look_sensitivity = null
+jump_velocity = null
+auto_bhop = null
+walk_speed = null
+sprint_speed = null
+ground_accel = null
+ground_decel = null
+ground_friction = null
+air_cap = null
+air_accel = null
+air_move_speed = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_omfi8")
