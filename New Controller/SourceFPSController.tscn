@@ -17,18 +17,6 @@ albedo_texture = ExtResource("2_varjv")
 
 [node name="CharacterBody3DSource\'" type="CharacterBody3D"]
 script = ExtResource("1_xqcc5")
-look_sensitivity = null
-controller_look_sensitivity = null
-jump_velocity = null
-auto_bhop = null
-walk_speed = null
-sprint_speed = null
-ground_accel = null
-ground_decel = null
-ground_friction = null
-air_cap = null
-air_accel = null
-air_move_speed = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_omfi8")
@@ -54,7 +42,7 @@ cull_mask = 1048573
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5421405, -0.509145)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 light_energy = 0.0
 shadow_enabled = true
 distance_fade_enabled = true
@@ -62,4 +50,4 @@ distance_fade_begin = 0.0
 distance_fade_shadow = 10.0
 distance_fade_length = 50.0
 spot_range = 25.0
-spot_angle = 30.0
+spot_angle = 27.5

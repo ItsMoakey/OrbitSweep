@@ -5,10 +5,10 @@ extends CharacterBody3D
 @export var jump_velocity := 6.0
 @export var auto_bhop := true
 
-
 const HEADBOB_MOVE_AMOUNT = 0.06
 const HEADBOB_FREQUENCY = 2.4
 var headbob_time := 0.0
+var headtransform = Vector3.ZERO
 
 @export var walk_speed := 7.0
 @export var sprint_speed := 8.5
@@ -23,7 +23,7 @@ var headbob_time := 0.0
 @onready var light = $Head/Camera3D/SpotLight3D
 
 var wish_dir := Vector3.ZERO
-var cam_aligned_wish_dir := Vector3
+var cam_aligned_wish_dir := Vector3.ZERO
 var LightBool := false
 
 func get_move_speed() -> float:
@@ -51,12 +51,17 @@ func _unhandled_input(event): #LOOK!
 		_handle_flashlight()
 		
 func _headbob_effect(delta):
+	var centerscreen = Vector3.ZERO
 	headbob_time -= delta * self.velocity.length()
-	%Camera3D.transform.origin = Vector3(
+	if wish_dir != Vector3.ZERO:
+		%Camera3D.transform.origin = %Camera3D.transform.origin.lerp(headtransform, 10.0 * delta)
+		headtransform = Vector3(
 		cos(headbob_time * HEADBOB_FREQUENCY * 0.5) * HEADBOB_MOVE_AMOUNT,
 		sin(headbob_time * HEADBOB_FREQUENCY) * HEADBOB_MOVE_AMOUNT,
-		0
-	)
+		0)
+	else:
+		%Camera3D.transform.origin = %Camera3D.transform.origin.lerp(centerscreen,10.0 * delta)
+		
 	
 var _cur_controller_look = Vector2()
 func _handle_controller_look_input(delta):
