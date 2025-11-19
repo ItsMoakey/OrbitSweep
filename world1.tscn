@@ -1,5 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://bnfddw5nnbpgo"]
+[gd_scene load_steps=24 format=3 uid="uid://bnfddw5nnbpgo"]
 
+[ext_resource type="PackedScene" uid="uid://cyexfbwusy7pf" path="res://CSGStairMaker3D.tscn" id="2_u8a3u"]
 [ext_resource type="Texture2D" uid="uid://bea2wg3nmblwl" path="res://Textures/black/texture_01.png" id="3_armay"]
 [ext_resource type="Texture2D" uid="uid://c00i7kfuhqraa" path="res://Textures/light/texture_02.png" id="4_k08es"]
 [ext_resource type="Texture2D" uid="uid://bblkf8t5n2tcj" path="res://Textures/black/texture_02.png" id="5_xr4jf"]
@@ -69,6 +70,11 @@ shadow_enabled = true
 use_collision = true
 size = Vector3(70, 0.5, 70)
 material = SubResource("StandardMaterial3D_1r560")
+
+[node name="CSGStairMaker3D" parent="Map/CSGBox3D" instance=ExtResource("2_u8a3u")]
+transform = Transform3D(0.73946667, 0, -0.6731932, 0, 1, 0, 0.6731932, 0, 0.73946667, 8.928223, 2.518787, 9.998458)
+size = Vector3(5, 5, 5)
+num_stairs = 10
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)

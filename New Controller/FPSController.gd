@@ -11,7 +11,7 @@ var headbob_time := 0.0
 var headtransform = Vector3.ZERO
 
 @export var walk_speed := 7.0
-@export var sprint_speed := 8.5
+@export var sprint_speed := 10.0
 @export var ground_accel := 14.0
 @export var ground_decel := 10.0
 @export var ground_friction := 6.0
@@ -25,6 +25,10 @@ var headtransform = Vector3.ZERO
 var wish_dir := Vector3.ZERO
 var cam_aligned_wish_dir := Vector3.ZERO
 var LightBool := false
+
+var noclip_speed_mult := 3.0
+var noclip := false
+
 
 func get_move_speed() -> float:
 	return sprint_speed if Input.is_action_pressed("Shift") else walk_speed
@@ -46,6 +50,12 @@ func _unhandled_input(event): #LOOK!
 			rotate_y(-event.relative.x * look_sensitivity)
 			%Camera3D.rotate_x(-event.relative.y * look_sensitivity)
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x,deg_to_rad(-89), deg_to_rad(89))
+	
+	if event is InputEventMouseButton and event.is_pressed():
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			noclip_speed_mult = min(100.0, noclip_speed_mult * 1.1)
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			noclip_speed_mult = max(0.1, noclip_speed_mult * 0.9)
 
 	if Input.is_action_just_pressed("F"):
 		_handle_flashlight()
@@ -78,9 +88,31 @@ func _handle_controller_look_input(delta):
 	
 func _process(delta):
 	_handle_controller_look_input(delta)
+	
+func _handle_noclip(delta) -> bool:
+	if Input.is_action_just_pressed("debug_noclip") and OS.has_feature("debug"):
+		noclip = !noclip
+		noclip_speed_mult = 3.0
+		
+	%CollisionShape3D.disabled = noclip
+		
+	if not noclip:
+		return false
+		
+	var speed = get_move_speed() * -noclip_speed_mult
+	if Input.is_action_pressed("Shift"):
+		speed *= 3.0
+		
+	self.velocity = cam_aligned_wish_dir * speed
+	global_position += self.velocity * delta
+		
+				
+	return true
+	
 
 func _handle_air_physics(delta) -> void:
 	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
+	self.velocity.y = clamp(self.velocity.y, -2500 , 2500)
 	
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
 	var capped_speed = min((air_move_speed * wish_dir).length(),air_cap)
@@ -111,15 +143,18 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("D","A","S","W").normalized()
 	#input and direction
 	wish_dir = self.global_transform.basis * Vector3(-input_dir.x,0., -input_dir.y)
+	cam_aligned_wish_dir = %Camera3D.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
+	
+	if not _handle_noclip(delta):
+		if is_on_floor():
+			if Input.is_action_just_pressed("Space") or (auto_bhop and Input.is_action_pressed("Space")):
+				self.velocity.y  = jump_velocity
+			_handle_ground_physics(delta)
+		else:
+			_handle_air_physics(delta)
 
-	if is_on_floor():
-		if Input.is_action_just_pressed("Space") or (auto_bhop and Input.is_action_pressed("Space")):
-			self.velocity.y  = jump_velocity
-		_handle_ground_physics(delta)
-	else:
-		_handle_air_physics(delta)
-
-	move_and_slide()
+		move_and_slide()
+	
 func _handle_flashlight():
 	if !LightBool:
 		light.light_energy = 5
