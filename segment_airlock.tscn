@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dd1aejwqu7y0y"]
+[gd_scene load_steps=9 format=3 uid="uid://dd1aejwqu7y0y"]
 
 [ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="2_idohb"]
 [ext_resource type="PackedScene" uid="uid://dvmlqtuaebo0v" path="res://util/fanblade.tscn" id="3_x66p3"]
 [ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="4_coiu6"]
+[ext_resource type="PackedScene" uid="uid://b1j33svxmsro6" path="res://New Controller/SourceFPSController.tscn" id="4_rssqj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lwwqe"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -19,6 +20,10 @@ ambient_light_source = 3
 ambient_light_sky_contribution = 0.5
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1qdm"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.9411765)
 
 [node name="segment_airlock" type="Node3D"]
 
@@ -150,6 +155,20 @@ radius = 1.0
 height = 1.0
 sides = 16
 
+[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="Airlock/CSGCylinder3D9"]
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0, 0.23, 0)
+radius = 1.0
+height = 0.4
+sides = 16
+material = SubResource("StandardMaterial3D_e1qdm")
+
+[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="Airlock/CSGCylinder3D9"]
+transform = Transform3D(0.9999942, 0, 0, 0, 0.9999942, 0, 0, 0, 0.9999942, 0, 0.275, 0)
+radius = 1.0
+height = 0.25
+sides = 16
+material = SubResource("StandardMaterial3D_e1qdm")
+
 [node name="CSGCylinder3D10" type="CSGCylinder3D" parent="Airlock"]
 transform = Transform3D(1.1999997, 0, 0, 0, 1.1999997, 0, 0, 0, 1.1999997, 0, 2.438407, 2.0000007)
 radius = 1.2
@@ -163,6 +182,20 @@ radius = 1.0
 height = 1.0
 sides = 16
 
+[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="Airlock/CSGCylinder3D10"]
+transform = Transform3D(0.9999972, 0, 0, 0, 0.9999972, 0, 0, 0, 0.9999972, 0, 0.13472438, 0)
+radius = 1.0
+height = 0.4
+sides = 16
+material = SubResource("StandardMaterial3D_e1qdm")
+
+[node name="CSGCylinder3D14" type="CSGCylinder3D" parent="Airlock/CSGCylinder3D10"]
+transform = Transform3D(0.9999942, 0, 0, 0, 0.9999942, 0, 0, 0, 0.9999942, 0, 0.275, 0)
+radius = 1.0
+height = 0.25
+sides = 16
+material = SubResource("StandardMaterial3D_e1qdm")
+
 [node name="fanblade" parent="Airlock" instance=ExtResource("3_x66p3")]
 transform = Transform3D(0.49999988, 0, 0, 0, 0.49999988, 0, 0, 0, 0.49999988, 0, 2.3, 2)
 
@@ -174,3 +207,5 @@ transform = Transform3D(4.0749483, 0, 0, 0, 2.0594144, 0, 0, 0, 1.6666665, 0, 0,
 
 [node name="Door_Airlock2" parent="Airlock" instance=ExtResource("4_coiu6")]
 transform = Transform3D(4.0749483, 0, 0, 0, 2.0594144, 0, 0, 0, 1.6666665, 0, 0, -4.464163)
+
+[node name="CharacterBody3DSource\'" parent="." instance=ExtResource("4_rssqj")]

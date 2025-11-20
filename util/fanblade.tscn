@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvmlqtuaebo0v"]
+[gd_scene load_steps=3 format=3 uid="uid://dvmlqtuaebo0v"]
 
 [ext_resource type="Script" uid="uid://br878l8w8u474" path="res://util/fanblade.gd" id="1_skw1n"]
+[ext_resource type="AudioStream" uid="uid://hk7lo0jigcp3" path="res://sounds/large-industrial-fan-running-constantly-in-warehouse-environment-339216.mp3" id="2_nvny3"]
 
 [node name="fanblade" type="Node3D"]
 script = ExtResource("1_skw1n")
@@ -41,3 +42,6 @@ size = Vector3(2, 0.05, 0.2)
 [node name="CSGBox3D8" type="CSGBox3D" parent="."]
 transform = Transform3D(5.9604645e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, 5.9604645e-08, -5.9604645e-08, 0, -1.0100505)
 size = Vector3(2, 0.05, 0.2)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_nvny3")

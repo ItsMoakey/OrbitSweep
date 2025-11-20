@@ -21,7 +21,7 @@ var headtransform = Vector3.ZERO
 @export var air_move_speed := 500.0
 
 @onready var light = $Head/Camera3D/SpotLight3D
-@export var lightenergy := 5.0
+@export var lightenergy := 1.0
 
 
 
