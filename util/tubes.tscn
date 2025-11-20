@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dtsvogyxv35kk"]
+
+[node name="Tubes" type="Node3D"]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0, -4.3711378e-08, 0.99999964, 4.371137e-08, -0.9999997, -4.371138e-08, 0.9999997, 4.3711378e-08, 5.463398e-15, -1.1597207, 0.07493532, -2.7)
+radius = 0.05
+height = 3.7
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0, -4.3711378e-08, 0.99999964, 4.371137e-08, -0.9999997, -4.371138e-08, 0.9999997, 4.3711378e-08, 5.463398e-15, -0.9246847, 0.07493531, -2.7)
+radius = 0.05
+height = 3.7
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0, -4.3711378e-08, 0.99999964, 4.371137e-08, -0.9999997, -4.371138e-08, 0.9999997, 4.3711378e-08, 5.463398e-15, -1.3983457, 0.074935324, -2.7)
+radius = 0.05
+height = 3.7
