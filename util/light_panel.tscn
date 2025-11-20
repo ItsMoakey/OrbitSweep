@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxl65xg26yvny"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u34xb"]
+albedo_color = Color(0.6666667, 0.79607844, 1, 1)
+emission_enabled = true
+emission = Color(6.1028833, 10.127914, 16.290003, 1)
+
+[node name="LightPanel1" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+size = Vector3(2.4, 0.2, 0.8)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10986381, 0)
+operation = 2
+size = Vector3(2.2, 0.25, 0.6)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
+radius = 0.1
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+radius = 0.1
+
+[node name="Light" type="Node3D" parent="."]
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Light"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.1, 0)
+radius = 0.05
+material = SubResource("StandardMaterial3D_u34xb")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Light"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.1, 0.1)
+radius = 0.05
+material = SubResource("StandardMaterial3D_u34xb")
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="Light"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.1, -0.1)
+radius = 0.05
+material = SubResource("StandardMaterial3D_u34xb")
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="Light"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.1, -0.2)
+radius = 0.05
+material = SubResource("StandardMaterial3D_u34xb")
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="Light"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.1, 0.2)
+radius = 0.05
+material = SubResource("StandardMaterial3D_u34xb")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Light"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.2, 0)
+light_color = Color(0.6666667, 0.79607844, 1, 1)
+light_energy = 0.2
+light_bake_mode = 1
+shadow_enabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+light_color = Color(0.6666667, 0.79607844, 1, 1)
+light_energy = 0.2
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 2.5
+omni_attenuation = 2.0

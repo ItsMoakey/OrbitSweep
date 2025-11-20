@@ -1,0 +1,189 @@
+[gd_scene load_steps=7 format=3 uid="uid://dd1aejwqu7y0y"]
+
+[ext_resource type="PackedScene" uid="uid://b1j33svxmsro6" path="res://New Controller/SourceFPSController.tscn" id="1_jf64f"]
+[ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="1_lwwqe"]
+[ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://door_airlock.tscn" id="3_x3ni1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lwwqe"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_x3ni1"]
+sky_material = SubResource("ProceduralSkyMaterial_lwwqe")
+
+[sub_resource type="Environment" id="Environment_f2xa5"]
+background_mode = 1
+background_color = Color(0.08013246, 0.080132596, 0.08013254, 1)
+sky = SubResource("Sky_x3ni1")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="map_tutorial" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f2xa5")
+
+[node name="CharacterBody3DSource\'" parent="." instance=ExtResource("1_jf64f")]
+lightenergy = 1.0
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="Door_Airlock" parent="Map" instance=ExtResource("3_x3ni1")]
+transform = Transform3D(2.4449692, 0, 0, 0, 1.2356488, 0, 0, 0, 1, 0, 0, 2.6896234)
+
+[node name="Airlock" type="CSGBox3D" parent="Map"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+use_collision = true
+size = Vector3(10, 5, 10)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map/Airlock"]
+operation = 2
+size = Vector3(6, 4, 10)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map/Airlock"]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, -3, 2, 0)
+size = Vector3(1, 3, 10)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Map/Airlock"]
+transform = Transform3D(-0.7071067, 0.7071067, 0, -0.7071067, -0.7071067, 0, 0, 0, 1, 3, 2, 0)
+size = Vector3(1, 3, 10)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Map/Airlock"]
+transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 1, -1.5, -2.1435113, 0)
+operation = 2
+size = Vector3(1, 0.1, 7)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Map/Airlock"]
+transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 1, 1.5, -2.1435113, 0)
+operation = 2
+size = Vector3(1, 0.1, 7)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Map/Airlock"]
+transform = Transform3D(1, 0, 0, 0, 0.69314504, 0, 0, 0, 1, -1.5, -2, 0)
+size = Vector3(1, 0.1, 7)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Map/Airlock"]
+transform = Transform3D(1, 0, 0, 0, 0.69314504, 0, 0, 0, 1, 1.5, -2, 0)
+size = Vector3(1, 0.1, 7)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Map/Airlock"]
+transform = Transform3D(-0.70710665, -0.70710677, 0, 0.70710677, -0.70710665, 0, 0, 0, 0.99999994, 2.9999995, -2, 0)
+size = Vector3(1, 3, 10)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Map/Airlock"]
+transform = Transform3D(0.7071067, -0.70710665, 0, 0.70710665, 0.7071067, 0, 0, 0, 0.99999994, -3, -1.9999996, 0)
+size = Vector3(1, 3, 10)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Map/Airlock"]
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, -2.9999995, 0, 0)
+operation = 2
+size = Vector3(1, 1, 7)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Map/Airlock"]
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 2.999999, 0, 0)
+operation = 2
+size = Vector3(1, 1, 7)
+
+[node name="LightPanel2" parent="Map/Airlock" instance=ExtResource("1_lwwqe")]
+transform = Transform3D(-4.371139e-08, 0.70710677, 0.70710677, 0, 0.70710677, -0.70710677, -1, -3.090862e-08, -3.090862e-08, 2.5, 1.7, -3)
+
+[node name="LightPanel3" parent="Map/Airlock" instance=ExtResource("1_lwwqe")]
+transform = Transform3D(-4.371138e-08, -0.70710677, 0.70710665, 0, 0.70710665, 0.70710677, -0.99999994, 3.090862e-08, -3.090862e-08, -2.4999998, 1.7, -2.9999998)
+
+[node name="LightPanel4" parent="Map/Airlock" instance=ExtResource("1_lwwqe")]
+transform = Transform3D(-4.371138e-08, 0.70710665, 0.70710665, 0, 0.70710665, -0.70710665, -0.99999976, -3.090862e-08, -3.090862e-08, 2.5, 1.7, 3)
+
+[node name="LightPanel5" parent="Map/Airlock" instance=ExtResource("1_lwwqe")]
+transform = Transform3D(-4.371138e-08, -0.70710665, 0.70710665, 0, 0.70710665, 0.70710665, -0.99999976, 3.090862e-08, -3.090862e-08, -2.5, 1.7, 3)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Map/Airlock"]
+transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, -2.4, 1.6, 0)
+radius = 0.05
+height = 3.7
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Map/Airlock"]
+transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, 2.4, 1.6, 0)
+radius = 0.05
+height = 3.7
+
+[node name="CeilingFan" type="Node3D" parent="Map/Airlock"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, -0.3619962, 0)
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="Map/Airlock"]
+transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, 2.567, 1.431, 0)
+radius = 0.05
+height = 3.7
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="Map/Airlock"]
+transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, 2.231942, 1.7680582, 0)
+radius = 0.05
+height = 3.7
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="Map/Airlock"]
+transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, -2.2338045, 1.7661957, -1.0273758e-08)
+radius = 0.05
+height = 3.7
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="Map/Airlock"]
+transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, -2.5687335, 1.4312667, 1.0430633e-08)
+radius = 0.05
+height = 3.7
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Map/Airlock"]
+transform = Transform3D(1.1999997, 0, 0, 0, 1.1999997, 0, 0, 0, 1.1999997, 0, 2.2380033, -1.9999989)
+operation = 2
+radius = 1.0
+height = 1.0
+sides = 16
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Map/Airlock"]
+transform = Transform3D(1.1999997, 0, 0, 0, 1.1999997, 0, 0, 0, 1.1999997, 0, 2.2380033, 2.0000007)
+operation = 2
+radius = 1.0
+height = 1.0
+sides = 16
+
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="Map/Airlock"]
+transform = Transform3D(1.1999997, 0, 0, 0, 1.1999997, 0, 0, 0, 1.1999997, 0, 2.438407, -1.9999989)
+radius = 1.2
+height = 1.0
+sides = 16
+
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="Map/Airlock/CSGCylinder3D9"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, -0.16700292, 0)
+operation = 2
+radius = 1.0
+height = 1.0
+sides = 16
+
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="Map/Airlock"]
+transform = Transform3D(1.1999997, 0, 0, 0, 1.1999997, 0, 0, 0, 1.1999997, 0, 2.438407, 2.0000007)
+radius = 1.2
+height = 1.0
+sides = 16
+
+[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="Map/Airlock/CSGCylinder3D10"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, -0.16700292, 0)
+operation = 2
+radius = 1.0
+height = 1.0
+sides = 16
+
+[node name="Door_Airlock2" parent="Map" instance=ExtResource("3_x3ni1")]
+transform = Transform3D(2.4449692, 0, 0, 0, 1.2356488, 0, 0, 0, 1, 0, 0, -2.678498)
+
+[node name="CSGBox3D" parent="Map/Door_Airlock2/InnerAirlockDoor" index="0"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 1.0680062, 0, 0)
+
+[node name="CSGBox3D2" parent="Map/Door_Airlock2/InnerAirlockDoor" index="1"]
+transform = Transform3D(-0.99999994, 8.742277e-08, 0, -8.742278e-08, -0.99999994, 0, 0, 0, 0.99999994, -1.0680062, 0, 0)
+
+[node name="CSGBox3D3" parent="Map/Door_Airlock2/OutterAirlockDoor" index="0"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 1.058006, 0, 0)
+
+[node name="CSGBox3D4" parent="Map/Door_Airlock2/OutterAirlockDoor" index="1"]
+transform = Transform3D(-0.99999994, 8.742277e-08, 0, -8.742278e-08, -0.99999994, 0, 0, 0, 0.99999994, -1.058006, 0, 0)
+
+[editable path="Map/Door_Airlock2"]

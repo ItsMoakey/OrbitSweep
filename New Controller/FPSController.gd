@@ -21,6 +21,9 @@ var headtransform = Vector3.ZERO
 @export var air_move_speed := 500.0
 
 @onready var light = $Head/Camera3D/SpotLight3D
+@export var lightenergy := 5.0
+
+
 
 var wish_dir := Vector3.ZERO
 var cam_aligned_wish_dir := Vector3.ZERO
@@ -112,7 +115,7 @@ func _handle_noclip(delta) -> bool:
 
 func _handle_air_physics(delta) -> void:
 	self.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
-	self.velocity.y = clamp(self.velocity.y, -2500 , 2500)
+	self.velocity.y = clamp(self.velocity.y, -100 , INF)
 	
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
 	var capped_speed = min((air_move_speed * wish_dir).length(),air_cap)
@@ -157,7 +160,7 @@ func _physics_process(delta):
 	
 func _handle_flashlight():
 	if !LightBool:
-		light.light_energy = 5
+		light.light_energy = lightenergy
 		LightBool = true
 	else:
 		light.light_energy = 0
