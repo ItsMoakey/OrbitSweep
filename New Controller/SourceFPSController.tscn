@@ -33,17 +33,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40039063, -0.2890625)
 size = Vector3(0.90234375, 0.19921875, 0.58984375)
 material = SubResource("StandardMaterial3D_xsp0g")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="HeadOriginalPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="Head" type="Node3D" parent="HeadOriginalPos"]
 unique_name_in_owner = true
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="CameraSmooth" type="Node3D" parent="HeadOriginalPos/Head"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52588034, 0)
+
+[node name="Camera3D" type="Camera3D" parent="HeadOriginalPos/Head/CameraSmooth"]
+unique_name_in_owner = true
 cull_mask = 1048573
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D"]
+[node name="SpotLight3D" type="SpotLight3D" parent="HeadOriginalPos/Head/CameraSmooth/Camera3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.099999994, 0)
 light_energy = 0.0
 shadow_enabled = true
 distance_fade_enabled = true
@@ -52,3 +57,13 @@ distance_fade_shadow = 10.0
 distance_fade_length = 50.0
 spot_range = 25.0
 spot_angle = 27.5
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, -0.75, 0)

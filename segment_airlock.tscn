@@ -216,3 +216,4 @@ transform = Transform3D(0, 5.5732386e-08, 1.0000001, 1, -8.364233e-08, -3.751573
 transform = Transform3D(0, -2.1921898e-07, -1.0000001, 1, 2.7822445e-08, -3.7515736e-08, 2.9802322e-08, -1.8700686, 8.7422784e-08, 0.75, 1.2, 0)
 
 [node name="CharacterBody3DSource\'" parent="." instance=ExtResource("4_rssqj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)

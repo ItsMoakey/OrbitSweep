@@ -216,9 +216,6 @@ size = Vector3(1.3544922, 1.9140625, 0.7529907)
 [node name="Tubes2" parent="." instance=ExtResource("3_dwov1")]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_6282x")
-
 [node name="Seat" parent="." instance=ExtResource("4_6282x")]
 transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 1.2, -0.7, -1)
 
@@ -238,7 +235,7 @@ transform = Transform3D(6.556708e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, 6.556708e-08, 
 transform = Transform3D(6.556708e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, 6.556708e-08, -1.1999999, -0.7, -1.0000001)
 
 [node name="CharacterBody3DSource\'" parent="." instance=ExtResource("5_nylx2")]
-lightenergy = 1.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="ScreenHousing" type="Node3D" parent="."]
 
@@ -253,3 +250,6 @@ size = Vector3(1.2, 1.4389648, 0.8)
 
 [node name="ScreenWithArm" parent="ScreenHousing" instance=ExtResource("6_o74wn")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0.34413496, 0.9389202, 1.5042616e-08, -0.9389202, 0.34413496, -4.1041506e-08, 0, 2.9967752, -1.5232825)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6282x")
