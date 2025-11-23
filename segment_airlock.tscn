@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dd1aejwqu7y0y"]
+[gd_scene load_steps=10 format=3 uid="uid://dd1aejwqu7y0y"]
 
 [ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="2_idohb"]
 [ext_resource type="PackedScene" uid="uid://dvmlqtuaebo0v" path="res://util/fanblade.tscn" id="3_x66p3"]
 [ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="4_coiu6"]
+[ext_resource type="PackedScene" uid="uid://dtsvogyxv35kk" path="res://util/tubes.tscn" id="4_idohb"]
 [ext_resource type="PackedScene" uid="uid://b1j33svxmsro6" path="res://New Controller/SourceFPSController.tscn" id="4_rssqj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lwwqe"]
@@ -207,5 +208,11 @@ transform = Transform3D(4.0749483, 0, 0, 0, 2.0594144, 0, 0, 0, 1.6666665, 0, 0,
 
 [node name="Door_Airlock2" parent="Airlock" instance=ExtResource("4_coiu6")]
 transform = Transform3D(4.0749483, 0, 0, 0, 2.0594144, 0, 0, 0, 1.6666665, 0, 0, -4.464163)
+
+[node name="Tubes" parent="Airlock" instance=ExtResource("4_idohb")]
+transform = Transform3D(0, 5.5732386e-08, 1.0000001, 1, -8.364233e-08, -3.7515733e-08, 2.9802322e-08, 1.8700686, 0, -0.75, 1.2, 0)
+
+[node name="Tubes2" parent="Airlock" instance=ExtResource("4_idohb")]
+transform = Transform3D(0, -2.1921898e-07, -1.0000001, 1, 2.7822445e-08, -3.7515736e-08, 2.9802322e-08, -1.8700686, 8.7422784e-08, 0.75, 1.2, 0)
 
 [node name="CharacterBody3DSource\'" parent="." instance=ExtResource("4_rssqj")]
