@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1j33svxmsro6"]
+[gd_scene format=3 uid="uid://b1j33svxmsro6"]
 
 [ext_resource type="Script" uid="uid://dcwdyny3lspxh" path="res://New Controller/FPSController.gd" id="1_xqcc5"]
 [ext_resource type="Texture2D" uid="uid://bea2wg3nmblwl" path="res://Textures/black/texture_01.png" id="2_varjv"]
 [ext_resource type="Texture2D" uid="uid://q7i2vhx0ny7l" path="res://Textures/light/texture_01.png" id="3_vl7ao"]
+[ext_resource type="AudioStream" uid="uid://kr67m7b5trkt" path="res://sounds/u_3x9ga8wevj-walking-sound-effect-272246.mp3" id="4_vl7ao"]
+[ext_resource type="AudioStream" uid="uid://d1uxdqykgbhwc" path="res://sounds/freesound_community-jumpingonconcrete-91439.mp3" id="5_xsp0g"]
+[ext_resource type="AudioStream" uid="uid://cw0rd8sp1dx87" path="res://sounds/universfield-computer-mouse-click-351398.mp3" id="6_jyf5k"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_omfi8"]
 
@@ -15,38 +18,38 @@ material = SubResource("StandardMaterial3D_jyf5k")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xsp0g"]
 albedo_texture = ExtResource("2_varjv")
 
-[node name="CharacterBody3DSource\'" type="CharacterBody3D"]
+[node name="CharacterBody3DSource\'" type="CharacterBody3D" unique_id=605111965]
 script = ExtResource("1_xqcc5")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1099664219]
 unique_name_in_owner = true
 shape = SubResource("CapsuleShape3D_omfi8")
 
-[node name="deco" type="Node3D" parent="."]
+[node name="deco" type="Node3D" parent="." unique_id=1790711804]
 unique_name_in_owner = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="deco"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="deco" unique_id=222161487]
 mesh = SubResource("CapsuleMesh_qgebl")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="deco"]
+[node name="CSGBox3D" type="CSGBox3D" parent="deco" unique_id=1597206696]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40039063, -0.2890625)
 size = Vector3(0.90234375, 0.19921875, 0.58984375)
 material = SubResource("StandardMaterial3D_xsp0g")
 
-[node name="HeadOriginalPos" type="Node3D" parent="."]
+[node name="HeadOriginalPos" type="Node3D" parent="." unique_id=611982993]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 
-[node name="Head" type="Node3D" parent="HeadOriginalPos"]
+[node name="Head" type="Node3D" parent="HeadOriginalPos" unique_id=170675584]
 unique_name_in_owner = true
 
-[node name="CameraSmooth" type="Node3D" parent="HeadOriginalPos/Head"]
+[node name="CameraSmooth" type="Node3D" parent="HeadOriginalPos/Head" unique_id=688664813]
 unique_name_in_owner = true
 
-[node name="Camera3D" type="Camera3D" parent="HeadOriginalPos/Head/CameraSmooth"]
+[node name="Camera3D" type="Camera3D" parent="HeadOriginalPos/Head/CameraSmooth" unique_id=2027705131]
 unique_name_in_owner = true
 cull_mask = 1048573
 
-[node name="SpotLight3D" type="SpotLight3D" parent="HeadOriginalPos/Head/CameraSmooth/Camera3D"]
+[node name="SpotLight3D" type="SpotLight3D" parent="HeadOriginalPos/Head/CameraSmooth/Camera3D" unique_id=542835600]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.099999994, 0)
 light_energy = 0.0
@@ -58,12 +61,24 @@ distance_fade_length = 50.0
 spot_range = 25.0
 spot_angle = 27.5
 
-[node name="StairsAheadRayCast3D" type="RayCast3D" parent="."]
+[node name="WalkingSound" type="AudioStreamPlayer3D" parent="HeadOriginalPos/Head/CameraSmooth/Camera3D" unique_id=1305532825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4553157, 0)
+stream = ExtResource("4_vl7ao")
+volume_db = 30.0
+parameters/looping = true
+
+[node name="JumpingSound" type="AudioStreamPlayer3D" parent="HeadOriginalPos/Head/CameraSmooth/Camera3D" unique_id=1115022229]
+stream = ExtResource("5_xsp0g")
+
+[node name="FlashlightSound" type="AudioStreamPlayer3D" parent="HeadOriginalPos/Head/CameraSmooth/Camera3D" unique_id=786496076]
+stream = ExtResource("6_jyf5k")
+
+[node name="StairsAheadRayCast3D" type="RayCast3D" parent="." unique_id=1107192617]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 target_position = Vector3(0, -0.55, 0)
 
-[node name="StairsBelowRayCast3D" type="RayCast3D" parent="."]
+[node name="StairsBelowRayCast3D" type="RayCast3D" parent="." unique_id=1077042979]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 target_position = Vector3(0, -0.75, 0)

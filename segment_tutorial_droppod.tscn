@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://oy0hyhofhxb1"]
+[gd_scene format=3 uid="uid://oy0hyhofhxb1"]
 
 [ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="1_tv65y"]
 [ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="2_dwov1"]
@@ -23,233 +23,233 @@ ambient_light_sky_contribution = 0.5
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="SegmentTutorialDroppod" type="Node3D"]
+[node name="SegmentTutorialDroppod" type="Node3D" unique_id=396573018]
 
-[node name="DropPod" type="CSGBox3D" parent="."]
+[node name="DropPod" type="CSGBox3D" parent="." unique_id=1455212365]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 use_collision = true
 size = Vector3(10, 5, 10)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="DropPod"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="DropPod" unique_id=1008105562]
 operation = 2
 size = Vector3(6, 4, 10)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="DropPod"]
+[node name="CSGBox3D" type="CSGBox3D" parent="DropPod" unique_id=1031694905]
 transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, -3, 2, 0)
 size = Vector3(1, 3, 10)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="DropPod"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="DropPod" unique_id=906909379]
 transform = Transform3D(-0.7071067, 0.7071067, 0, -0.7071067, -0.7071067, 0, 0, 0, 1, 3, 2, 0)
 size = Vector3(1, 3, 10)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="DropPod"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="DropPod" unique_id=159920729]
 transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 1, -1.5, -2.1435113, 0)
 operation = 2
 size = Vector3(1, 0.1, 7)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="DropPod"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="DropPod" unique_id=427290800]
 transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 1, 1.5, -2.1435113, 0)
 operation = 2
 size = Vector3(1, 0.1, 7)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="DropPod"]
+[node name="CSGBox3D6" type="CSGBox3D" parent="DropPod" unique_id=522656837]
 transform = Transform3D(1, 0, 0, 0, 0.69314504, 0, 0, 0, 1, -1.5, -2, 0)
 size = Vector3(1, 0.1, 7)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="DropPod"]
+[node name="CSGBox3D7" type="CSGBox3D" parent="DropPod" unique_id=1478668327]
 transform = Transform3D(1, 0, 0, 0, 0.69314504, 0, 0, 0, 1, 1.5, -2, 0)
 size = Vector3(1, 0.1, 7)
 
-[node name="LightPanel2" parent="DropPod" instance=ExtResource("1_tv65y")]
+[node name="LightPanel2" parent="DropPod" unique_id=750618823 instance=ExtResource("1_tv65y")]
 transform = Transform3D(-4.371139e-08, 0.70710677, 0.70710677, 0, 0.70710677, -0.70710677, -1, -3.090862e-08, -3.090862e-08, 2.5, 1.7, -3)
 
-[node name="LightPanel3" parent="DropPod" instance=ExtResource("1_tv65y")]
+[node name="LightPanel3" parent="DropPod" unique_id=182682732 instance=ExtResource("1_tv65y")]
 transform = Transform3D(-4.371138e-08, -0.70710677, 0.70710665, 0, 0.70710665, 0.70710677, -0.99999994, 3.090862e-08, -3.090862e-08, -2.4999998, 1.7, -2.9999998)
 
-[node name="LightPanel4" parent="DropPod" instance=ExtResource("1_tv65y")]
+[node name="LightPanel4" parent="DropPod" unique_id=905969893 instance=ExtResource("1_tv65y")]
 transform = Transform3D(-4.371138e-08, 0.70710665, 0.70710665, 0, 0.70710665, -0.70710665, -0.99999976, -3.090862e-08, -3.090862e-08, 2.5, 1.7, 3)
 
-[node name="LightPanel5" parent="DropPod" instance=ExtResource("1_tv65y")]
+[node name="LightPanel5" parent="DropPod" unique_id=506408129 instance=ExtResource("1_tv65y")]
 transform = Transform3D(-4.371138e-08, -0.70710665, 0.70710665, 0, 0.70710665, 0.70710665, -0.99999976, 3.090862e-08, -3.090862e-08, -2.5, 1.7, 3)
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="DropPod"]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="DropPod" unique_id=651809362]
 transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, -2.4, 1.6, 0)
 radius = 0.05
 height = 3.7
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="DropPod"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="DropPod" unique_id=2013128992]
 transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, 2.4, 1.6, 0)
 radius = 0.05
 height = 3.7
 
-[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="DropPod"]
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="DropPod" unique_id=426167069]
 transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, 2.567, 1.431, 0)
 radius = 0.05
 height = 3.7
 
-[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="DropPod"]
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="DropPod" unique_id=1402564348]
 transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, 2.231942, 1.7680582, 0)
 radius = 0.05
 height = 3.7
 
-[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="DropPod"]
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="DropPod" unique_id=1500938435]
 transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, -2.2338045, 1.7661957, -1.0273758e-08)
 radius = 0.05
 height = 3.7
 
-[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="DropPod"]
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="DropPod" unique_id=1530647572]
 transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, -2.5687335, 1.4312667, 1.0430633e-08)
 radius = 0.05
 height = 3.7
 
-[node name="Door_Airlock" parent="DropPod" instance=ExtResource("2_dwov1")]
+[node name="Door_Airlock" parent="DropPod" unique_id=622802916 instance=ExtResource("2_dwov1")]
 transform = Transform3D(4.0749483, 0, 0, 0, 2.0594144, 0, 0, 0, 1.6666665, 0, 0, 4.482705)
 
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="DropPod"]
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="DropPod" unique_id=63381758]
 transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, -2.4, 1.6, 0)
 radius = 0.05
 height = 3.7
 
-[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="DropPod"]
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="DropPod" unique_id=432262742]
 transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, -2.2338045, 1.7661957, -1.0273758e-08)
 radius = 0.05
 height = 3.7
 
-[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="DropPod"]
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="DropPod" unique_id=563003079]
 transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, -2.5687335, 1.4312667, 1.0430633e-08)
 radius = 0.05
 height = 3.7
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="DropPod"]
+[node name="CSGBox3D8" type="CSGBox3D" parent="DropPod" unique_id=1838623818]
 transform = Transform3D(1.6666665, 0, 0, 0, 1.6666665, 0, 0, 0, 1.6666665, 0, 2.967529, -3.333333)
 operation = 2
 size = Vector3(1.2, 1.4389648, 0.8)
 
-[node name="Cockpit Door" type="Node3D" parent="."]
+[node name="Cockpit Door" type="Node3D" parent="." unique_id=1394019088]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, -3)
 
-[node name="InnerAirlockDoor" type="Node3D" parent="Cockpit Door"]
+[node name="InnerAirlockDoor" type="Node3D" parent="Cockpit Door" unique_id=591806670]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor" unique_id=1302019229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
 use_collision = true
 size = Vector3(1, 2, 0.1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor/CSGBox3D"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor/CSGBox3D" unique_id=1146432961]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -0.28239143, 0, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor" unique_id=1826307894]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -0.25, 0, 0)
 use_collision = true
 size = Vector3(1, 2, 0.1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor/CSGBox3D2"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor/CSGBox3D2" unique_id=1496810704]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -0.28239143, 0, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor" unique_id=1255667945]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
 use_collision = true
 size = Vector3(0.5, 0.5, 0.1)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="Cockpit Door/InnerAirlockDoor" unique_id=314761249]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 0)
 use_collision = true
 size = Vector3(0.5, 0.5, 0.1)
 
-[node name="OutterAirlockDoor" type="Node3D" parent="Cockpit Door"]
+[node name="OutterAirlockDoor" type="Node3D" parent="Cockpit Door" unique_id=730557547]
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor" unique_id=976197972]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, 0, 0)
 use_collision = true
 size = Vector3(1, 2, 0.5)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D3"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D3" unique_id=780248564]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 6.3745823, -0.25, 0, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D3"]
+[node name="CSGBox3D7" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D3" unique_id=256275571]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 6.3745823, -0.25, 0.65, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D3"]
+[node name="CSGBox3D6" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D3" unique_id=1301212536]
 transform = Transform3D(-0.99999994, 8.742277e-08, 0, -8.742277e-08, -0.99999994, 0, 0, 0, 6.3745823, -0.25, -0.65, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor" unique_id=794513954]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -0.24, 0, 0)
 use_collision = true
 size = Vector3(1, 2, 0.5)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D4"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D4" unique_id=1508279715]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 6.3745823, -0.25, 0, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D4"]
+[node name="CSGBox3D7" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D4" unique_id=825554684]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 6.3745823, -0.25, 0.65, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D4"]
+[node name="CSGBox3D8" type="CSGBox3D" parent="Cockpit Door/OutterAirlockDoor/CSGBox3D4" unique_id=1839638905]
 transform = Transform3D(-0.99999994, -8.742277e-08, 0, 8.742277e-08, -0.99999994, 0, 0, 0, 6.3745823, -0.25, -0.65, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Cockpit Door"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Cockpit Door" unique_id=966228045]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4901161e-08, -0.12350464)
 use_collision = true
 size = Vector3(5, 3, 0.7529907)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/CSGBox3D"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Cockpit Door/CSGBox3D" unique_id=1524858068]
 operation = 2
 size = Vector3(1.3544922, 1.9140625, 0.7529907)
 
-[node name="Tubes" parent="." instance=ExtResource("3_dwov1")]
+[node name="Tubes" parent="." unique_id=285251085 instance=ExtResource("3_dwov1")]
 
-[node name="Tubes2" parent="." instance=ExtResource("3_dwov1")]
+[node name="Tubes2" parent="." unique_id=1100652255 instance=ExtResource("3_dwov1")]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Seat" parent="." instance=ExtResource("4_6282x")]
+[node name="Seat" parent="." unique_id=1182992578 instance=ExtResource("4_6282x")]
 transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 1.2, -0.7, -1)
 
-[node name="Seat2" parent="." instance=ExtResource("4_6282x")]
+[node name="Seat2" parent="." unique_id=688971417 instance=ExtResource("4_6282x")]
 transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 1.2, -0.7, 0)
 
-[node name="Seat3" parent="." instance=ExtResource("4_6282x")]
+[node name="Seat3" parent="." unique_id=1335266420 instance=ExtResource("4_6282x")]
 transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 1.2, -0.7, 1)
 
-[node name="Seat4" parent="." instance=ExtResource("4_6282x")]
+[node name="Seat4" parent="." unique_id=311492008 instance=ExtResource("4_6282x")]
 transform = Transform3D(6.556708e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, 6.556708e-08, -1.2000002, -0.7, 0.9999999)
 
-[node name="Seat5" parent="." instance=ExtResource("4_6282x")]
+[node name="Seat5" parent="." unique_id=1416037931 instance=ExtResource("4_6282x")]
 transform = Transform3D(6.556708e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, 6.556708e-08, -1.2, -0.7, -1.04907336e-07)
 
-[node name="Seat6" parent="." instance=ExtResource("4_6282x")]
+[node name="Seat6" parent="." unique_id=124038096 instance=ExtResource("4_6282x")]
 transform = Transform3D(6.556708e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, 6.556708e-08, -1.1999999, -0.7, -1.0000001)
 
-[node name="CharacterBody3DSource\'" parent="." instance=ExtResource("5_nylx2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+[node name="CharacterBody3DSource\'" parent="." unique_id=2068673611 instance=ExtResource("5_nylx2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14953351, 0)
 
-[node name="ScreenHousing" type="Node3D" parent="."]
+[node name="ScreenHousing" type="Node3D" parent="." unique_id=1905175633]
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="ScreenHousing"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="ScreenHousing" unique_id=1857203900]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9305494, -2)
 size = Vector3(1.4, 1.4207617, 1)
 
-[node name="CSGBox3D9" type="CSGBox3D" parent="ScreenHousing/CSGBox3D2"]
+[node name="CSGBox3D9" type="CSGBox3D" parent="ScreenHousing/CSGBox3D2" unique_id=1961331205]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, -0.15003192, 1.1920929e-07)
 operation = 2
 size = Vector3(1.2, 1.4389648, 0.8)
 
-[node name="ScreenWithArm" parent="ScreenHousing" instance=ExtResource("6_o74wn")]
+[node name="ScreenWithArm" parent="ScreenHousing" unique_id=1951590332 instance=ExtResource("6_o74wn")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0.34413496, 0.9389202, 1.5042616e-08, -0.9389202, 0.34413496, -4.1041506e-08, 0, 2.9967752, -1.5232825)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=804754696]
 environment = SubResource("Environment_6282x")

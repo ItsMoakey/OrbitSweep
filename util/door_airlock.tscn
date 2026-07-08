@@ -1,83 +1,83 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1u6e2e6lvwe4"]
+[gd_scene format=3 uid="uid://c1u6e2e6lvwe4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ungch"]
 transparency = 1
 albedo_color = Color(0.5288601, 0.86162287, 0.9999998, 0.09803922)
 
-[node name="Door_Airlock" type="Node3D"]
+[node name="Door_Airlock" type="Node3D" unique_id=1647899877]
 
-[node name="InnerAirlockDoor" type="Node3D" parent="."]
+[node name="InnerAirlockDoor" type="Node3D" parent="." unique_id=2143171810]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="InnerAirlockDoor"]
+[node name="CSGBox3D" type="CSGBox3D" parent="InnerAirlockDoor" unique_id=1037281741]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
 use_collision = true
 size = Vector3(1, 2, 0.1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="InnerAirlockDoor/CSGBox3D"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="InnerAirlockDoor/CSGBox3D" unique_id=1557602012]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -0.28239143, 0, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="InnerAirlockDoor"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="InnerAirlockDoor" unique_id=1191956483]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -0.25, 0, 0)
 use_collision = true
 size = Vector3(1, 2, 0.1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="InnerAirlockDoor/CSGBox3D2"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="InnerAirlockDoor/CSGBox3D2" unique_id=1501992511]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -0.28239143, 0, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="InnerAirlockDoor"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="InnerAirlockDoor" unique_id=1966088794]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
 use_collision = true
 size = Vector3(0.5, 0.5, 0.1)
 material = SubResource("StandardMaterial3D_ungch")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="InnerAirlockDoor"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="InnerAirlockDoor" unique_id=1297491586]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 0)
 use_collision = true
 size = Vector3(0.5, 0.5, 0.1)
 material = SubResource("StandardMaterial3D_ungch")
 
-[node name="OutterAirlockDoor" type="Node3D" parent="."]
+[node name="OutterAirlockDoor" type="Node3D" parent="." unique_id=1077561403]
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="OutterAirlockDoor"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="OutterAirlockDoor" unique_id=1900975035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, 0, 0)
 use_collision = true
 size = Vector3(1, 2, 0.5)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D3"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D3" unique_id=1116997026]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 6.3745823, -0.25, 0, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D3"]
+[node name="CSGBox3D7" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D3" unique_id=1508644074]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 6.3745823, -0.25, 0.65, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D3"]
+[node name="CSGBox3D6" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D3" unique_id=1633154115]
 transform = Transform3D(-0.99999994, 8.742277e-08, 0, -8.742277e-08, -0.99999994, 0, 0, 0, 6.3745823, -0.25, -0.65, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="OutterAirlockDoor"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="OutterAirlockDoor" unique_id=2002255791]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -0.24, 0, 0)
 use_collision = true
 size = Vector3(1, 2, 0.5)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D4"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D4" unique_id=367487526]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 6.3745823, -0.25, 0, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D4"]
+[node name="CSGBox3D7" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D4" unique_id=627014190]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 6.3745823, -0.25, 0.65, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D4"]
+[node name="CSGBox3D8" type="CSGBox3D" parent="OutterAirlockDoor/CSGBox3D4" unique_id=541207573]
 transform = Transform3D(-0.99999994, -8.742277e-08, 0, 8.742277e-08, -0.99999994, 0, 0, 0, 6.3745823, -0.25, -0.65, 0)
 operation = 2
 size = Vector3(0.95, 0.5, 0.1)

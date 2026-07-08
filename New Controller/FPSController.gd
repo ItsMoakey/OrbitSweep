@@ -20,7 +20,10 @@ var headtransform = Vector3.ZERO
 @export var air_accel := 800.0
 @export var air_move_speed := 500.0
 
-@onready var light = %SpotLight3D
+@onready var light = $HeadOriginalPos/Head/CameraSmooth/Camera3D/SpotLight3D
+@onready var walksound = $HeadOriginalPos/Head/CameraSmooth/Camera3D/WalkingSound
+@onready var jumpingsound = $HeadOriginalPos/Head/CameraSmooth/Camera3D/JumpingSound
+@onready var flashlightsound = $HeadOriginalPos/Head/CameraSmooth/Camera3D/FlashlightSound
 @export var lightenergy := 1.0
 
 var wish_dir := Vector3.ZERO
@@ -117,9 +120,6 @@ func _slide_camera_smooth_back_to_origin(delta):
 	
 func _snap_down_to_stairs_check() -> void:
 	var did_snap := false
-	# Modified slightly from tutorial. I don't notice any visual difference but I think this is correct.
-	# Since it is called after move_and_slide, _last_frame_was_on_floor should still be current frame number.
-	# After move_and_slide off top of stairs, on floor should then be false. Update raycast incase it's not already.
 	%StairsBelowRayCast3D.force_raycast_update()
 	var floor_below : bool = %StairsBelowRayCast3D.is_colliding() and not is_surface_too_steep(%StairsBelowRayCast3D.get_collision_normal())
 	var was_on_floor_last_frame = Engine.get_physics_frames() == _last_frame_was_on_floor
@@ -135,21 +135,16 @@ func _snap_down_to_stairs_check() -> void:
 
 func _snap_up_stairs_check(delta) -> bool:
 	if not is_on_floor() and not _snapped_to_stairs_last_frame: return false
-	# Don't snap stairs if trying to jump, also no need to check for stairs ahead if not moving
+
 	if self.velocity.y > 0 or (self.velocity * Vector3(1,0,1)).length() == 0: return false
 	var expected_move_motion = self.velocity * Vector3(1,0,1) * delta
 	var step_pos_with_clearance = self.global_transform.translated(expected_move_motion + Vector3(0, MAX_STEP_HEIGHT * 2, 0))
-	# Run a body_test_motion slightly above the pos we expect to move to, towards the floor.
-	#  We give some clearance above to ensure there's ample room for the player.
-	#  If it hits a step <= MAX_STEP_HEIGHT, we can teleport the player on top of the step
-	#  along with their intended motion forward.
+
 	var down_check_result = KinematicCollision3D.new()
 	if (self.test_move(step_pos_with_clearance, Vector3(0,-MAX_STEP_HEIGHT*2,0), down_check_result)
 	and (down_check_result.get_collider().is_class("StaticBody3D") or down_check_result.get_collider().is_class("CSGShape3D"))):
 		var step_height = ((step_pos_with_clearance.origin + down_check_result.get_travel()) - self.global_position).y
-		# Note I put the step_height <= 0.01 in just because I noticed it prevented some physics glitchiness
-		# 0.02 was found with trial and error. Too much and sometimes get stuck on a stair. Too little and can jitter if running into a ceiling.
-		# The normal character controller (both jolt & default) seems to be able to handled steps up of 0.1 anyway
+
 		if step_height > MAX_STEP_HEIGHT or step_height <= 0.01 or (down_check_result.get_position() - self.global_position).y > MAX_STEP_HEIGHT: return false
 		%StairsAheadRayCast3D.global_position = down_check_result.get_position() + Vector3(0,MAX_STEP_HEIGHT,0) + expected_move_motion.normalized() * 0.1
 		%StairsAheadRayCast3D.force_raycast_update()
@@ -169,11 +164,10 @@ func _handle_crouch(delta) -> void:
 	elif is_crouched and not self.test_move(self.global_transform, Vector3(0,CROUCH_TRANSLATE,0)):
 		is_crouched = false
 	
-	# Allow for crouch to heighten/extend a jump
 	var translate_y_if_possible := 0.0
 	if was_crouched_last_frame != is_crouched and not is_on_floor() and not _snapped_to_stairs_last_frame:
 		translate_y_if_possible = CROUCH_JUMP_ADD if is_crouched else -CROUCH_JUMP_ADD
-	# Make sure not to get player stuck in floor/ceiling during crouch jumps
+
 	if translate_y_if_possible != 0.0:
 		var result = KinematicCollision3D.new()
 		self.test_move(self.global_transform, Vector3(0,translate_y_if_possible,0), result)
@@ -243,7 +237,7 @@ func _handle_ground_physics(delta) -> void:
 		if self.velocity.length() > 0:
 			new_speed /= self.velocity.length()
 		self.velocity *= new_speed
-			
+		
 	_headbob_effect(delta)
 
 func _physics_process(delta):
@@ -269,11 +263,36 @@ func _physics_process(delta):
 			move_and_slide()
 			_snap_down_to_stairs_check()
 	
+	_handle_walk_sound()
+	_handle_jump_sound()
 	_slide_camera_smooth_back_to_origin(delta)
+
+	print("FPSController: ", self.velocity)
+	print("FPSController: ", self.global_position)
+	print("FPSController: ", self.is_on_floor())
+	print("FPSController: ", self.get_move_speed())
+
 func _handle_flashlight():
 	if !LightBool:
 		light.light_energy = lightenergy
+		flashlightsound.play()
 		LightBool = true
 	else:
 		light.light_energy = 0
+		flashlightsound.play()
 		LightBool = false
+
+func _handle_walk_sound():
+	if is_on_floor() and self.velocity.length() > 0.1:
+		if not walksound.playing:
+			walksound.play()
+	else:
+		walksound.stop()
+		
+	if walksound.playing:
+		walksound.pitch_scale = (self.velocity.length() / walk_speed)
+	
+func _handle_jump_sound():
+	if Input.is_action_just_pressed("Space") or (auto_bhop and Input.is_action_pressed("Space")):
+		if is_on_floor():
+			jumpingsound.play()
