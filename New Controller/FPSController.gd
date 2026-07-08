@@ -3,6 +3,7 @@ extends CharacterBody3D
 @export var look_sensitivity : float = 0.006
 @export var controller_look_sensitivity : float = 0.05
 @export var jump_velocity := 6.0
+@export var jump_cooldown := 0.18
 @export var auto_bhop := true
 
 const HEADBOB_MOVE_AMOUNT = 0.06
@@ -36,6 +37,7 @@ var is_crouched := false
 
 var noclip_speed_mult := 3.0
 var noclip := false
+var _jump_cooldown_timer := 0.0
 
 const MAX_STEP_HEIGHT = 0.5
 var _snapped_to_stairs_last_frame := false
@@ -224,23 +226,30 @@ func _handle_air_physics(delta) -> void:
 		self.velocity += accel_speed * wish_dir
 
 func _handle_ground_physics(delta) -> void:
+	var target_speed = get_move_speed()
 	var cur_speed_in_wish_dir = self.velocity.dot(wish_dir)
-	var add_speed_till_cap = get_move_speed() - cur_speed_in_wish_dir
-	if add_speed_till_cap > 0:
-		var accel_speed = ground_accel * get_move_speed() * delta
-		accel_speed = min(accel_speed, add_speed_till_cap)
-		self.velocity += accel_speed * wish_dir
-		
-		var control = max(self.velocity.length(), ground_decel)
-		var drop = control * ground_friction * delta
-		var new_speed = max(self.velocity.length() - drop , 0.0)
-		if self.velocity.length() > 0:
-			new_speed /= self.velocity.length()
-		self.velocity *= new_speed
-		
+	var speed_till_target = target_speed - cur_speed_in_wish_dir
+	if abs(speed_till_target) > 0.001:
+		var accel_speed = ground_accel * target_speed * delta
+		accel_speed = min(accel_speed, abs(speed_till_target))
+		if speed_till_target > 0:
+			self.velocity += accel_speed * wish_dir
+		else:
+			self.velocity -= accel_speed * wish_dir
+	
+	var control = max(self.velocity.length(), ground_decel)
+	var drop = control * ground_friction * delta
+	var new_speed = max(self.velocity.length() - drop, 0.0)
+	if self.velocity.length() > 0:
+		new_speed /= self.velocity.length()
+	self.velocity *= new_speed
+	
 	_headbob_effect(delta)
 
 func _physics_process(delta):
+	if _jump_cooldown_timer > 0.0:
+		_jump_cooldown_timer = max(0.0, _jump_cooldown_timer - delta)
+	
 	if is_on_floor() or _snapped_to_stairs_last_frame: 
 		_last_frame_was_on_floor = Engine.get_physics_frames()
 	
@@ -253,8 +262,10 @@ func _physics_process(delta):
 	
 	if not _handle_noclip(delta):
 		if is_on_floor():
-			if Input.is_action_just_pressed("Space") or (auto_bhop and Input.is_action_pressed("Space")):
+			var jump_pressed = Input.is_action_just_pressed("Space") or (auto_bhop and Input.is_action_pressed("Space"))
+			if jump_pressed and _jump_cooldown_timer <= 0.0:
 				self.velocity.y  = jump_velocity
+				_jump_cooldown_timer = jump_cooldown
 			_handle_ground_physics(delta)
 		else:
 			_handle_air_physics(delta)
@@ -271,6 +282,8 @@ func _physics_process(delta):
 	print("FPSController: ", self.global_position)
 	print("FPSController: ", self.is_on_floor())
 	print("FPSController: ", self.get_move_speed())
+	var horizontal_velocity = abs(Vector3(self.velocity.x, 0.0, self.velocity.z).length())
+	print("FPSController | horizontal_velocity=", horizontal_velocity)
 
 func _handle_flashlight():
 	if !LightBool:
@@ -293,6 +306,6 @@ func _handle_walk_sound():
 		walksound.pitch_scale = (self.velocity.length() / walk_speed)
 	
 func _handle_jump_sound():
-	if Input.is_action_just_pressed("Space") or (auto_bhop and Input.is_action_pressed("Space")):
-		if is_on_floor():
-			jumpingsound.play()
+	var jump_pressed = Input.is_action_just_pressed("Space") or (auto_bhop and Input.is_action_pressed("Space"))
+	if jump_pressed and _jump_cooldown_timer <= 0.0 and is_on_floor():
+		jumpingsound.play()

@@ -48,6 +48,9 @@ albedo_texture = ExtResource("7_5veim")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qjai"]
 albedo_texture = ExtResource("8_af0yj")
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l2eny"]
+friction = 0.1
+
 [sub_resource type="BoxMesh" id="BoxMesh_u8a3u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_armay"]
@@ -133,6 +136,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9473457, 2.250709, 0)
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Map" unique_id=1500961086]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.201157, 19.330595, 0)
+mass = 0.005
+physics_material_override = SubResource("PhysicsMaterial_l2eny")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/RigidBody3D" unique_id=723966296]
 mesh = SubResource("BoxMesh_u8a3u")
