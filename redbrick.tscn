@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cyyfbm8mkktnm"]
+
+[ext_resource type="Script" uid="uid://b5c56ockk22b5" path="res://redbrick.gd" id="1_2fb6j"]
+
+[node name="Redbrick" type="Node3D" unique_id=734044081]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=941745742]
+script = ExtResource("1_2fb6j")

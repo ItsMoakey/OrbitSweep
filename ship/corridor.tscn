@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://7qu4vypudlrl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1y3cd"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_1y3cd"]
+sky_material = SubResource("ProceduralSkyMaterial_1y3cd")
+
+[sub_resource type="Environment" id="Environment_xi61o"]
+background_mode = 1
+background_color = Color(0.08013246, 0.080132596, 0.08013254, 1)
+sky = SubResource("Sky_1y3cd")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="corridor" type="Node3D" unique_id=676950306]
+
+[node name="Airlock" type="CSGBox3D" parent="." unique_id=148128361]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+use_collision = true
+size = Vector3(10, 5, 20)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Airlock" unique_id=762695793]
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0)
+operation = 2
+size = Vector3(6, 4, 21)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1575740758]
+environment = SubResource("Environment_xi61o")

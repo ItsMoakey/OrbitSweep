@@ -43,6 +43,8 @@ const MAX_STEP_HEIGHT = 0.5
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor = -INF
 
+var health := 100
+var is_dead := false
 
 func get_move_speed() -> float:
 	if is_crouched:
@@ -249,15 +251,22 @@ func _handle_ground_physics(delta) -> void:
 func _physics_process(delta):
 	if _jump_cooldown_timer > 0.0:
 		_jump_cooldown_timer = max(0.0, _jump_cooldown_timer - delta)
-	
-	if is_on_floor() or _snapped_to_stairs_last_frame: 
+
+	if is_dead:
+		self.velocity = Vector3.ZERO
+		wish_dir = Vector3.ZERO
+		cam_aligned_wish_dir = Vector3.ZERO
+		walksound.stop()
+		return
+
+	if is_on_floor() or _snapped_to_stairs_last_frame:
 		_last_frame_was_on_floor = Engine.get_physics_frames()
-	
+
 	var input_dir = Input.get_vector("D","A","S","W").normalized()
 	#input and direction
 	wish_dir = self.global_transform.basis * Vector3(-input_dir.x,0., -input_dir.y)
 	cam_aligned_wish_dir = %Camera3D.global_transform.basis * Vector3(input_dir.x, 0., input_dir.y)
-	
+
 	_handle_crouch(delta)
 	
 	if not _handle_noclip(delta):
@@ -278,12 +287,12 @@ func _physics_process(delta):
 	_handle_jump_sound()
 	_slide_camera_smooth_back_to_origin(delta)
 
-	print("FPSController: ", self.velocity)
-	print("FPSController: ", self.global_position)
-	print("FPSController: ", self.is_on_floor())
-	print("FPSController: ", self.get_move_speed())
-	var horizontal_velocity = abs(Vector3(self.velocity.x, 0.0, self.velocity.z).length())
-	print("FPSController | horizontal_velocity=", horizontal_velocity)
+	# print("FPSController: ", self.velocity)
+	# print("FPSController: ", self.global_position)
+	# print("FPSController: ", self.is_on_floor())
+	# print("FPSController: ", self.get_move_speed())
+	# var horizontal_velocity = abs(Vector3(self.velocity.x, 0.0, self.velocity.z).length())
+	# print("FPSController | horizontal_velocity=", horizontal_velocity)
 
 func _handle_flashlight():
 	if !LightBool:
@@ -296,7 +305,7 @@ func _handle_flashlight():
 		LightBool = false
 
 func _handle_walk_sound():
-	if is_on_floor() and self.velocity.length() > 0.1:
+	if is_on_floor() and self.velocity.length() > 0.1 and not noclip :
 		if not walksound.playing:
 			walksound.play()
 	else:
@@ -307,5 +316,14 @@ func _handle_walk_sound():
 	
 func _handle_jump_sound():
 	var jump_pressed = Input.is_action_just_pressed("Space") or (auto_bhop and Input.is_action_pressed("Space"))
-	if jump_pressed and _jump_cooldown_timer <= 0.0 and is_on_floor():
+	if jump_pressed and _jump_cooldown_timer <= 0.0 and is_on_floor() and not noclip:
 		jumpingsound.play()
+
+func _health(amount):
+	health += amount
+	print("Player health: ", health)
+	if health <= 0 and not is_dead:
+		is_dead = true
+		print("Player has died.")
+		await get_tree().create_timer(2).timeout
+		get_tree().reload_current_scene()

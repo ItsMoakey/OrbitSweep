@@ -12,6 +12,14 @@
 [ext_resource type="PackedScene" uid="uid://b1j33svxmsro6" path="res://New Controller/SourceFPSController.tscn" id="9_f0sqy"]
 [ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="10_l2eny"]
 [ext_resource type="Script" uid="uid://cq6v31x6kyxfs" path="res://util/door_airlock.gd" id="11_uf3qf"]
+[ext_resource type="PackedScene" uid="uid://dd1aejwqu7y0y" path="res://ship/segment_airlock.tscn" id="13_1rvxr"]
+[ext_resource type="PackedScene" uid="uid://oy0hyhofhxb1" path="res://ship/segment_tutorial_droppod.tscn" id="14_5veim"]
+[ext_resource type="PackedScene" uid="uid://7qu4vypudlrl" path="res://ship/corridor.tscn" id="15_qq5h2"]
+[ext_resource type="PackedScene" uid="uid://bcjibd04qplot" path="res://ship/corridorL.tscn" id="16_xlst1"]
+[ext_resource type="PackedScene" uid="uid://bsfksy8bxlk8h" path="res://ship/corridorR.tscn" id="17_3y74d"]
+[ext_resource type="PackedScene" uid="uid://bfi03gfmkqmql" path="res://ship/corridorT.tscn" id="18_fksfb"]
+[ext_resource type="PackedScene" uid="uid://bo0nsh2wg1wlk" path="res://ship/corridorX.tscn" id="19_mov4m"]
+[ext_resource type="Script" uid="uid://b5c56ockk22b5" path="res://redbrick.gd" id="20_xlst1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3x3nl"]
 sky_top_color = Color(0.080608286, 0.33735877, 0.45629174, 1)
@@ -215,3 +223,33 @@ open_height = 3.0
 
 [node name="CharacterBody3DSource\'" parent="." unique_id=99275543 instance=ExtResource("9_f0sqy")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 3.34054, 0)
+
+[node name="maps" type="Node3D" parent="." unique_id=1905123395]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 131, 0, -11)
+
+[node name="segment_airlock" parent="maps" unique_id=1411259013 instance=ExtResource("13_1rvxr")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10.999997, 0, -71)
+
+[node name="SegmentTutorialDroppod" parent="maps" unique_id=396573018 instance=ExtResource("14_5veim")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10.999998, 0, -51)
+
+[node name="corridor" parent="maps" unique_id=676950306 instance=ExtResource("15_qq5h2")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10.999999, 0, -31)
+
+[node name="CorridorL" parent="maps" unique_id=1826814691 instance=ExtResource("16_xlst1")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -11, 0, -11)
+
+[node name="CorridorL2" parent="maps" unique_id=629424594 instance=ExtResource("17_3y74d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 0)
+
+[node name="CorridorL3" parent="maps" unique_id=767641507 instance=ExtResource("18_fksfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
+
+[node name="CorridorL4" parent="maps" unique_id=651135445 instance=ExtResource("19_mov4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2095061043]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9404564, 1.2593441, 4.860695)
+script = ExtResource("20_xlst1")
+damage_amount = 100
+damage_interval = 20.0
