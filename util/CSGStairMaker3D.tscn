@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyexfbwusy7pf"]
+[gd_scene format=3 uid="uid://cyexfbwusy7pf"]
 
 [ext_resource type="Texture2D" uid="uid://b5cptxu2t0iri" path="res://Textures/orange/texture_01.png" id="1_lpit0"]
 
@@ -62,12 +62,12 @@ func _process(_delta):
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fuqnq"]
 albedo_texture = ExtResource("1_lpit0")
 
-[node name="CSGStairMaker3D" type="CSGBox3D"]
+[node name="CSGStairMaker3D" type="CSGBox3D" unique_id=801955238]
 material = SubResource("StandardMaterial3D_088qf")
 script = SubResource("GDScript_0eugj")
 num_stairs = 4
 
-[node name="StairsSubtractCSG" type="CSGPolygon3D" parent="."]
+[node name="StairsSubtractCSG" type="CSGPolygon3D" parent="." unique_id=1377838688]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, 0.5)
 operation = 2
 polygon = PackedVector2Array(0, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5, 0.5, 0.5, 0.75, 0.75, 0.75, 0.75, 1, 0, 1)

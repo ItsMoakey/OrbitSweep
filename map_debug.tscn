@@ -57,7 +57,6 @@ albedo_texture = ExtResource("7_5veim")
 albedo_texture = ExtResource("8_af0yj")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l2eny"]
-friction = 0.1
 
 [sub_resource type="BoxMesh" id="BoxMesh_u8a3u"]
 
@@ -138,13 +137,9 @@ light_energy = 10.0
 omni_range = 16.074173
 omni_shadow_mode = 0
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="Map" unique_id=938968545]
-physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9473457, 2.250709, 0)
-
 [node name="RigidBody3D" type="RigidBody3D" parent="Map" unique_id=1500961086]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.201157, 19.330595, 0)
-mass = 0.005
+mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_l2eny")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/RigidBody3D" unique_id=723966296]

@@ -25,9 +25,9 @@ use_collision = true
 size = Vector3(10, 5, 10)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Airlock" unique_id=848822294]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, -1.3350145)
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, -1.2572315)
 operation = 2
-size = Vector3(6, 4, 9)
+size = Vector3(6, 4, 9.172852)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Airlock" unique_id=37097793]
 transform = Transform3D(-3.934025e-08, 0, -0.9, 0, 0.9, 0, 0.9, 0, -3.934025e-08, -0.036613148, 0, -5.991141e-08)

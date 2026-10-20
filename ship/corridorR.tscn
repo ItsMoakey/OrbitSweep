@@ -34,5 +34,9 @@ transform = Transform3D(-3.934025e-08, 0, -0.9, 0, 0.9, 0, 0.9, 0, -3.934025e-08
 operation = 2
 size = Vector3(6, 4, 8.954193)
 
+[node name="CSGBox3D" type="CSGBox3D" parent="Airlock" unique_id=526447612]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -1.868669, 0, 1.868669)
+size = Vector3(2, 5, 5)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=282146352]
 environment = SubResource("Environment_3ei7m")
