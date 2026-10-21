@@ -25,7 +25,7 @@ var headtransform = Vector3.ZERO
 @onready var walksound = $HeadOriginalPos/Head/CameraSmooth/Camera3D/WalkingSound
 @onready var jumpingsound = $HeadOriginalPos/Head/CameraSmooth/Camera3D/JumpingSound
 @onready var flashlightsound = $HeadOriginalPos/Head/CameraSmooth/Camera3D/FlashlightSound
-@export var lightenergy := 1.0
+@export var lightenergy := 2.5
 
 var wish_dir := Vector3.ZERO
 var cam_aligned_wish_dir := Vector3.ZERO
@@ -50,9 +50,9 @@ var is_dead := false
 # Controls use the actions configured in project.godot's Input Map:
 #   Jetpack, Dampeners, Q/E, W/A/S/D, Space, Crouch, Shift, Grab/RMB, LMB
 @export_group("Jetpack")
-@export var jetpack_accel := 3.924            # m/s^2 thrust per axis
+@export var jetpack_accel := 9.81           # m/s^2 thrust per axis
 @export var jetpack_max_speed := 100.0        # m/s per axis
-@export var jetpack_boost_mult := 2.5        # while holding Shift
+@export var jetpack_boost_mult := 3.0        # while holding Shift
 @export var dampener_accel := 16.0           # braking power when no input on an axis
 @export var roll_speed := 1.8                # rad/s
 @export var flight_gravity_scale := 0.0      # 0 = space, 1 = gravity still pulls you
@@ -64,9 +64,9 @@ var is_dead := false
 @export_range(0.0, 1.0) var push_force := 0.25  # fraction of the speed gap closed per physics frame (higher = pushes harder, 1 = matches your speed instantly)
 @export var player_push_mass := 80.0         # lighter bodies move easily, heavier ones barely budge
 @export var push_min_mass_ratio := 0.25      # bodies 4x heavier than you (ratio < this) aren't pushed at all
-@export var grab_reach := 3.5                # how far you can reach to grab
-@export var grab_min_distance := 1.0
-@export var grab_max_distance := 4.0         # scroll wheel adjusts hold distance in between
+@export var grab_reach := 3.0                # how far you can reach to grab
+@export var grab_min_distance := 1.5
+@export var grab_max_distance := 3.0         # scroll wheel adjusts hold distance in between
 @export var grab_pull_strength := 12.0       # how hard the held object chases the hold point
 @export var grab_max_speed := 15.0
 @export var grab_max_mass := 100.0           # can't grab anything heavier
@@ -458,6 +458,7 @@ func _physics_process(delta):
 	
 	if not _handle_noclip(delta):
 		if is_on_floor():
+			_handle_jump_sound()
 			var jump_pressed = Input.is_action_just_pressed("Space") or (auto_bhop and Input.is_action_pressed("Space"))
 			if jump_pressed and _jump_cooldown_timer <= 0.0:
 				self.velocity.y  = jump_velocity
@@ -472,7 +473,6 @@ func _physics_process(delta):
 			_snap_down_to_stairs_check()
 	
 	_handle_walk_sound()
-	_handle_jump_sound()
 	_slide_camera_smooth_back_to_origin(delta)
 
 	# print("FPSController: ", self.velocity)
@@ -549,13 +549,14 @@ func _handle_grab(_delta: float) -> void:
 	var cam : Camera3D = %Camera3D
 	var cam_forward := -cam.global_basis.z
 
-	if held_body == null:
-		if Input.is_action_just_pressed("Grab") or Input.is_action_just_pressed("RMB"):
+	if Input.is_action_just_pressed("Grab"):
+		if held_body == null:
 			_try_grab()
+		else:
+			_release_grab()
 		return
 
-	if not Input.is_action_pressed("Grab") and not Input.is_action_pressed("RMB"):
-		_release_grab()
+	if held_body == null:
 		return
 
 	if Input.is_action_just_pressed("LMB"):
