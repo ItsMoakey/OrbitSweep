@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b1j33svxmsro6" path="res://New Controller/SourceFPSController.tscn" id="9_f0sqy"]
 [ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="10_l2eny"]
 [ext_resource type="Script" uid="uid://cq6v31x6kyxfs" path="res://util/door_airlock.gd" id="11_uf3qf"]
+[ext_resource type="PackedScene" path="res://util/portal.tscn" id="12_3y74d"]
 [ext_resource type="PackedScene" uid="uid://dd1aejwqu7y0y" path="res://ship/segment_airlock.tscn" id="13_1rvxr"]
 [ext_resource type="PackedScene" uid="uid://oy0hyhofhxb1" path="res://ship/segment_tutorial_droppod.tscn" id="14_5veim"]
 [ext_resource type="PackedScene" uid="uid://7qu4vypudlrl" path="res://ship/corridor.tscn" id="15_qq5h2"]
@@ -265,8 +266,22 @@ use_collision = true
 size = Vector3(4, 4, 4)
 material = SubResource("StandardMaterial3D_vfioc")
 
+[node name="Portal" parent="Map" unique_id=1394813941 node_paths=PackedStringArray("target", "player") instance=ExtResource("12_3y74d")]
+transform = Transform3D(0.86602545, 0, -0.5, 0, 1, 0, 0.5, 0, 0.86602545, -8.871634, 1.7879939, -2.859005)
+target = NodePath("../Portal2")
+player = NodePath("../../CharacterBody3DSource\'")
+
+[node name="Portal2" parent="Map" unique_id=250731937 node_paths=PackedStringArray("target", "player") instance=ExtResource("12_3y74d")]
+transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, -8.743271, 1.808846, -21.307373)
+target = NodePath("../Portal")
+player = NodePath("../../CharacterBody3DSource\'")
+
 [node name="CharacterBody3DSource\'" parent="." unique_id=99275543 instance=ExtResource("9_f0sqy")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 3.34054, 0)
+jetpack_accel = 3.24
+dampener_accel = 9.81
+grab_max_speed = 100.0
+grab_break_distance = 5.0
 
 [node name="maps" type="Node3D" parent="." unique_id=1905123395]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 131, 0, -11)

@@ -521,6 +521,26 @@ func _push_away_rigid_bodies() -> void:
 		var delta_v := push_dir * velocity_diff_in_push_dir * match_fraction
 		body.apply_impulse(delta_v * body.mass, c.get_position() - body.global_position)
 
+# Portal support for held objects. If the line from the camera to the hold point passes
+# through a portal, the hold point also exists on the far side, where it comes out of the
+# linked portal. Returns the transform that maps this side to that side, or IDENTITY if
+# no portal applies. It picks whichever hold point is closer to the object, so the object
+# walks up to the portal, gets teleported by the portal itself, and from then on follows
+# the mapped hold point instead of being dragged across the map.
+func _hold_portal_xf(from: Vector3, point: Vector3) -> Transform3D:
+	var best := Transform3D.IDENTITY
+	var best_d := held_body.global_position.distance_squared_to(point)
+	for p in get_tree().get_nodes_in_group("portals"):
+		var m: Variant = p.through_transform(from, point)
+		if m == null:
+			continue
+		var mt: Transform3D = m
+		var d := held_body.global_position.distance_squared_to(mt * point)
+		if d < best_d:
+			best = mt
+			best_d = d
+	return best
+
 func _release_grab() -> void:
 	if held_body != null and is_instance_valid(held_body):
 		held_body.remove_collision_exception_with(self)
@@ -560,20 +580,23 @@ func _handle_grab(_delta: float) -> void:
 		return
 
 	if Input.is_action_just_pressed("LMB"):
+		var th := _hold_portal_xf(cam.global_position, cam.global_position + cam_forward * grab_distance)
 		var thrown := held_body
 		_release_grab()
-		thrown.linear_velocity = cam_forward * throw_speed + velocity
+		thrown.linear_velocity = th.basis * (cam_forward * throw_speed + velocity)
 		thrown.sleeping = false
 		return
 
 	var hold_point := cam.global_position + cam_forward * grab_distance
+	var through := _hold_portal_xf(cam.global_position, hold_point)
+	hold_point = through * hold_point
 	var to_target := hold_point - held_body.global_position
 	if to_target.length() > grab_break_distance:
 		_release_grab()
 		return
 
 	held_body.sleeping = false
-	held_body.linear_velocity = (to_target * grab_pull_strength).limit_length(grab_max_speed) + velocity
+	held_body.linear_velocity = (to_target * grab_pull_strength).limit_length(grab_max_speed) + through.basis * velocity
 	held_body.angular_velocity *= 0.8
 
 func _handle_flashlight():
