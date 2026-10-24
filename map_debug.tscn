@@ -21,6 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://bfi03gfmkqmql" path="res://ship/corridorT.tscn" id="18_fksfb"]
 [ext_resource type="PackedScene" uid="uid://bo0nsh2wg1wlk" path="res://ship/corridorX.tscn" id="19_mov4m"]
 [ext_resource type="Script" uid="uid://b5c56ockk22b5" path="res://redbrick.gd" id="20_xlst1"]
+[ext_resource type="PackedScene" path="res://util/button3d.tscn" id="22_fksfb"]
+[ext_resource type="AudioStream" uid="uid://bkj3jytx2w2g3" path="res://sounds/the-sound-designer-electtic-button-on-sound-a-fl-mastyer-edited-and-final-520904.mp3" id="23_mov4m"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3x3nl"]
 sky_top_color = Color(0.080608286, 0.33735877, 0.45629174, 1)
@@ -195,6 +197,7 @@ material = SubResource("StandardMaterial3D_2bq1k")
 transform = Transform3D(4.0749483, 0, 0, 0, 2.0594144, 0, 0, 0, 1.6666665, -13.441407, 2.3281057, -13.484048)
 script = ExtResource("11_uf3qf")
 open_height = 3.0
+auto_open = false
 
 [node name="RigidBody3D2" type="RigidBody3D" parent="Map" unique_id=196076673]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.522873, 1.8862791, 1.8985863)
@@ -313,3 +316,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9404564, 1.2593441, 4.8606
 script = ExtResource("20_xlst1")
 damage_amount = 100
 damage_interval = 20.0
+
+[node name="Button3D" parent="." unique_id=1835618783 node_paths=PackedStringArray("targets") instance=ExtResource("22_fksfb")]
+transform = Transform3D(0.053730782, 0, -0.9985555, 0, 1, 0, 0.9985555, 0, 0.053730782, -1.9498587, 1.6348739, -3.7378674)
+targets = [NodePath("../Map/Door_Airlock")]
+toggle_mode = true
+press_sound = ExtResource("23_mov4m")

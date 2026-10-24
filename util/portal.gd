@@ -23,9 +23,6 @@ const VIEW_SHADER := preload("res://util/portal.gdshader")
 @export var max_render_distance := 60.0
 ## How far in front of the target plane the virtual camera's near clip sits.
 @export var near_margin := 0.02
-## Extra distance in front of the plane at which the teleport fires, on top of what the
-## camera's near plane and the player's speed already need. Raise it if flicker remains.
-@export var teleport_lead := 0.05
 ## Physics layers scanned for RigidBody3D props that should go through.
 @export_flags_3d_physics var body_mask := 1
 ## The portal image is rendered at 1/headroom brightness and scaled back up in the shader,
@@ -35,6 +32,7 @@ const VIEW_SHADER := preload("res://util/portal.gdshader")
 
 const ZONE_FRONT := 2.0 # prop detection volume: this far in front of the plane...
 const ZONE_BACK := 1.0  # ...and this far behind it
+const THIN_DEPTH := 0.002 # portal surface depth when the player's camera is not near it
 
 var _viewport: SubViewport
 var _camera: Camera3D
@@ -47,6 +45,7 @@ var _zone: Area3D
 var _body_last := {} # RigidBody3D -> its position in this portal's local space last tick
 var _src_env: Environment
 var _env_ready := false
+var _depth := THIN_DEPTH # current depth of the portal surface box behind the plane
 
 func _ready() -> void:
 	_build_mesh()
@@ -72,10 +71,15 @@ func _build_mesh() -> void:
 		_mesh = MeshInstance3D.new()
 		_mesh.name = "Surface"
 		add_child(_mesh)
-	var quad := QuadMesh.new()
-	quad.size = size
-	_mesh.mesh = quad
-	_mesh.rotation = Vector3(0.0, PI, 0.0) # QuadMesh faces +Z, we want it to face -Z
+	# A box rather than a quad: it gets deeper behind the portal plane while the player's
+	# camera is close (see _update_screen_depth). Unit depth, scaled in Z.
+	var box := BoxMesh.new()
+	box.size = Vector3(size.x, size.y, 1.0)
+	_mesh.mesh = box
+	_mesh.rotation = Vector3.ZERO
+	_mesh.scale = Vector3(1.0, 1.0, _depth)
+	_mesh.position = Vector3(0.0, 0.0, _depth * 0.5) # front face stays on the portal plane
+	_mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_mesh.layers = 1 << (PORTAL_LAYER - 1)
 	if Engine.is_editor_hint():
 		var m := StandardMaterial3D.new()
@@ -114,6 +118,7 @@ func _process(_delta: float) -> void:
 	var my_inv := _xf().affine_inverse()
 	var viewer_local := my_inv * main_cam.global_position
 	var active := viewer_local.z < 0.5 and main_cam.global_position.distance_to(global_position) < max_render_distance
+	_update_screen_depth(main_cam, viewer_local.z if active else INF)
 	_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS if active else SubViewport.UPDATE_DISABLED
 	if not active:
 		return
@@ -154,6 +159,35 @@ func _process(_delta: float) -> void:
 			var corner := tgt * Vector3(sx * half.x, sy * half.y, 0.0)
 			min_depth = minf(min_depth, -(inv_t * corner).z)
 	_camera.near = clampf(min_depth - near_margin, 0.05, _camera.far - 1.0)
+
+# The player camera's near plane is a small rectangle floating in front of the lens. Close to
+# the portal its corners cross the portal plane before the camera does, and the clipped part
+# of the screen would show whatever is really behind the portal for a few frames (worst when
+# looking sideways, where the near plane's edge leads the camera by the most). So while the
+# camera is close, the portal surface is a box reaching back from the plane by the distance
+# from the lens to a near-plane corner: anything the near plane pokes into is inside the box,
+# and shows the portal image like the rest of the surface. Away from the portal it collapses
+# back to a flat quad so it can't be seen sticking out of a thin wall.
+func _update_screen_depth(cam: Camera3D, cam_z: float) -> void:
+	var near := cam.near
+	var vs := get_viewport().get_visible_rect().size
+	var aspect := vs.x / maxf(vs.y, 1.0)
+	var half_a := near * tan(deg_to_rad(cam.fov * 0.5))
+	var half_w := half_a
+	var half_h := half_a
+	if cam.keep_aspect == Camera3D.KEEP_WIDTH:
+		half_h = half_a / aspect
+	else:
+		half_w = half_a * aspect
+	var reach := Vector3(half_w, half_h, near).length() * 1.2 + 0.01
+	_set_depth(reach if absf(cam_z) < reach * 2.0 else THIN_DEPTH)
+
+func _set_depth(d: float) -> void:
+	if is_equal_approx(d, _depth):
+		return
+	_depth = d
+	_mesh.scale = Vector3(1.0, 1.0, d)
+	_mesh.position = Vector3(0.0, 0.0, d * 0.5)
 
 # The portal image would be tone mapped twice: once inside the SubViewport and again when
 # the main view draws the quad. So the portal camera gets a copy of the world environment
@@ -245,7 +279,7 @@ func _teleport_body(body: RigidBody3D) -> void:
 	target._body_last[body] = target._xf().affine_inverse() * xf.origin
 	teleported.emit(body)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint() or target == null or not teleport_enabled:
 		return
 	_update_bodies()
@@ -254,42 +288,23 @@ func _physics_process(delta: float) -> void:
 		if player == null:
 			return
 
-	# Where to swap depends on which way the camera is looking, because the swap is only
-	# invisible if what's on screen is the same just before and just after.
-	# - Looking INTO the portal: swap slightly before the plane. Waiting for the exact
-	#   crossing lets the camera's near plane clip the quad and flash the hole behind it.
-	#   The quad fills the screen at that distance, so going early can't be seen.
-	# - Looking AWAY (backing in): swap slightly after the plane. Early would drop the
-	#   camera behind the target looking away from it, showing the wrong world until it
-	#   backed out. Late lands it just in front of the target looking at its quad, which
-	#   shows the world you just left.
-	# In between the offset slides smoothly through the plane itself.
-	var lead := _trigger_lead(delta)
-	var facing := 1.0
+	# The swap happens when the player's camera crosses the portal plane inside the opening,
+	# whichever way it is looking. The camera, not the body, because the camera is what the
+	# eye sees. The old flicker came from the camera's near plane poking through the portal
+	# plane before the camera did; _update_screen_depth covers that, so there's no need to
+	# swap early or late depending on the view direction.
 	var cam := get_viewport().get_camera_3d()
-	if cam != null:
-		facing = (-cam.global_basis.z).dot(_xf().basis.z) # +1 = looking straight into the portal
-	var trigger_z := -lead * facing
-	var local := _xf().affine_inverse() * player.global_position
-	var approaching := _has_last and local.z > _last_local.z
-	if approaching and local.z >= trigger_z and local.z < trigger_z + 0.5 \
-			and absf(local.x) <= size.x * 0.5 and absf(local.y) <= size.y * 0.5:
-		_teleport(player)
-		return
+	var probe := cam.global_position if cam != null else player.global_position
+	var local := _xf().affine_inverse() * probe
+	if _has_last and _last_local.z < 0.0 and local.z >= 0.0:
+		# crossed the plane this tick, check where on the plane
+		var k := _last_local.z / (_last_local.z - local.z)
+		var cross := _last_local.lerp(local, k)
+		if absf(cross.x) <= size.x * 0.5 and absf(cross.y) <= size.y * 0.5:
+			_teleport(player)
+			return
 	_last_local = local
 	_has_last = true
-
-# Distance from the plane at which to teleport: how far the near plane reaches sideways,
-# plus what the player covers in one physics tick, plus a small fixed margin.
-func _trigger_lead(delta: float) -> float:
-	var lead := teleport_lead
-	var cam := get_viewport().get_camera_3d()
-	if cam != null:
-		var vp := get_viewport().get_visible_rect().size
-		var half_h := cam.near * tan(deg_to_rad(cam.fov * 0.5))
-		lead += half_h * (vp.x / maxf(vp.y, 1.0)) * 1.5
-	lead += player.velocity.length() * delta
-	return lead
 
 func _teleport(body: CharacterBody3D) -> void:
 	var m := target._xf() * _flip * _xf().affine_inverse()
@@ -310,7 +325,9 @@ func _teleport(body: CharacterBody3D) -> void:
 	body.velocity = vel
 
 	_has_last = false
-	target._last_local = target._xf().affine_inverse() * body.global_position
+	var cam := get_viewport().get_camera_3d()
+	var probe := cam.global_position if cam != null else body.global_position
+	target._last_local = target._xf().affine_inverse() * probe
 	target._has_last = true
 	teleported.emit(body)
 

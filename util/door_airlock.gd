@@ -3,11 +3,13 @@ extends Node3D
 @export var open_height: float = 1.5
 @export var open_range: float = 4.0
 @export var lerp_speed: float = 5.0
+@export var auto_open := true   # turn off for button-only doors
 
 var _closed_position: Vector3
 var _open_position: Vector3
 var _target_position: Vector3
 var _player: CharacterBody3D
+var _forced_open := false
 
 func _ready() -> void:
 	_closed_position = global_transform.origin
@@ -15,10 +17,18 @@ func _ready() -> void:
 	_target_position = _closed_position
 	_player = _find_player()
 
+# Button3D calls one of these on its targets
+func activate() -> void:           # plain button: flips the door each press
+	_forced_open = not _forced_open
+
+func set_active(on: bool) -> void: # toggle_mode button: door follows the button state
+	_forced_open = on
+
 func _process(delta: float) -> void:
-	if _player:
-		var distance = _closed_position.distance_to(_player.global_position)
-		_target_position = _open_position if distance <= open_range else _closed_position
+	var near := false
+	if auto_open and _player:
+		near = _closed_position.distance_to(_player.global_position) <= open_range
+	_target_position = _open_position if (near or _forced_open) else _closed_position
 
 	global_position = global_position.lerp(_target_position, lerp_speed * delta)
 

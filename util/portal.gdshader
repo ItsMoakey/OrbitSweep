@@ -1,5 +1,7 @@
 shader_type spatial;
-render_mode unshaded, fog_disabled;
+// cull_disabled: when the player's camera is right up against the portal, the near plane
+// can end up inside the portal surface box, and then we are looking at its inside faces.
+render_mode unshaded, fog_disabled, cull_disabled;
 
 // The portal's SubViewport renders the world from the linked portal's point of view
 // at the same size as the main window, so we sample it in screen space.

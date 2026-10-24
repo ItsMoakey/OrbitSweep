@@ -85,6 +85,7 @@ var _thruster_target := PackedFloat32Array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 @export var player_push_mass := 80.0         # lighter bodies move easily, heavier ones barely budge
 @export var push_min_mass_ratio := 0.25      # bodies 4x heavier than you (ratio < this) aren't pushed at all
 @export var grab_reach := 3.0                # how far you can reach to grab
+@export var interact_reach := 3.0            # how far you can reach to press a button
 @export var grab_min_distance := 1.5
 @export var grab_max_distance := 3.0         # scroll wheel adjusts hold distance in between
 @export var grab_pull_strength := 12.0       # how hard the held object chases the hold point
@@ -614,6 +615,22 @@ func _release_grab() -> void:
 		held_body.remove_collision_exception_with(self)
 	held_body = null
 
+# Anything with an interact(presser) method can be used (Button3D, later doors/terminals).
+# Returns true if something was used, so the grab key doesn't also try to pick it up.
+func _try_interact() -> bool:
+	var cam : Camera3D = %Camera3D
+	var from := cam.global_position
+	var to := from - cam.global_basis.z * interact_reach
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [get_rid()]
+	var hit := get_world_3d().direct_space_state.intersect_ray(query)
+	if hit.is_empty():
+		return false
+	var collider := hit.collider as Node
+	if collider != null and collider.has_method("interact"):
+		return collider.interact(self)
+	return false
+
 func _try_grab() -> void:
 	var cam : Camera3D = %Camera3D
 	var from := cam.global_position
@@ -639,7 +656,8 @@ func _handle_grab(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("Grab"):
 		if held_body == null:
-			_try_grab()
+			if not _try_interact():
+				_try_grab()
 		else:
 			_release_grab()
 		return

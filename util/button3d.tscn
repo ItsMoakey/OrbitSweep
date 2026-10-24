@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://util/button3d.gd" id="1_btn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_btn"]
+size = Vector3(0.3, 0.3, 0.12)
+
+[node name="Button3D" type="StaticBody3D"]
+script = ExtResource("1_btn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_btn")
+
+[node name="Base" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.03)
+size = Vector3(0.3, 0.3, 0.06)
+
+[node name="Cap" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.04)
+size = Vector3(0.18, 0.18, 0.06)
+
+[node name="PressSound" type="AudioStreamPlayer3D" parent="."]
