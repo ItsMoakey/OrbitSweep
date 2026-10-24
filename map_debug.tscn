@@ -276,13 +276,6 @@ transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.707
 target = NodePath("../Portal")
 player = NodePath("../../CharacterBody3DSource\'")
 
-[node name="CharacterBody3DSource\'" parent="." unique_id=99275543 instance=ExtResource("9_f0sqy")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 3.34054, 0)
-jetpack_accel = 3.24
-dampener_accel = 9.81
-grab_max_speed = 100.0
-grab_break_distance = 5.0
-
 [node name="maps" type="Node3D" parent="." unique_id=1905123395]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 131, 0, -11)
 
@@ -306,6 +299,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
 
 [node name="CorridorL4" parent="maps" unique_id=651135445 instance=ExtResource("19_mov4m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CharacterBody3DSource\'" parent="." unique_id=99275543 instance=ExtResource("9_f0sqy")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 3.34054, 0)
+jetpack_accel = 3.24
+dampener_accel = 9.81
+thruster_max_db = -20.0
+grab_max_speed = 100.0
+grab_break_distance = 5.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2095061043]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9404564, 1.2593441, 4.860695)

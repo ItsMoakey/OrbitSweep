@@ -60,6 +60,26 @@ var is_dead := false
 @export var dampeners_start_on := true
 @export var always_boost := false;
 
+# Six thrusters, one per face of the body (+X, -X, +Y, -Y, +Z, -Z). A thruster fires when
+# the jetpack or the dampeners are pushing you the opposite way along that axis, and its
+# volume follows how hard it's pushing.
+@export_group("Thruster Audio")
+@export var thruster_sound_path := "res://sounds/thruster_loop.ogg"
+@export var thruster_max_db := 0.0           # volume of a thruster at full force
+@export var thruster_fade_in := 6.0          # volume rise per second (linear 0..1): 6 = ~0.17 s to full
+@export var thruster_fade_out := 3.0         # volume fall per second: 3 = ~0.33 s to silence
+@export var thruster_curve := 0.7            # < 1 makes light thrust louder, > 1 quieter
+
+# index = axis * 2 + (0 for the + face, 1 for the - face), in the body's local space
+const THRUSTER_FACES := [
+	Vector3(0.5, 0.0, 0.0), Vector3(-0.5, 0.0, 0.0),
+	Vector3(0.0, 0.9, 0.0), Vector3(0.0, -0.9, 0.0),
+	Vector3(0.0, 0.0, 0.5), Vector3(0.0, 0.0, -0.5),
+]
+var _thruster_players : Array[AudioStreamPlayer3D] = []
+var _thruster_vol := PackedFloat32Array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+var _thruster_target := PackedFloat32Array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+
 @export_group("Rigidbody Interaction")
 @export_range(0.0, 1.0) var push_force := 0.25  # fraction of the speed gap closed per physics frame (higher = pushes harder, 1 = matches your speed instantly)
 @export var player_push_mass := 80.0         # lighter bodies move easily, heavier ones barely budge
@@ -86,9 +106,42 @@ func get_move_speed() -> float:
 		return walk_speed * 0.8
 	return sprint_speed if Input.is_action_pressed("Shift") else walk_speed
 
+func _setup_thruster_audio() -> void:
+	if not ResourceLoader.exists(thruster_sound_path):
+		push_warning("Thruster sound not found at %s - thruster audio disabled." % thruster_sound_path)
+		return
+	var stream : AudioStream = load(thruster_sound_path)
+	if "loop" in stream:
+		stream.loop = true
+	for face in THRUSTER_FACES:
+		var p := AudioStreamPlayer3D.new()
+		p.stream = stream
+		p.position = face
+		p.volume_db = -80.0
+		p.attenuation_model = AudioStreamPlayer3D.ATTENUATION_DISABLED  # volume is driven by thrust only; direction still pans
+		p.max_polyphony = 1
+		add_child(p)
+		_thruster_players.append(p)
+
+func _update_thruster_audio(delta: float) -> void:
+	for k in _thruster_players.size():
+		var target := _thruster_target[k]
+		var rate := thruster_fade_in if target > _thruster_vol[k] else thruster_fade_out
+		_thruster_vol[k] = move_toward(_thruster_vol[k], target, rate * delta)
+		var p := _thruster_players[k]
+		if _thruster_vol[k] <= 0.001:
+			if p.playing:
+				p.stop()
+			continue
+		if not p.playing:
+			# random start point so the six loops never line up and phase against each other
+			p.play(randf() * p.stream.get_length())
+		p.volume_db = linear_to_db(_thruster_vol[k]) + thruster_max_db
+
 func _ready():
 	dampeners_on = dampeners_start_on
-	
+	_setup_thruster_audio()
+
 	for child in %deco.find_children("*","VisualInstance3D"): #Hiding Visuals
 		child.set_layer_mask_value(1, false)
 		child.set_layer_mask_value(2, true)
@@ -204,8 +257,11 @@ func _handle_flight(delta: float) -> void:
 		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * flight_gravity_scale * delta
 
 	var local_vel := global_transform.basis.inverse() * velocity
+	_thruster_target.fill(0.0)
+	var full_accel := maxf(jetpack_accel * jetpack_boost_mult, dampener_accel)
 	for i in 3:
 		var axis_in : float = thrust[i]
+		var vel_before : float = local_vel[i]
 		if absf(axis_in) > 0.01:
 			var target : float = axis_in * max_speed
 			# only push toward the target, never fight a faster existing speed
@@ -215,6 +271,13 @@ func _handle_flight(delta: float) -> void:
 				local_vel[i] = move_toward(local_vel[i], target, dampener_accel * delta)
 		elif dampeners_on:
 			local_vel[i] = move_toward(local_vel[i], 0.0, dampener_accel * delta)
+
+		# thruster audio: the acceleration actually applied on this axis (jetpack or dampener).
+		# Pushing toward +axis fires the thruster on the -axis face, and vice versa.
+		var applied : float = (local_vel[i] - vel_before) / delta
+		if absf(applied) > 0.01:
+			var force_frac := clampf(absf(applied) / full_accel, 0.0, 1.0)
+			_thruster_target[i * 2 + (1 if applied > 0.0 else 0)] = pow(force_frac, thruster_curve)
 
 	velocity = global_transform.basis * local_vel
 
@@ -427,6 +490,11 @@ func _handle_ground_physics(delta) -> void:
 func _physics_process(delta):
 	if _jump_cooldown_timer > 0.0:
 		_jump_cooldown_timer = max(0.0, _jump_cooldown_timer - delta)
+
+	# thrusters only fire while flying; otherwise they fade out
+	if not flying or is_dead:
+		_thruster_target.fill(0.0)
+	_update_thruster_audio(delta)
 
 	if is_dead:
 		_release_grab()
