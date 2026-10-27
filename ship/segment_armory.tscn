@@ -1,0 +1,335 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="1_panel"]
+[ext_resource type="Script" uid="uid://cq6v31x6kyxfs" path="res://util/door_airlock.gd" id="2_door_gd"]
+[ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="3_door"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 1
+background_color = Color(0.08013246, 0.080132596, 0.08013254, 1)
+sky = SubResource("sky")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="m_dark"]
+albedo_color = Color(0.13, 0.14, 0.16, 1)
+metallic = 0.3
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="m_steel"]
+albedo_color = Color(0.45, 0.47, 0.5, 1)
+metallic = 0.6
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="m_green"]
+albedo_color = Color(0.18, 0.4, 0.22, 1)
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="bm_0_300"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="BoxShape3D" id="bs_0_300"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="segment_armory" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Shell" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+use_collision = true
+size = Vector3(11.9, 4.5, 9.9)
+
+[node name="Interior" type="CSGBox3D" parent="Shell"]
+operation = 2
+size = Vector3(11, 3.6, 9)
+
+[node name="ChamferL" type="CSGPolygon3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.5)
+polygon = PackedVector2Array(-5.52, 1.82, -4.8, 1.82, -5.52, 1.1)
+depth = 9
+
+[node name="ChamferR" type="CSGPolygon3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.5)
+polygon = PackedVector2Array(5.52, 1.82, 4.8, 1.82, 5.52, 1.1)
+depth = 9
+
+[node name="Doorway_S0" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.375)
+operation = 2
+size = Vector3(5.4, 3.6, 1.35)
+
+[node name="Props" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Glass" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="RackBoard" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3, -0.4, 0)
+size = Vector3(0.15, 2, 8)
+material = SubResource("m_dark")
+
+[node name="RackItem" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, -0.45, -3.5)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, 0.3, -3.5)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackItem2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, -0.45, -2.1)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, 0.3, -2.1)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackItem3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, -0.45, -0.7)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, 0.3, -0.7)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackItem4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, -0.45, 0.7)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, 0.3, 0.7)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackItem5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, -0.45, 2.1)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, 0.3, 2.1)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackItem6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, -0.45, 3.5)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14, 0.3, 3.5)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackBoard2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, -0.4, 0)
+size = Vector3(0.15, 2, 8)
+material = SubResource("m_dark")
+
+[node name="RackItem7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, -0.45, -3.5)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, 0.3, -3.5)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackItem8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, -0.45, -2.1)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, 0.3, -2.1)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackItem9" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, -0.45, -0.7)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip9" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, 0.3, -0.7)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackItem10" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, -0.45, 0.7)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip10" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, 0.3, 0.7)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackItem11" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, -0.45, 2.1)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip11" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, 0.3, 2.1)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="RackItem12" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, -0.45, 3.5)
+size = Vector3(0.1, 0.9, 0.14)
+material = SubResource("m_dark")
+
+[node name="RackItemTip12" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.14, 0.3, 3.5)
+size = Vector3(0.05, 0.6, 0.05)
+material = SubResource("m_steel")
+
+[node name="LockerBank" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, -4.1)
+size = Vector3(9, 2.2, 0.7)
+material = SubResource("m_steel")
+
+[node name="LockerSeam" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam9" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam10" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam11" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam12" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam13" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="LockerSeam14" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, -0.7, -3.74)
+size = Vector3(0.03, 2, 0.02)
+material = SubResource("m_dark")
+
+[node name="Table" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.35, 0)
+size = Vector3(3, 0.9, 1.2)
+material = SubResource("m_steel")
+
+[node name="TableTop" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.875, 0)
+size = Vector3(3.1, 0.05, 1.3)
+material = SubResource("m_dark")
+
+[node name="AmmoCrate" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -1.5, -2.6)
+size = Vector3(1.2, 0.6, 0.8)
+material = SubResource("m_green")
+
+[node name="AmmoCrate2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -0.95, -2.6)
+size = Vector3(1, 0.5, 0.7)
+material = SubResource("m_green")
+
+[node name="Crate" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, -0.7, 0)
+mass = 5
+
+[node name="Mesh" type="MeshInstance3D" parent="Crate"]
+mesh = SubResource("bm_0_300")
+material_override = SubResource("m_green")
+
+[node name="Shape" type="CollisionShape3D" parent="Crate"]
+shape = SubResource("bs_0_300")
+
+[node name="Crate2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.7, 0)
+mass = 5
+
+[node name="Mesh" type="MeshInstance3D" parent="Crate2"]
+mesh = SubResource("bm_0_300")
+material_override = SubResource("m_green")
+
+[node name="Shape" type="CollisionShape3D" parent="Crate2"]
+shape = SubResource("bs_0_300")
+
+[node name="LightPanelL0" parent="." instance=ExtResource("1_panel")]
+transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -5.15, 1.45, 0)
+
+[node name="LightPanelR0" parent="." instance=ExtResource("1_panel")]
+transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 5.15, 1.45, 0)
+
+[node name="Door_S" parent="." instance=ExtResource("3_door")]
+transform = Transform3D(3.667, 0, 0, 0, 1.853, 0, 0, 0, 1.5, 0, 0, 4.725)
+script = ExtResource("2_door_gd")
+open_height = 3.0
+open_range = 4.0

@@ -1,0 +1,1446 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="1_panel"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 1
+background_color = Color(0.08013246, 0.080132596, 0.08013254, 1)
+sky = SubResource("sky")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="m_steel"]
+albedo_color = Color(0.45, 0.47, 0.5, 1)
+metallic = 0.6
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="m_dark"]
+albedo_color = Color(0.13, 0.14, 0.16, 1)
+metallic = 0.3
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="m_orange"]
+albedo_color = Color(0.85, 0.42, 0.08, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="m_green"]
+albedo_color = Color(0.18, 0.4, 0.22, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="m_white"]
+albedo_color = Color(0.82, 0.83, 0.86, 1)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="m_red"]
+albedo_color = Color(0.65, 0.08, 0.08, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="bm_0_600"]
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="BoxShape3D" id="bs_0_600"]
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="BoxMesh" id="bm_0_500"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="bs_0_500"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="bm_0_700"]
+size = Vector3(0.7, 0.7, 0.7)
+
+[sub_resource type="BoxShape3D" id="bs_0_700"]
+size = Vector3(0.7, 0.7, 0.7)
+
+[sub_resource type="BoxMesh" id="bm_0_400"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="BoxShape3D" id="bs_0_400"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="m_lamp"]
+albedo_color = Color(0.67, 0.8, 1, 1)
+emission_enabled = true
+emission = Color(0.67, 0.8, 1, 1)
+emission_energy_multiplier = 4
+
+[node name="segment_storage_1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Shell" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+use_collision = true
+size = Vector3(14.9, 4.9, 16.9)
+
+[node name="Interior" type="CSGBox3D" parent="Shell"]
+operation = 2
+size = Vector3(14, 4, 16)
+
+[node name="ChamferL" type="CSGPolygon3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+polygon = PackedVector2Array(-7.02, 2.02, -6.3, 2.02, -7.02, 1.3)
+depth = 16
+
+[node name="ChamferR" type="CSGPolygon3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+polygon = PackedVector2Array(7.02, 2.02, 6.3, 2.02, 7.02, 1.3)
+depth = 16
+
+[node name="Doorway_N0" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, -7.875)
+operation = 2
+size = Vector3(5.4, 3.6, 1.35)
+
+[node name="Doorway_S1" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 7.875)
+operation = 2
+size = Vector3(5.4, 3.6, 1.35)
+
+[node name="Props" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Glass" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="ShelfPost" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81, -0.1, -7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19, -0.1, -7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81, -0.1, -4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19, -0.1, -4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.575, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.675, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.225, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 1.125, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.325, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.275, -6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.225, -5.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.425, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.375, -6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.475, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.575, -5.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81, -0.1, -3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19, -0.1, -3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81, -0.1, -0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19, -0.1, -0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.575, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.675, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.225, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 1.125, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.325, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem9" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.275, -2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem10" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.225, -1.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem11" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.425, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem12" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.375, -2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem13" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.475, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem14" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.575, -1.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost9" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81, -0.1, 0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost10" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19, -0.1, 0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost11" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81, -0.1, 3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost12" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19, -0.1, 3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard9" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.575, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard10" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.675, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard11" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.225, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard12" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 1.125, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem15" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.325, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem16" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.275, 2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem17" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.225, 2.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem18" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.425, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem19" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.375, 2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem20" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.475, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem21" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.575, 2.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost13" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81, -0.1, 4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost14" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19, -0.1, 4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost15" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81, -0.1, 7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost16" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.19, -0.1, 7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard13" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.575, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard14" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.675, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard15" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.225, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard16" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 1.125, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem22" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.325, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem23" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.275, 6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem24" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -1.225, 6.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem25" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.425, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem26" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.375, 6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem27" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.475, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem28" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0.575, 6.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost17" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.71, -0.1, -7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost18" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09, -0.1, -7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost19" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.71, -0.1, -4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost20" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09, -0.1, -4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard17" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.575, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard18" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.675, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard19" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.225, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard20" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 1.125, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem29" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.325, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem30" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.275, -6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem31" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.225, -5.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem32" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.425, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem33" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.375, -6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem34" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.475, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem35" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.575, -5.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost21" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.71, -0.1, -3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost22" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09, -0.1, -3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost23" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.71, -0.1, -0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost24" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09, -0.1, -0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard21" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.575, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard22" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.675, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard23" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.225, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard24" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 1.125, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem36" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.325, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem37" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.275, -2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem38" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.225, -1.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem39" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.425, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem40" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.375, -2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem41" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.475, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem42" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.575, -1.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost25" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.71, -0.1, 0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost26" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09, -0.1, 0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost27" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.71, -0.1, 3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost28" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09, -0.1, 3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard25" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.575, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard26" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.675, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard27" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.225, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard28" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 1.125, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem43" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.325, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem44" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.275, 2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem45" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.225, 2.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem46" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.425, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem47" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.375, 2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem48" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.475, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem49" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.575, 2.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost29" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.71, -0.1, 4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost30" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09, -0.1, 4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost31" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.71, -0.1, 7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost32" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09, -0.1, 7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard29" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.575, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard30" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.675, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard31" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.225, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard32" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 1.125, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem50" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.325, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem51" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.275, 6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem52" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -1.225, 6.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem53" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.425, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem54" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, -0.375, 6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem55" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.475, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem56" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.575, 6.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost33" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.19, -0.1, -7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost34" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.81, -0.1, -7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost35" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.19, -0.1, -4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost36" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.81, -0.1, -4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard33" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.575, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard34" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.675, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard35" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.225, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard36" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1.125, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem57" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.325, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem58" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.275, -6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem59" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.225, -5.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem60" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.425, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem61" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.375, -6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem62" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.475, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem63" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.575, -5.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost37" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.19, -0.1, -3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost38" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.81, -0.1, -3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost39" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.19, -0.1, -0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost40" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.81, -0.1, -0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard37" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.575, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard38" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.675, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard39" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.225, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard40" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1.125, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem64" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.325, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem65" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.275, -2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem66" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.225, -1.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem67" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.425, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem68" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.375, -2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem69" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.475, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem70" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.575, -1.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost41" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.19, -0.1, 0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost42" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.81, -0.1, 0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost43" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.19, -0.1, 3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost44" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.81, -0.1, 3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard41" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.575, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard42" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.675, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard43" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.225, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard44" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1.125, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem71" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.325, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem72" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.275, 2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem73" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.225, 2.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem74" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.425, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem75" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.375, 2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem76" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.475, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem77" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.575, 2.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost45" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.19, -0.1, 4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost46" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.81, -0.1, 4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost47" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.19, -0.1, 7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost48" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.81, -0.1, 7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard45" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.575, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard46" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.675, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard47" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.225, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard48" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1.125, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem78" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.325, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem79" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.275, 6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem80" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -1.225, 6.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem81" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.425, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem82" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.375, 6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem83" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.475, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem84" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0.575, 6.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost49" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09, -0.1, -7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost50" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.71, -0.1, -7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost51" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09, -0.1, -4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost52" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.71, -0.1, -4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard49" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.575, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard50" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.675, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard51" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.225, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard52" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 1.125, -6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem85" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.325, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem86" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.275, -6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem87" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.225, -5.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem88" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.425, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem89" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.375, -6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem90" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.475, -6.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem91" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.575, -5.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost53" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09, -0.1, -3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost54" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.71, -0.1, -3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost55" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09, -0.1, -0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost56" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.71, -0.1, -0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard53" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.575, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard54" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.675, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard55" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.225, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard56" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 1.125, -2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem92" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.325, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem93" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.275, -2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem94" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.225, -1.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem95" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.425, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem96" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.375, -2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem97" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.475, -2.95)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem98" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.575, -1.05)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost57" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09, -0.1, 0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost58" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.71, -0.1, 0.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost59" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09, -0.1, 3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost60" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.71, -0.1, 3.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard57" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.575, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard58" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.675, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard59" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.225, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard60" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 1.125, 2)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem99" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.325, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem100" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.275, 2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem101" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.225, 2.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem102" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.425, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem103" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.375, 2)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem104" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.475, 1.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem105" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.575, 2.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfPost61" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09, -0.1, 4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost62" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.71, -0.1, 4.64)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost63" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09, -0.1, 7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfPost64" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.71, -0.1, 7.36)
+size = Vector3(0.08, 3.4, 0.08)
+material = SubResource("m_steel")
+
+[node name="ShelfBoard61" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.575, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard62" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.675, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard63" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.225, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfBoard64" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 1.125, 6)
+size = Vector3(0.7, 0.05, 2.8)
+material = SubResource("m_dark")
+
+[node name="ShelfItem106" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.325, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_orange")
+
+[node name="ShelfItem107" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.275, 6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_green")
+
+[node name="ShelfItem108" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -1.225, 6.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem109" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.425, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_steel")
+
+[node name="ShelfItem110" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, -0.375, 6)
+size = Vector3(0.55, 0.55, 0.6)
+material = SubResource("m_white")
+
+[node name="ShelfItem111" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.475, 5.05)
+size = Vector3(0.55, 0.45, 0.6)
+material = SubResource("m_red")
+
+[node name="ShelfItem112" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 0.575, 6.95)
+size = Vector3(0.55, 0.65, 0.6)
+material = SubResource("m_green")
+
+[node name="Crate" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, -1.5, -3)
+mass = 5
+
+[node name="Mesh" type="MeshInstance3D" parent="Crate"]
+mesh = SubResource("bm_0_600")
+material_override = SubResource("m_orange")
+
+[node name="Shape" type="CollisionShape3D" parent="Crate"]
+shape = SubResource("bs_0_600")
+
+[node name="Crate2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -1.55, -1)
+mass = 5
+
+[node name="Mesh" type="MeshInstance3D" parent="Crate2"]
+mesh = SubResource("bm_0_500")
+material_override = SubResource("m_green")
+
+[node name="Shape" type="CollisionShape3D" parent="Crate2"]
+shape = SubResource("bs_0_500")
+
+[node name="Crate3" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -1.45, 3)
+mass = 5
+
+[node name="Mesh" type="MeshInstance3D" parent="Crate3"]
+mesh = SubResource("bm_0_700")
+material_override = SubResource("m_steel")
+
+[node name="Shape" type="CollisionShape3D" parent="Crate3"]
+shape = SubResource("bs_0_700")
+
+[node name="Crate4" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1.55, 4.5)
+mass = 5
+
+[node name="Mesh" type="MeshInstance3D" parent="Crate4"]
+mesh = SubResource("bm_0_500")
+material_override = SubResource("m_orange")
+
+[node name="Shape" type="CollisionShape3D" parent="Crate4"]
+shape = SubResource("bs_0_500")
+
+[node name="Crate5" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1.1, 4.5)
+mass = 5
+
+[node name="Mesh" type="MeshInstance3D" parent="Crate5"]
+mesh = SubResource("bm_0_400")
+material_override = SubResource("m_red")
+
+[node name="Shape" type="CollisionShape3D" parent="Crate5"]
+shape = SubResource("bs_0_400")
+
+[node name="LightPanelL0" parent="." instance=ExtResource("1_panel")]
+transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -6.65, 1.85, -4)
+
+[node name="LightPanelL1" parent="." instance=ExtResource("1_panel")]
+transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -6.65, 1.85, 4)
+
+[node name="LightPanelR0" parent="." instance=ExtResource("1_panel")]
+transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 6.65, 1.85, -4)
+
+[node name="LightPanelR1" parent="." instance=ExtResource("1_panel")]
+transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 6.65, 1.85, 4)
+
+[node name="LampBody" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.15, -4)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.08, -4)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 1.7, -4)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.15, 4)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.08, 4)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 1.7, 4)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.15, -4)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.08, -4)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.7, -4)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.15, 4)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.08, 4)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.7, 4)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)

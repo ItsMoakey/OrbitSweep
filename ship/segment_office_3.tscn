@@ -1,0 +1,591 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="1_panel"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 1
+background_color = Color(0.08013246, 0.080132596, 0.08013254, 1)
+sky = SubResource("sky")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="m_fabric"]
+albedo_color = Color(0.18, 0.27, 0.45, 1)
+roughness = 1
+
+[sub_resource type="StandardMaterial3D" id="m_wood"]
+albedo_color = Color(0.42, 0.28, 0.17, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="m_dark"]
+albedo_color = Color(0.13, 0.14, 0.16, 1)
+metallic = 0.3
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="m_screen"]
+albedo_color = Color(0.05, 0.12, 0.15, 1)
+emission_enabled = true
+emission = Color(0.2, 0.85, 1, 1)
+emission_energy_multiplier = 1.6
+
+[sub_resource type="StandardMaterial3D" id="m_steel"]
+albedo_color = Color(0.45, 0.47, 0.5, 1)
+metallic = 0.6
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="m_white"]
+albedo_color = Color(0.82, 0.83, 0.86, 1)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="m_plant"]
+albedo_color = Color(0.15, 0.5, 0.18, 1)
+roughness = 1
+
+[sub_resource type="StandardMaterial3D" id="m_lamp"]
+albedo_color = Color(0.67, 0.8, 1, 1)
+emission_enabled = true
+emission = Color(0.67, 0.8, 1, 1)
+emission_energy_multiplier = 4
+
+[node name="segment_office_3" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Shell" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+use_collision = true
+size = Vector3(15.9, 4.5, 12.9)
+
+[node name="Interior" type="CSGBox3D" parent="Shell"]
+operation = 2
+size = Vector3(15, 3.6, 12)
+
+[node name="ChamferL" type="CSGPolygon3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+polygon = PackedVector2Array(-7.52, 1.82, -6.8, 1.82, -7.52, 1.1)
+depth = 12
+
+[node name="ChamferR" type="CSGPolygon3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+polygon = PackedVector2Array(7.52, 1.82, 6.8, 1.82, 7.52, 1.1)
+depth = 12
+
+[node name="Doorway_N0" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.875)
+operation = 2
+size = Vector3(5.4, 3.6, 1.35)
+
+[node name="Doorway_S1" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.875)
+operation = 2
+size = Vector3(5.4, 3.6, 1.35)
+
+[node name="Props" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Glass" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Partition" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -1.1, -4.8)
+size = Vector3(3, 1.4, 0.06)
+material = SubResource("m_fabric")
+
+[node name="Partition2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -1.1, -2.4)
+size = Vector3(3, 1.4, 0.06)
+material = SubResource("m_fabric")
+
+[node name="Partition3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -1.1, 0)
+size = Vector3(3, 1.4, 0.06)
+material = SubResource("m_fabric")
+
+[node name="Partition4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -1.1, 2.4)
+size = Vector3(3, 1.4, 0.06)
+material = SubResource("m_fabric")
+
+[node name="Partition5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -1.1, 4.8)
+size = Vector3(3, 1.4, 0.06)
+material = SubResource("m_fabric")
+
+[node name="DeskTop" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.055, -3.6)
+size = Vector3(1.6, 0.05, 0.8)
+material = SubResource("m_wood")
+
+[node name="DeskSide" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.44, -2.85)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="DeskSide2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.44, -4.35)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="Monitor" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.25, -0.675, -3.6)
+size = Vector3(0.6, 0.35, 0.04)
+material = SubResource("m_screen")
+
+[node name="MonitorStand" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.25, -0.93, -3.6)
+size = Vector3(0.1, 0.2, 0.1)
+material = SubResource("m_dark")
+
+[node name="ChairSeat" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -6.05, -1.315, -3.6)
+size = Vector3(0.5, 0.07, 0.5)
+material = SubResource("m_dark")
+
+[node name="ChairBack" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -5.83, -1, -3.6)
+size = Vector3(0.5, 0.5, 0.06)
+material = SubResource("m_dark")
+
+[node name="ChairLeg" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.05, -1.575, -3.6)
+radius = 0.05
+height = 0.45
+sides = 8
+material = SubResource("m_steel")
+
+[node name="DeskTop2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.055, -1.2)
+size = Vector3(1.6, 0.05, 0.8)
+material = SubResource("m_wood")
+
+[node name="DeskSide3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.44, -0.45)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="DeskSide4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.44, -1.95)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="Monitor2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.25, -0.675, -1.2)
+size = Vector3(0.6, 0.35, 0.04)
+material = SubResource("m_screen")
+
+[node name="MonitorStand2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.25, -0.93, -1.2)
+size = Vector3(0.1, 0.2, 0.1)
+material = SubResource("m_dark")
+
+[node name="ChairSeat2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -6.05, -1.315, -1.2)
+size = Vector3(0.5, 0.07, 0.5)
+material = SubResource("m_dark")
+
+[node name="ChairBack2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -5.83, -1, -1.2)
+size = Vector3(0.5, 0.5, 0.06)
+material = SubResource("m_dark")
+
+[node name="ChairLeg2" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.05, -1.575, -1.2)
+radius = 0.05
+height = 0.45
+sides = 8
+material = SubResource("m_steel")
+
+[node name="DeskTop3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.055, 1.2)
+size = Vector3(1.6, 0.05, 0.8)
+material = SubResource("m_wood")
+
+[node name="DeskSide5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.44, 1.95)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="DeskSide6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.44, 0.45)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="Monitor3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.25, -0.675, 1.2)
+size = Vector3(0.6, 0.35, 0.04)
+material = SubResource("m_screen")
+
+[node name="MonitorStand3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.25, -0.93, 1.2)
+size = Vector3(0.1, 0.2, 0.1)
+material = SubResource("m_dark")
+
+[node name="ChairSeat3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -6.05, -1.315, 1.2)
+size = Vector3(0.5, 0.07, 0.5)
+material = SubResource("m_dark")
+
+[node name="ChairBack3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -5.83, -1, 1.2)
+size = Vector3(0.5, 0.5, 0.06)
+material = SubResource("m_dark")
+
+[node name="ChairLeg3" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.05, -1.575, 1.2)
+radius = 0.05
+height = 0.45
+sides = 8
+material = SubResource("m_steel")
+
+[node name="DeskTop4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.055, 3.6)
+size = Vector3(1.6, 0.05, 0.8)
+material = SubResource("m_wood")
+
+[node name="DeskSide7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.44, 4.35)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="DeskSide8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.05, -1.44, 2.85)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="Monitor4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.25, -0.675, 3.6)
+size = Vector3(0.6, 0.35, 0.04)
+material = SubResource("m_screen")
+
+[node name="MonitorStand4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.25, -0.93, 3.6)
+size = Vector3(0.1, 0.2, 0.1)
+material = SubResource("m_dark")
+
+[node name="ChairSeat4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -6.05, -1.315, 3.6)
+size = Vector3(0.5, 0.07, 0.5)
+material = SubResource("m_dark")
+
+[node name="ChairBack4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -5.83, -1, 3.6)
+size = Vector3(0.5, 0.5, 0.06)
+material = SubResource("m_dark")
+
+[node name="ChairLeg4" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.05, -1.575, 3.6)
+radius = 0.05
+height = 0.45
+sides = 8
+material = SubResource("m_steel")
+
+[node name="Printer" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, -1.35, -5.6)
+size = Vector3(0.9, 0.9, 0.6)
+material = SubResource("m_white")
+
+[node name="Pot" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, -1.6, 5.5)
+radius = 0.25
+height = 0.4
+sides = 10
+material = SubResource("m_dark")
+
+[node name="Ball" type="CSGSphere3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, -0.9, 5.5)
+radius = 0.45
+radial_segments = 10
+rings = 6
+material = SubResource("m_plant")
+
+[node name="Partition6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1.1, -4.8)
+size = Vector3(3, 1.4, 0.06)
+material = SubResource("m_fabric")
+
+[node name="Partition7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1.1, -2.4)
+size = Vector3(3, 1.4, 0.06)
+material = SubResource("m_fabric")
+
+[node name="Partition8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1.1, 0)
+size = Vector3(3, 1.4, 0.06)
+material = SubResource("m_fabric")
+
+[node name="Partition9" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1.1, 2.4)
+size = Vector3(3, 1.4, 0.06)
+material = SubResource("m_fabric")
+
+[node name="Partition10" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1.1, 4.8)
+size = Vector3(3, 1.4, 0.06)
+material = SubResource("m_fabric")
+
+[node name="DeskTop5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.055, -3.6)
+size = Vector3(1.6, 0.05, 0.8)
+material = SubResource("m_wood")
+
+[node name="DeskSide9" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.44, -4.35)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="DeskSide10" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.44, -2.85)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="Monitor5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.25, -0.675, -3.6)
+size = Vector3(0.6, 0.35, 0.04)
+material = SubResource("m_screen")
+
+[node name="MonitorStand5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.25, -0.93, -3.6)
+size = Vector3(0.1, 0.2, 0.1)
+material = SubResource("m_dark")
+
+[node name="ChairSeat5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 6.05, -1.315, -3.6)
+size = Vector3(0.5, 0.07, 0.5)
+material = SubResource("m_dark")
+
+[node name="ChairBack5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 5.83, -1, -3.6)
+size = Vector3(0.5, 0.5, 0.06)
+material = SubResource("m_dark")
+
+[node name="ChairLeg5" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.05, -1.575, -3.6)
+radius = 0.05
+height = 0.45
+sides = 8
+material = SubResource("m_steel")
+
+[node name="DeskTop6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.055, -1.2)
+size = Vector3(1.6, 0.05, 0.8)
+material = SubResource("m_wood")
+
+[node name="DeskSide11" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.44, -1.95)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="DeskSide12" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.44, -0.45)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="Monitor6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.25, -0.675, -1.2)
+size = Vector3(0.6, 0.35, 0.04)
+material = SubResource("m_screen")
+
+[node name="MonitorStand6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.25, -0.93, -1.2)
+size = Vector3(0.1, 0.2, 0.1)
+material = SubResource("m_dark")
+
+[node name="ChairSeat6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 6.05, -1.315, -1.2)
+size = Vector3(0.5, 0.07, 0.5)
+material = SubResource("m_dark")
+
+[node name="ChairBack6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 5.83, -1, -1.2)
+size = Vector3(0.5, 0.5, 0.06)
+material = SubResource("m_dark")
+
+[node name="ChairLeg6" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.05, -1.575, -1.2)
+radius = 0.05
+height = 0.45
+sides = 8
+material = SubResource("m_steel")
+
+[node name="DeskTop7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.055, 1.2)
+size = Vector3(1.6, 0.05, 0.8)
+material = SubResource("m_wood")
+
+[node name="DeskSide13" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.44, 0.45)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="DeskSide14" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.44, 1.95)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="Monitor7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.25, -0.675, 1.2)
+size = Vector3(0.6, 0.35, 0.04)
+material = SubResource("m_screen")
+
+[node name="MonitorStand7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.25, -0.93, 1.2)
+size = Vector3(0.1, 0.2, 0.1)
+material = SubResource("m_dark")
+
+[node name="ChairSeat7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 6.05, -1.315, 1.2)
+size = Vector3(0.5, 0.07, 0.5)
+material = SubResource("m_dark")
+
+[node name="ChairBack7" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 5.83, -1, 1.2)
+size = Vector3(0.5, 0.5, 0.06)
+material = SubResource("m_dark")
+
+[node name="ChairLeg7" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.05, -1.575, 1.2)
+radius = 0.05
+height = 0.45
+sides = 8
+material = SubResource("m_steel")
+
+[node name="DeskTop8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.055, 3.6)
+size = Vector3(1.6, 0.05, 0.8)
+material = SubResource("m_wood")
+
+[node name="DeskSide15" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.44, 2.85)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="DeskSide16" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.05, -1.44, 4.35)
+size = Vector3(0.05, 0.72, 0.7)
+material = SubResource("m_dark")
+
+[node name="Monitor8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.25, -0.675, 3.6)
+size = Vector3(0.6, 0.35, 0.04)
+material = SubResource("m_screen")
+
+[node name="MonitorStand8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.25, -0.93, 3.6)
+size = Vector3(0.1, 0.2, 0.1)
+material = SubResource("m_dark")
+
+[node name="ChairSeat8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 6.05, -1.315, 3.6)
+size = Vector3(0.5, 0.07, 0.5)
+material = SubResource("m_dark")
+
+[node name="ChairBack8" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 5.83, -1, 3.6)
+size = Vector3(0.5, 0.5, 0.06)
+material = SubResource("m_dark")
+
+[node name="ChairLeg8" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.05, -1.575, 3.6)
+radius = 0.05
+height = 0.45
+sides = 8
+material = SubResource("m_steel")
+
+[node name="Printer2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -1.35, -5.6)
+size = Vector3(0.9, 0.9, 0.6)
+material = SubResource("m_white")
+
+[node name="Pot2" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -1.6, 5.5)
+radius = 0.25
+height = 0.4
+sides = 10
+material = SubResource("m_dark")
+
+[node name="Ball2" type="CSGSphere3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -0.9, 5.5)
+radius = 0.45
+radial_segments = 10
+rings = 6
+material = SubResource("m_plant")
+
+[node name="LightPanelL0" parent="." instance=ExtResource("1_panel")]
+transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -7.15, 1.45, 0)
+
+[node name="LightPanelR0" parent="." instance=ExtResource("1_panel")]
+transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 7.15, 1.45, 0)
+
+[node name="LampBody" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 1.75, -3)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 1.68, -3)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 1.3, -3)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 1.75, 3)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 1.68, 3)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 1.3, 3)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 1.75, -3)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 1.68, -3)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 1.3, -3)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 1.75, 3)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 1.68, 3)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 1.3, 3)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)

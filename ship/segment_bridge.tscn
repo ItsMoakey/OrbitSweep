@@ -1,0 +1,365 @@
+[gd_scene format=3 uid="uid://ddba3jy6r67ty"]
+
+[ext_resource type="PackedScene" uid="uid://c5cfm04j0ptfn" path="res://util/seat.tscn" id="1_seat"]
+[ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="2_panel"]
+[ext_resource type="Script" uid="uid://cq6v31x6kyxfs" path="res://util/door_airlock.gd" id="3_door_gd"]
+[ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="4_door"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 1
+background_color = Color(0.08013246, 0.080132596, 0.08013254, 1)
+sky = SubResource("sky")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="m_dark"]
+albedo_color = Color(0.13, 0.14, 0.16, 1)
+metallic = 0.3
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="m_screen"]
+albedo_color = Color(0.05, 0.12, 0.15, 1)
+emission_enabled = true
+emission = Color(0.2, 0.85, 1, 1)
+emission_energy_multiplier = 1.6
+
+[sub_resource type="StandardMaterial3D" id="m_steel"]
+albedo_color = Color(0.45, 0.47, 0.5, 1)
+metallic = 0.6
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="m_lamp"]
+albedo_color = Color(0.67, 0.8, 1, 1)
+emission_enabled = true
+emission = Color(0.67, 0.8, 1, 1)
+emission_energy_multiplier = 4.0
+
+[node name="segment_bridge" type="Node3D" unique_id=137978845]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=213685449]
+environment = SubResource("env")
+
+[node name="Shell" type="CSGBox3D" parent="." unique_id=1021373031]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+use_collision = true
+size = Vector3(18.9, 5.3, 14.9)
+
+[node name="Interior" type="CSGBox3D" parent="Shell" unique_id=469958394]
+operation = 2
+size = Vector3(18, 4.4, 14)
+
+[node name="ChamferL" type="CSGPolygon3D" parent="Shell" unique_id=124154541]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+polygon = PackedVector2Array(-9.02, 2.22, -8.3, 2.22, -9.02, 1.5)
+depth = 14.0
+
+[node name="ChamferR" type="CSGPolygon3D" parent="Shell" unique_id=535363365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+polygon = PackedVector2Array(9.02, 2.22, 8.3, 2.22, 9.02, 1.5)
+depth = 14.0
+
+[node name="Doorway_S0" type="CSGBox3D" parent="Shell" unique_id=413989817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 6.875)
+operation = 2
+size = Vector3(5.4, 3.6, 1.35)
+
+[node name="Props" type="CSGCombiner3D" parent="." unique_id=382714589]
+use_collision = true
+
+[node name="ScreenFrame" type="CSGBox3D" parent="Props" unique_id=415367804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -6.95)
+size = Vector3(17, 2.6, 0.1)
+material = SubResource("m_dark")
+
+[node name="MainScreen" type="CSGBox3D" parent="Props" unique_id=1477862790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8, 0.6, -6.88)
+size = Vector3(3, 1.8, 0.04)
+material = SubResource("m_screen")
+
+[node name="MainScreen2" type="CSGBox3D" parent="Props" unique_id=165403504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, 0.6, -6.88)
+size = Vector3(3, 1.8, 0.04)
+material = SubResource("m_screen")
+
+[node name="MainScreen3" type="CSGBox3D" parent="Props" unique_id=1579040336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -6.88)
+size = Vector3(3, 1.8, 0.04)
+material = SubResource("m_screen")
+
+[node name="MainScreen4" type="CSGBox3D" parent="Props" unique_id=742149633]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, 0.6, -6.88)
+size = Vector3(3, 1.8, 0.04)
+material = SubResource("m_screen")
+
+[node name="MainScreen5" type="CSGBox3D" parent="Props" unique_id=1762379222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8, 0.6, -6.88)
+size = Vector3(3, 1.8, 0.04)
+material = SubResource("m_screen")
+
+[node name="ConsoleBase" type="CSGBox3D" parent="Props" unique_id=2071482348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -1.325, -3.6)
+size = Vector3(3.2, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen" type="CSGBox3D" parent="Props" unique_id=344056647]
+transform = Transform3D(1, 0, 0, 0, 0.93969, -0.34202, 0, 0.34202, 0.93969, -3, -0.765, -3.55)
+size = Vector3(3, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="ConsoleBase2" type="CSGBox3D" parent="Props" unique_id=1247742318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -1.325, -3.6)
+size = Vector3(3.2, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen2" type="CSGBox3D" parent="Props" unique_id=508897070]
+transform = Transform3D(1, 0, 0, 0, 0.93969, -0.34202, 0, 0.34202, 0.93969, 3, -0.765, -3.55)
+size = Vector3(3, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="Dais" type="CSGBox3D" parent="Props" unique_id=1014107450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.675, 2)
+size = Vector3(6, 0.25, 3.4)
+material = SubResource("m_steel")
+
+[node name="HoloBase" type="CSGCylinder3D" parent="Props" unique_id=1493522086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.55, -1.5)
+radius = 1.2
+height = 0.5
+sides = 24
+material = SubResource("m_dark")
+
+[node name="HoloDisc" type="CSGCylinder3D" parent="Props" unique_id=907760483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.28, -1.5)
+radius = 1.0
+height = 0.04
+sides = 24
+material = SubResource("m_screen")
+
+[node name="ConsoleBase3" type="CSGBox3D" parent="Props" unique_id=1076789010]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8.45, -1.325, -3.5)
+size = Vector3(2.6, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen3" type="CSGBox3D" parent="Props" unique_id=164752219]
+transform = Transform3D(0, -0.34202, -0.93969, 0, 0.93969, -0.34202, 1, 0, 0, 8.4, -0.765, -3.5)
+size = Vector3(2.4, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="ConsoleBase4" type="CSGBox3D" parent="Props" unique_id=427032362]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8.45, -1.325, -3.5)
+size = Vector3(2.6, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen4" type="CSGBox3D" parent="Props" unique_id=392585624]
+transform = Transform3D(0, 0.34202, 0.93969, 0, 0.93969, -0.34202, -1, 0, 0, -8.4, -0.765, -3.5)
+size = Vector3(2.4, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="ConsoleBase5" type="CSGBox3D" parent="Props" unique_id=157409170]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8.45, -1.325, 0)
+size = Vector3(2.6, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen5" type="CSGBox3D" parent="Props" unique_id=141635245]
+transform = Transform3D(0, -0.34202, -0.93969, 0, 0.93969, -0.34202, 1, 0, 0, 8.4, -0.765, 0)
+size = Vector3(2.4, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="ConsoleBase6" type="CSGBox3D" parent="Props" unique_id=1260770156]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8.45, -1.325, 0)
+size = Vector3(2.6, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen6" type="CSGBox3D" parent="Props" unique_id=1916228623]
+transform = Transform3D(0, 0.34202, 0.93969, 0, 0.93969, -0.34202, -1, 0, 0, -8.4, -0.765, 0)
+size = Vector3(2.4, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="ConsoleBase7" type="CSGBox3D" parent="Props" unique_id=1428684312]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8.45, -1.325, 3.5)
+size = Vector3(2.6, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen7" type="CSGBox3D" parent="Props" unique_id=400831506]
+transform = Transform3D(0, -0.34202, -0.93969, 0, 0.93969, -0.34202, 1, 0, 0, 8.4, -0.765, 3.5)
+size = Vector3(2.4, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="ConsoleBase8" type="CSGBox3D" parent="Props" unique_id=583299735]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8.45, -1.325, 3.5)
+size = Vector3(2.6, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen8" type="CSGBox3D" parent="Props" unique_id=1079636448]
+transform = Transform3D(0, 0.34202, 0.93969, 0, 0.93969, -0.34202, -1, 0, 0, -8.4, -0.765, 3.5)
+size = Vector3(2.4, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="Riser" type="CSGCylinder3D" parent="Props" unique_id=1770682093]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8, 0.4, 6.4)
+radius = 0.06
+height = 4.4
+material = SubResource("m_steel")
+
+[node name="Riser2" type="CSGCylinder3D" parent="Props" unique_id=1917932458]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.6, 0.4, 6.4)
+radius = 0.06
+height = 4.4
+material = SubResource("m_steel")
+
+[node name="Riser3" type="CSGCylinder3D" parent="Props" unique_id=1071752524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.4, 0.4, 6.4)
+radius = 0.06
+height = 4.4
+material = SubResource("m_steel")
+
+[node name="Riser4" type="CSGCylinder3D" parent="Props" unique_id=79783683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.4, 0.4, 6.4)
+radius = 0.06
+height = 4.4
+material = SubResource("m_steel")
+
+[node name="Riser5" type="CSGCylinder3D" parent="Props" unique_id=2103826281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6, 0.4, 6.4)
+radius = 0.06
+height = 4.4
+material = SubResource("m_steel")
+
+[node name="Riser6" type="CSGCylinder3D" parent="Props" unique_id=1986179140]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, 0.4, 6.4)
+radius = 0.06
+height = 4.4
+material = SubResource("m_steel")
+
+[node name="LampBody" type="CSGBox3D" parent="Props" unique_id=1764269371]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.55, -3)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow" type="CSGBox3D" parent="Props" unique_id=1581058681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.48, -3)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="LampBody2" type="CSGBox3D" parent="Props" unique_id=1195452310]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.55, -3)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow2" type="CSGBox3D" parent="Props" unique_id=1279024821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.48, -3)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="LampBody3" type="CSGBox3D" parent="Props" unique_id=1279092976]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.55, 3)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow3" type="CSGBox3D" parent="Props" unique_id=1234853927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.48, 3)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="LampBody4" type="CSGBox3D" parent="Props" unique_id=1752411255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.55, 3)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow4" type="CSGBox3D" parent="Props" unique_id=709020793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.48, 3)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="LampBody5" type="CSGBox3D" parent="Props" unique_id=984842470]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 0)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow5" type="CSGBox3D" parent="Props" unique_id=1693190888]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.48, 0)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Seat" parent="." unique_id=46170014 instance=ExtResource("1_seat")]
+transform = Transform3D(-0.5, 0, 0, 0, 0.5, 0, 0, 0, -0.5, -3, -1.2852, -2)
+
+[node name="Seat2" parent="." unique_id=547394513 instance=ExtResource("1_seat")]
+transform = Transform3D(-0.5, 0, 0, 0, 0.5, 0, 0, 0, -0.5, 3, -1.2852, -2)
+
+[node name="Seat3" parent="." unique_id=1703757086 instance=ExtResource("1_seat")]
+transform = Transform3D(-0.5, 0, 0, 0, 0.5, 0, 0, 0, -0.5, 0, -1.0352, 2.3)
+
+[node name="Seat4" parent="." unique_id=167526281 instance=ExtResource("1_seat")]
+transform = Transform3D(0, 0, 0.5, 0, 0.5, 0, -0.5, 0, 0, 7.3, -1.2852, -3.5)
+
+[node name="Seat5" parent="." unique_id=942172518 instance=ExtResource("1_seat")]
+transform = Transform3D(0, 0, -0.5, 0, 0.5, 0, 0.5, 0, 0, -7.3, -1.2852, -3.5)
+
+[node name="Seat6" parent="." unique_id=715435501 instance=ExtResource("1_seat")]
+transform = Transform3D(0, 0, 0.5, 0, 0.5, 0, -0.5, 0, 0, 7.3, -1.2852, 0)
+
+[node name="Seat7" parent="." unique_id=1824706203 instance=ExtResource("1_seat")]
+transform = Transform3D(0, 0, -0.5, 0, 0.5, 0, 0.5, 0, 0, -7.3, -1.2852, 0)
+
+[node name="Seat8" parent="." unique_id=1416119597 instance=ExtResource("1_seat")]
+transform = Transform3D(0, 0, 0.5, 0, 0.5, 0, -0.5, 0, 0, 7.3, -1.2852, 3.5)
+
+[node name="Seat9" parent="." unique_id=428326489 instance=ExtResource("1_seat")]
+transform = Transform3D(0, 0, -0.5, 0, 0.5, 0, 0.5, 0, 0, -7.3, -1.2852, 3.5)
+
+[node name="LightPanelL0" parent="." unique_id=2067310190 instance=ExtResource("2_panel")]
+transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -8.65, 2.25, -3.5)
+
+[node name="LightPanelL1" parent="." unique_id=1916732787 instance=ExtResource("2_panel")]
+transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -8.65, 2.25, 3.5)
+
+[node name="LightPanelR0" parent="." unique_id=1752396552 instance=ExtResource("2_panel")]
+transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 8.65, 2.25, -3.5)
+
+[node name="LightPanelR1" parent="." unique_id=883812613 instance=ExtResource("2_panel")]
+transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 8.65, 2.25, 3.5)
+
+[node name="Light" type="OmniLight3D" parent="." unique_id=64999969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.1, -3)
+light_color = Color(0.67, 0.8, 1, 1)
+light_energy = 0.6
+omni_range = 7.0
+
+[node name="Light2" type="OmniLight3D" parent="." unique_id=1679319432]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.1, -3)
+light_color = Color(0.67, 0.8, 1, 1)
+light_energy = 0.6
+omni_range = 7.0
+
+[node name="Light3" type="OmniLight3D" parent="." unique_id=1746690395]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.1, 3)
+light_color = Color(0.67, 0.8, 1, 1)
+light_energy = 0.6
+omni_range = 7.0
+
+[node name="Light4" type="OmniLight3D" parent="." unique_id=71833641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.1, 3)
+light_color = Color(0.67, 0.8, 1, 1)
+light_energy = 0.6
+omni_range = 7.0
+
+[node name="Light5" type="OmniLight3D" parent="." unique_id=790214513]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+light_color = Color(0.67, 0.8, 1, 1)
+light_energy = 0.6
+omni_range = 7.0
+
+[node name="Door_S" parent="." unique_id=563266050 instance=ExtResource("4_door")]
+transform = Transform3D(3.667, 0, 0, 0, 1.853, 0, 0, 0, 1.5, 0, 0, 7.225)
+script = ExtResource("3_door_gd")
+open_height = 3.0

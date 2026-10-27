@@ -22,9 +22,26 @@
 [ext_resource type="PackedScene" uid="uid://bfi03gfmkqmql" path="res://ship/corridorT.tscn" id="18_fksfb"]
 [ext_resource type="PackedScene" uid="uid://bo0nsh2wg1wlk" path="res://ship/corridorX.tscn" id="19_mov4m"]
 [ext_resource type="Script" uid="uid://b5c56ockk22b5" path="res://redbrick.gd" id="20_xlst1"]
+[ext_resource type="PackedScene" path="res://ship/segment_armory.tscn" id="21_trr13"]
 [ext_resource type="Texture2D" uid="uid://ce4rah4bewe4m" path="res://Textures/red/texture_02.png" id="22_0g8pr"]
 [ext_resource type="PackedScene" path="res://util/button3d.tscn" id="22_fksfb"]
+[ext_resource type="PackedScene" path="res://ship/segment_bathroom.tscn" id="22_rdoa2"]
+[ext_resource type="PackedScene" uid="uid://ddba3jy6r67ty" path="res://ship/segment_bridge.tscn" id="23_j14ou"]
 [ext_resource type="AudioStream" uid="uid://bkj3jytx2w2g3" path="res://sounds/the-sound-designer-electtic-button-on-sound-a-fl-mastyer-edited-and-final-520904.mp3" id="23_mov4m"]
+[ext_resource type="PackedScene" path="res://ship/segment_conference.tscn" id="24_w3duq"]
+[ext_resource type="PackedScene" path="res://ship/segment_lab_1.tscn" id="25_juvwl"]
+[ext_resource type="PackedScene" path="res://ship/segment_lab_2.tscn" id="26_d0im6"]
+[ext_resource type="PackedScene" path="res://ship/segment_lab_3.tscn" id="27_7th57"]
+[ext_resource type="PackedScene" path="res://ship/segment_mess_room.tscn" id="28_o06fa"]
+[ext_resource type="PackedScene" path="res://ship/segment_office_1.tscn" id="29_36hyx"]
+[ext_resource type="PackedScene" path="res://ship/segment_office_2.tscn" id="30_qu8an"]
+[ext_resource type="PackedScene" path="res://ship/segment_office_3.tscn" id="31_62mwm"]
+[ext_resource type="PackedScene" path="res://ship/segment_quarters.tscn" id="32_fpbvl"]
+[ext_resource type="PackedScene" path="res://ship/segment_reactor.tscn" id="33_ts5xk"]
+[ext_resource type="PackedScene" path="res://ship/segment_stairs.tscn" id="34_4uq31"]
+[ext_resource type="PackedScene" path="res://ship/segment_storage_1.tscn" id="35_ra3v4"]
+[ext_resource type="PackedScene" path="res://ship/segment_storage_2.tscn" id="36_6asb3"]
+[ext_resource type="PackedScene" path="res://ship/segment_storage_3.tscn" id="37_4gxs5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3x3nl"]
 sky_top_color = Color(0.080608286, 0.33735877, 0.45629174, 1)
@@ -319,14 +336,68 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10.
 [node name="CorridorL" parent="maps" unique_id=1826814691 instance=ExtResource("16_xlst1")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -11, 0, -11)
 
-[node name="CorridorL2" parent="maps" unique_id=629424594 instance=ExtResource("17_3y74d")]
+[node name="CorridorR" parent="maps" unique_id=629424594 instance=ExtResource("17_3y74d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 0)
 
-[node name="CorridorL3" parent="maps" unique_id=767641507 instance=ExtResource("18_fksfb")]
+[node name="CorridorT" parent="maps" unique_id=767641507 instance=ExtResource("18_fksfb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
 
-[node name="CorridorL4" parent="maps" unique_id=651135445 instance=ExtResource("19_mov4m")]
+[node name="CorridorX" parent="maps" unique_id=651135445 instance=ExtResource("19_mov4m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="newerMaps" type="Node3D" parent="maps" unique_id=752877039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 0)
+
+[node name="segment_armory" parent="maps/newerMaps" unique_id=356793826 instance=ExtResource("21_trr13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+
+[node name="segment_bathroom" parent="maps/newerMaps" unique_id=1485378782 instance=ExtResource("22_rdoa2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
+
+[node name="segment_bridge" parent="maps/newerMaps" unique_id=2107572205 instance=ExtResource("23_j14ou")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 60)
+
+[node name="segment_conference" parent="maps/newerMaps" unique_id=2120204586 instance=ExtResource("24_w3duq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 80)
+
+[node name="segment_lab_1" parent="maps/newerMaps" unique_id=940733135 instance=ExtResource("25_juvwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100)
+
+[node name="segment_lab_2" parent="maps/newerMaps" unique_id=520711421 instance=ExtResource("26_d0im6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 120)
+
+[node name="segment_lab_3" parent="maps/newerMaps" unique_id=900808167 instance=ExtResource("27_7th57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 140)
+
+[node name="segment_mess_room" parent="maps/newerMaps" unique_id=1913576745 instance=ExtResource("28_o06fa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 0, 160)
+
+[node name="segment_office_1" parent="maps/newerMaps" unique_id=15604832 instance=ExtResource("29_36hyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 0, 180)
+
+[node name="segment_office_2" parent="maps/newerMaps" unique_id=814734643 instance=ExtResource("30_qu8an")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 0, 200)
+
+[node name="segment_office_3" parent="maps/newerMaps" unique_id=1262343727 instance=ExtResource("31_62mwm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 0, 220)
+
+[node name="segment_quarters" parent="maps/newerMaps" unique_id=1455934887 instance=ExtResource("32_fpbvl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 0, 240)
+
+[node name="segment_reactor" parent="maps/newerMaps" unique_id=633305762 instance=ExtResource("33_ts5xk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 0, 260)
+
+[node name="segment_stairs" parent="maps/newerMaps" unique_id=413849430 instance=ExtResource("34_4uq31")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 0, 290)
+
+[node name="segment_storage_1" parent="maps/newerMaps" unique_id=1760949308 instance=ExtResource("35_ra3v4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 0, 310)
+
+[node name="segment_storage_2" parent="maps/newerMaps" unique_id=1190542172 instance=ExtResource("36_6asb3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 0, 330)
+
+[node name="segment_storage_3" parent="maps/newerMaps" unique_id=1221330038 instance=ExtResource("37_4gxs5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 0, 350)
 
 [node name="CharacterBody3DSource\'" parent="." unique_id=99275543 instance=ExtResource("9_f0sqy")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 3.34054, 0)

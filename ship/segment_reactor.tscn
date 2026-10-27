@@ -1,0 +1,526 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://dvmlqtuaebo0v" path="res://util/fanblade.tscn" id="1_fan"]
+[ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="2_panel"]
+[ext_resource type="Script" uid="uid://cq6v31x6kyxfs" path="res://util/door_airlock.gd" id="3_door_gd"]
+[ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="4_door"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 1
+background_color = Color(0.08013246, 0.080132596, 0.08013254, 1)
+sky = SubResource("sky")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="m_dark"]
+albedo_color = Color(0.13, 0.14, 0.16, 1)
+metallic = 0.3
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="m_core"]
+albedo_color = Color(0.2, 0.4, 0.8, 1)
+emission_enabled = true
+emission = Color(0.3, 0.6, 1, 1)
+emission_energy_multiplier = 4
+
+[sub_resource type="StandardMaterial3D" id="m_glass"]
+transparency = 1
+albedo_color = Color(0.53, 0.86, 1, 0.12)
+
+[sub_resource type="StandardMaterial3D" id="m_steel"]
+albedo_color = Color(0.45, 0.47, 0.5, 1)
+metallic = 0.6
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="m_orange"]
+albedo_color = Color(0.85, 0.42, 0.08, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="m_red"]
+albedo_color = Color(0.65, 0.08, 0.08, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="m_screen"]
+albedo_color = Color(0.05, 0.12, 0.15, 1)
+emission_enabled = true
+emission = Color(0.2, 0.85, 1, 1)
+emission_energy_multiplier = 1.6
+
+[sub_resource type="StandardMaterial3D" id="m_warn"]
+albedo_color = Color(0.9, 0.75, 0.05, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="m_lamp"]
+albedo_color = Color(0.67, 0.8, 1, 1)
+emission_enabled = true
+emission = Color(0.67, 0.8, 1, 1)
+emission_energy_multiplier = 4
+
+[node name="segment_reactor" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Shell" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+use_collision = true
+size = Vector3(20.9, 8.9, 24.9)
+
+[node name="Interior" type="CSGBox3D" parent="Shell"]
+operation = 2
+size = Vector3(20, 8, 24)
+
+[node name="ChamferL" type="CSGPolygon3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+polygon = PackedVector2Array(-10.02, 4.02, -9.3, 4.02, -10.02, 3.3)
+depth = 24
+
+[node name="ChamferR" type="CSGPolygon3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+polygon = PackedVector2Array(10.02, 4.02, 9.3, 4.02, 10.02, 3.3)
+depth = 24
+
+[node name="Doorway_N0" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -2.2, -11.875)
+operation = 2
+size = Vector3(5.4, 3.6, 1.35)
+
+[node name="Doorway_S1" type="CSGBox3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -2.2, 11.875)
+operation = 2
+size = Vector3(5.4, 3.6, 1.35)
+
+[node name="Props" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Glass" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CorePlate" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7, 0)
+radius = 4.2
+height = 0.2
+sides = 32
+material = SubResource("m_dark")
+
+[node name="Core" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+radius = 0.9
+height = 6.5
+sides = 20
+material = SubResource("m_core")
+
+[node name="CoreSleeve" type="CSGCylinder3D" parent="Glass"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+radius = 1.4
+height = 6.5
+sides = 24
+material = SubResource("m_glass")
+
+[node name="Ring" type="CSGTorus3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+inner_radius = 1.6
+outer_radius = 2.2
+sides = 24
+ring_sides = 10
+material = SubResource("m_steel")
+
+[node name="Ring2" type="CSGTorus3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+inner_radius = 1.6
+outer_radius = 2.2
+sides = 24
+ring_sides = 10
+material = SubResource("m_steel")
+
+[node name="Ring3" type="CSGTorus3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+inner_radius = 1.6
+outer_radius = 2.2
+sides = 24
+ring_sides = 10
+material = SubResource("m_steel")
+
+[node name="Ring4" type="CSGTorus3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+inner_radius = 1.6
+outer_radius = 2.2
+sides = 24
+ring_sides = 10
+material = SubResource("m_steel")
+
+[node name="Ring5" type="CSGTorus3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)
+inner_radius = 1.6
+outer_radius = 2.2
+sides = 24
+ring_sides = 10
+material = SubResource("m_steel")
+
+[node name="CoreCap" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.1, 0)
+radius = 2.4
+height = 0.4
+sides = 24
+material = SubResource("m_steel")
+
+[node name="CoreStrut" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.75, 0)
+radius = 0.8
+height = 0.9
+sides = 16
+material = SubResource("m_steel")
+
+[node name="Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_energy = 3
+omni_range = 14
+light_color = Color(0.3, 0.6, 1, 1)
+
+[node name="InjectorTank" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24264, 0.1, 4.24264)
+radius = 0.7
+height = 3.4
+sides = 16
+material = SubResource("m_orange")
+
+[node name="TankBand" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24264, -0.5, 4.24264)
+radius = 0.72
+height = 0.2
+sides = 16
+material = SubResource("m_red")
+
+[node name="TankBand2" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24264, 0.5, 4.24264)
+radius = 0.72
+height = 0.2
+sides = 16
+material = SubResource("m_red")
+
+[node name="Pipe" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(0.70711, 0.70711, 0, 0, 0, -1, -0.70711, 0.70711, 0, 2.65165, 1.2, 2.65165)
+radius = 0.12
+height = 3.1
+sides = 10
+material = SubResource("m_steel")
+
+[node name="InjectorTank2" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24264, 0.1, 4.24264)
+radius = 0.7
+height = 3.4
+sides = 16
+material = SubResource("m_orange")
+
+[node name="TankBand3" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24264, -0.5, 4.24264)
+radius = 0.72
+height = 0.2
+sides = 16
+material = SubResource("m_red")
+
+[node name="TankBand4" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24264, 0.5, 4.24264)
+radius = 0.72
+height = 0.2
+sides = 16
+material = SubResource("m_red")
+
+[node name="Pipe2" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(0.70711, -0.70711, 0, 0, 0, -1, 0.70711, 0.70711, 0, -2.65165, 1.2, 2.65165)
+radius = 0.12
+height = 3.1
+sides = 10
+material = SubResource("m_steel")
+
+[node name="InjectorTank3" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24264, 0.1, -4.24264)
+radius = 0.7
+height = 3.4
+sides = 16
+material = SubResource("m_orange")
+
+[node name="TankBand5" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24264, -0.5, -4.24264)
+radius = 0.72
+height = 0.2
+sides = 16
+material = SubResource("m_red")
+
+[node name="TankBand6" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24264, 0.5, -4.24264)
+radius = 0.72
+height = 0.2
+sides = 16
+material = SubResource("m_red")
+
+[node name="Pipe3" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(-0.70711, -0.70711, 0, 0, 0, -1, 0.70711, -0.70711, 0, -2.65165, 1.2, -2.65165)
+radius = 0.12
+height = 3.1
+sides = 10
+material = SubResource("m_steel")
+
+[node name="InjectorTank4" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24264, 0.1, -4.24264)
+radius = 0.7
+height = 3.4
+sides = 16
+material = SubResource("m_orange")
+
+[node name="TankBand7" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24264, -0.5, -4.24264)
+radius = 0.72
+height = 0.2
+sides = 16
+material = SubResource("m_red")
+
+[node name="TankBand8" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24264, 0.5, -4.24264)
+radius = 0.72
+height = 0.2
+sides = 16
+material = SubResource("m_red")
+
+[node name="Pipe4" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(-0.70711, 0.70711, 0, 0, 0, -1, -0.70711, -0.70711, 0, 2.65165, 1.2, -2.65165)
+radius = 0.12
+height = 3.1
+sides = 10
+material = SubResource("m_steel")
+
+[node name="Pipe5" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -9.4, -0.8, 0)
+radius = 0.15
+height = 22
+sides = 10
+material = SubResource("m_steel")
+
+[node name="Pipe6" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -9.4, 0, 0)
+radius = 0.15
+height = 22
+sides = 10
+material = SubResource("m_steel")
+
+[node name="Pipe7" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -9.4, 0.8, 0)
+radius = 0.15
+height = 22
+sides = 10
+material = SubResource("m_steel")
+
+[node name="PipeSupport" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.7, -0.2, -8)
+size = Vector3(0.3, 3.2, 0.3)
+material = SubResource("m_dark")
+
+[node name="PipeSupport2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.7, -0.2, -3)
+size = Vector3(0.3, 3.2, 0.3)
+material = SubResource("m_dark")
+
+[node name="PipeSupport3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.7, -0.2, 3)
+size = Vector3(0.3, 3.2, 0.3)
+material = SubResource("m_dark")
+
+[node name="PipeSupport4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.7, -0.2, 8)
+size = Vector3(0.3, 3.2, 0.3)
+material = SubResource("m_dark")
+
+[node name="ConsoleBase" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8.5, -1.325, -6)
+size = Vector3(3, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, -0.34202, -0.93969, 0, 0.93969, -0.34202, 1, 0, 0, 8.45, -0.765, -6)
+size = Vector3(2.8, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="ConsoleBase2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8.5, -1.325, -2.5)
+size = Vector3(3, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, -0.34202, -0.93969, 0, 0.93969, -0.34202, 1, 0, 0, 8.45, -0.765, -2.5)
+size = Vector3(2.8, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="ConsoleBase3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8.5, -1.325, 1)
+size = Vector3(3, 0.95, 0.8)
+material = SubResource("m_dark")
+
+[node name="ConsoleScreen3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(0, -0.34202, -0.93969, 0, 0.93969, -0.34202, 1, 0, 0, 8.45, -0.765, 1)
+size = Vector3(2.8, 0.07, 0.7)
+material = SubResource("m_screen")
+
+[node name="CoolantTank" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6, 0.7, 8)
+radius = 1.2
+height = 5
+sides = 20
+material = SubResource("m_steel")
+
+[node name="TankBand9" type="CSGCylinder3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6, -0.15, 8)
+radius = 1.22
+height = 0.3
+sides = 20
+material = SubResource("m_warn")
+
+[node name="PelletVault" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.5, -11.2)
+size = Vector3(6, 2.6, 1.2)
+material = SubResource("m_dark")
+
+[node name="VaultLabel" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.1, -10.58)
+size = Vector3(5, 0.2, 0.03)
+material = SubResource("m_red")
+
+[node name="Fan" parent="." instance=ExtResource("1_fan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 4.8, -2)
+
+[node name="Fan2" parent="." instance=ExtResource("1_fan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 4.8, 3)
+
+[node name="LightPanelL0" parent="." instance=ExtResource("2_panel")]
+transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -9.65, 5.85, -8)
+
+[node name="LightPanelL1" parent="." instance=ExtResource("2_panel")]
+transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -9.65, 5.85, 0)
+
+[node name="LightPanelL2" parent="." instance=ExtResource("2_panel")]
+transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -9.65, 5.85, 8)
+
+[node name="LightPanelR0" parent="." instance=ExtResource("2_panel")]
+transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 9.65, 5.85, -8)
+
+[node name="LightPanelR1" parent="." instance=ExtResource("2_panel")]
+transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 9.65, 5.85, 0)
+
+[node name="LightPanelR2" parent="." instance=ExtResource("2_panel")]
+transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 9.65, 5.85, 8)
+
+[node name="LampBody" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 6.15, -8)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 6.08, -8)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 5.7, -8)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6.15, -8)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6.08, -8)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 5.7, -8)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 6.15, 8)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow3" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 6.08, 8)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 5.7, 8)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6.15, 8)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow4" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6.08, 8)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 5.7, 8)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 6.15, 0)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow5" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 6.08, 0)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 5.7, 0)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="LampBody6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6.15, 0)
+size = Vector3(2.2, 0.1, 0.7)
+material = SubResource("m_dark")
+
+[node name="LampGlow6" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6.08, 0)
+size = Vector3(2, 0.04, 0.5)
+material = SubResource("m_lamp")
+
+[node name="Light7" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 5.7, 0)
+light_energy = 0.6
+omni_range = 7
+light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="Door_N" parent="." instance=ExtResource("4_door")]
+transform = Transform3D(3.667, 0, 0, 0, 1.853, 0, 0, 0, 1.5, -6, 0, -12.225)
+script = ExtResource("3_door_gd")
+open_height = 3.0
+open_range = 4.0
+
+[node name="Door_S" parent="." instance=ExtResource("4_door")]
+transform = Transform3D(3.667, 0, 0, 0, 1.853, 0, 0, 0, 1.5, 6, 0, 12.225)
+script = ExtResource("3_door_gd")
+open_height = 3.0
+open_range = 4.0
