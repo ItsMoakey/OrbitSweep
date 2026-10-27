@@ -590,17 +590,22 @@ func _push_away_rigid_bodies() -> void:
 		var delta_v := push_dir * velocity_diff_in_push_dir * match_fraction
 		body.apply_impulse(delta_v * body.mass, c.get_position() - body.global_position)
 
-# Portal support for held objects. If the line from the camera to the hold point passes
-# through a portal, the hold point also exists on the far side, where it comes out of the
-# linked portal. Returns the transform that maps this side to that side, or IDENTITY if
-# no portal applies. It picks whichever hold point is closer to the object, so the object
-# walks up to the portal, gets teleported by the portal itself, and from then on follows
-# the mapped hold point instead of being dragged across the map.
-func _hold_portal_xf(from: Vector3, point: Vector3) -> Transform3D:
+# Portal support for held objects. The hold point can also be seen "through" any portal, at
+# the spot where it would come out of the linked portal. Returns the transform for whichever
+# version of the hold point is closest to the object (IDENTITY for the normal one), so:
+# - walking in, the object goes up to the portal, gets teleported by the portal itself, and
+#   from then on follows the mapped hold point;
+# - backing out, with the object still on the far side, the mapped hold point is still the
+#   close one, so the object is pulled back through the portal instead of being dragged
+#   across the map and dropped at grab_break_distance.
+# It deliberately does not require the line from the camera to cross the opening: that stops
+# being true as soon as you step back, while the object is still on the other side.
+# Needs map_transform() from portal.gd.
+func _hold_portal_xf(_from: Vector3, point: Vector3) -> Transform3D:
 	var best := Transform3D.IDENTITY
 	var best_d := held_body.global_position.distance_squared_to(point)
 	for p in get_tree().get_nodes_in_group("portals"):
-		var m: Variant = p.through_transform(from, point)
+		var m: Variant = p.map_transform()
 		if m == null:
 			continue
 		var mt: Transform3D = m

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cyexfbwusy7pf" path="res://util/CSGStairMaker3D.tscn" id="2_c41x8"]
 [ext_resource type="Texture2D" uid="uid://c00i7kfuhqraa" path="res://Textures/light/texture_02.png" id="3_2bq1k"]
 [ext_resource type="Texture2D" uid="uid://bblkf8t5n2tcj" path="res://Textures/black/texture_02.png" id="4_l2eny"]
+[ext_resource type="Texture2D" uid="uid://6w2hvj3l1tr5" path="res://Textures/orange/texture_02.png" id="5_5goyp"]
 [ext_resource type="Texture2D" uid="uid://dnrql3yvtujki" path="res://Textures/green/texture_01.png" id="5_uf3qf"]
 [ext_resource type="Texture2D" uid="uid://uoojfpsgd7e7" path="res://Textures/purple/texture_01.png" id="6_1rvxr"]
 [ext_resource type="Texture2D" uid="uid://csrpdkkic80ua" path="res://Textures/red/texture_01.png" id="7_5veim"]
@@ -21,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bfi03gfmkqmql" path="res://ship/corridorT.tscn" id="18_fksfb"]
 [ext_resource type="PackedScene" uid="uid://bo0nsh2wg1wlk" path="res://ship/corridorX.tscn" id="19_mov4m"]
 [ext_resource type="Script" uid="uid://b5c56ockk22b5" path="res://redbrick.gd" id="20_xlst1"]
+[ext_resource type="Texture2D" uid="uid://ce4rah4bewe4m" path="res://Textures/red/texture_02.png" id="22_0g8pr"]
 [ext_resource type="PackedScene" path="res://util/button3d.tscn" id="22_fksfb"]
 [ext_resource type="AudioStream" uid="uid://bkj3jytx2w2g3" path="res://sounds/the-sound-designer-electtic-button-on-sound-a-fl-mastyer-edited-and-final-520904.mp3" id="23_mov4m"]
 
@@ -49,6 +51,9 @@ albedo_texture = ExtResource("4_l2eny")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l2eny"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6cjpo"]
+albedo_texture = ExtResource("5_5goyp")
+
 [sub_resource type="BoxMesh" id="BoxMesh_u8a3u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_armay"]
@@ -62,6 +67,18 @@ albedo_texture = ExtResource("4_l2eny")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r80sc"]
 albedo_texture = ExtResource("4_l2eny")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qwur"]
+albedo_texture = ExtResource("5_5goyp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1u7ys"]
+albedo_texture = ExtResource("5_5goyp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kypq"]
+albedo_texture = ExtResource("5_5goyp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_icab8"]
+albedo_texture = ExtResource("5_5goyp")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bk3rh"]
 albedo_texture = ExtResource("6_1rvxr")
 
@@ -73,6 +90,9 @@ albedo_texture = ExtResource("8_af0yj")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfioc"]
 albedo_texture = ExtResource("5_uf3qf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_km2h0"]
+albedo_texture = ExtResource("22_0g8pr")
 
 [node name="world" type="Node3D" unique_id=1312690005]
 
@@ -125,6 +145,7 @@ mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_l2eny")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/RigidBody3D" unique_id=723966296]
+material_override = SubResource("StandardMaterial3D_6cjpo")
 mesh = SubResource("BoxMesh_u8a3u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/RigidBody3D" unique_id=2057146514]
@@ -205,6 +226,7 @@ mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_l2eny")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/RigidBody3D2" unique_id=1707752079]
+material_override = SubResource("StandardMaterial3D_3qwur")
 mesh = SubResource("BoxMesh_u8a3u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/RigidBody3D2" unique_id=275663461]
@@ -216,6 +238,7 @@ mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_l2eny")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/RigidBody3D3" unique_id=514700493]
+material_override = SubResource("StandardMaterial3D_1u7ys")
 mesh = SubResource("BoxMesh_u8a3u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/RigidBody3D3" unique_id=91451969]
@@ -227,6 +250,7 @@ mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_l2eny")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/RigidBody3D4" unique_id=1529439288]
+material_override = SubResource("StandardMaterial3D_2kypq")
 mesh = SubResource("BoxMesh_u8a3u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/RigidBody3D4" unique_id=1597441506]
@@ -238,6 +262,7 @@ mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_l2eny")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/RigidBody3D5" unique_id=704809497]
+material_override = SubResource("StandardMaterial3D_icab8")
 mesh = SubResource("BoxMesh_u8a3u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/RigidBody3D5" unique_id=51235717]
@@ -313,6 +338,7 @@ grab_break_distance = 5.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2095061043]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9404564, 1.2593441, 4.860695)
+material_override = SubResource("StandardMaterial3D_km2h0")
 script = ExtResource("20_xlst1")
 damage_amount = 100
 damage_interval = 20.0

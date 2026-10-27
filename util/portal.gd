@@ -33,6 +33,8 @@ const VIEW_SHADER := preload("res://util/portal.gdshader")
 const ZONE_FRONT := 2.0 # prop detection volume: this far in front of the plane...
 const ZONE_BACK := 1.0  # ...and this far behind it
 const THIN_DEPTH := 0.002 # portal surface depth when the player's camera is not near it
+const LANE_MARGIN := 0.5  # a held object counts as "in the portal" this far outside the opening...
+const LANE_DEPTH := 4.0   # ...and up to this far in front of it (a bit over the longest hold distance)
 
 var _viewport: SubViewport
 var _camera: Camera3D
@@ -106,6 +108,7 @@ func _build_view() -> void:
 	_mat.shader = VIEW_SHADER
 	_mat.set_shader_parameter("view_tex", _viewport.get_texture())
 	_mesh.material_override = _mat
+	_mesh.visible = false # shown by _process once there's a view to show
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint() or target == null or _camera == null:
@@ -114,10 +117,14 @@ func _process(_delta: float) -> void:
 	if main_cam == null:
 		return
 
-	# Only render when the viewer is on the visible side and close enough.
+	# Only show and render the portal while the viewer is on the visible (front) side and close
+	# enough. Otherwise the surface is hidden outright: a stopped view would leave it showing
+	# the last frame it rendered, and the portal should be transparent from behind.
 	var my_inv := _xf().affine_inverse()
 	var viewer_local := my_inv * main_cam.global_position
-	var active := viewer_local.z < 0.5 and main_cam.global_position.distance_to(global_position) < max_render_distance
+	var active := viewer_local.z < 0.0 and main_cam.global_position.distance_to(global_position) < max_render_distance
+	if _mesh.visible != active:
+		_mesh.visible = active
 	_update_screen_depth(main_cam, viewer_local.z if active else INF)
 	_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS if active else SubViewport.UPDATE_DISABLED
 	if not active:
@@ -240,6 +247,17 @@ func through_transform(from: Vector3, to: Vector3) -> Variant:
 		return null
 	return target._xf() * _flip * inv
 
+# The transform that carries a point from this portal's side to the target's side, whether or
+# not anything is passing through the opening right now (null if there's no target). The
+# player controller uses it to keep a held object attached to the hold point while the
+# object is on the far side and the hold point has already come back out in front of this
+# portal, e.g. backing away from the portal. The object is then pulled back through instead
+# of being dragged across the map and dropped for being too far from the hold point.
+func map_transform() -> Variant:
+	if target == null:
+		return null
+	return target._xf() * _flip * _xf().affine_inverse()
+
 func _update_bodies() -> void:
 	if _zone == null:
 		return
@@ -306,7 +324,28 @@ func _physics_process(_delta: float) -> void:
 	_last_local = local
 	_has_last = true
 
+# What the player is holding only stays held across the swap if it goes through with them:
+# lined up with this portal's opening (still on this side, about to follow) or with the
+# target's opening (already came through). Otherwise, e.g. strafing through sideways while
+# the cube is held off to the side, it's let go instead of being dragged around.
+func _drop_held_if_left_behind(body: Node) -> void:
+	var held: Variant = body.get("held_body")
+	if held == null or not is_instance_valid(held) or not (held is RigidBody3D):
+		return
+	var pos: Vector3 = (held as RigidBody3D).global_position
+	if _in_lane(pos) or target._in_lane(pos):
+		return
+	if body.has_method("_release_grab"):
+		body.call("_release_grab")
+
+func _in_lane(world_pos: Vector3) -> bool:
+	var l := _xf().affine_inverse() * world_pos
+	return absf(l.x) <= size.x * 0.5 + LANE_MARGIN \
+			and absf(l.y) <= size.y * 0.5 + LANE_MARGIN \
+			and l.z >= -LANE_DEPTH and l.z <= 1.0
+
 func _teleport(body: CharacterBody3D) -> void:
+	_drop_held_if_left_behind(body)
 	var m := target._xf() * _flip * _xf().affine_inverse()
 	var new_xf := m * body.global_transform
 	new_xf.basis = new_xf.basis.orthonormalized()

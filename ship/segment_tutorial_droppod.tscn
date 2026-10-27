@@ -3,7 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="1_tv65y"]
 [ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="2_dwov1"]
 [ext_resource type="PackedScene" uid="uid://dtsvogyxv35kk" path="res://util/tubes.tscn" id="3_dwov1"]
+[ext_resource type="Script" uid="uid://cq6v31x6kyxfs" path="res://util/door_airlock.gd" id="3_elbvl"]
 [ext_resource type="PackedScene" uid="uid://c5cfm04j0ptfn" path="res://util/seat.tscn" id="4_6282x"]
+[ext_resource type="PackedScene" path="res://util/button3d.tscn" id="4_daohy"]
 [ext_resource type="PackedScene" uid="uid://xx2eswguoete" path="res://util/screen_with_arm.tscn" id="6_o74wn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dwov1"]
@@ -103,6 +105,9 @@ height = 3.7
 
 [node name="Door_Airlock" parent="DropPod" unique_id=622802916 instance=ExtResource("2_dwov1")]
 transform = Transform3D(4.0749483, 0, 0, 0, 2.0594144, 0, 0, 0, 1.6666665, 0, 0, 4.482705)
+script = ExtResource("3_elbvl")
+open_height = 3.0
+auto_open = false
 
 [node name="CSGCylinder3D3" type="CSGCylinder3D" parent="DropPod" unique_id=63381758]
 transform = Transform3D(0.7071066, -3.0908613e-08, 0.7071066, -0.7071066, -3.0908613e-08, 0.7071066, 0, -0.99999976, -4.371138e-08, -2.4, 1.6, 0)
@@ -123,6 +128,11 @@ height = 3.7
 transform = Transform3D(1.6666665, 0, 0, 0, 1.6666665, 0, 0, 0, 1.6666665, 0, 2.967529, -3.333333)
 operation = 2
 size = Vector3(1.2, 1.4389648, 0.8)
+
+[node name="Button3D" parent="DropPod" unique_id=1036495452 node_paths=PackedStringArray("targets") instance=ExtResource("4_daohy")]
+transform = Transform3D(-6.8888893, -2.2703952e-15, 9.7136386e-08, 3.0112298e-07, 0.96225053, 0.55555534, -5.2156025e-07, 0.5555556, -0.96225005, 0, 0, -2.8589277)
+targets = [NodePath("../Door_Airlock")]
+toggle_mode = true
 
 [node name="Cockpit Door" type="Node3D" parent="." unique_id=1394019088]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8696487, -3.477181)
