@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://c5cfm04j0ptfn" path="res://util/seat.tscn" id="1_seat"]
 [ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="2_panel"]
-[ext_resource type="Script" uid="uid://cq6v31x6kyxfs" path="res://util/door_airlock.gd" id="3_door_gd"]
-[ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="4_door"]
+[ext_resource type="Script" uid="uid://k6nyes4faobv" path="res://generation/door_socket.gd" id="door_socket_script"]
+[ext_resource type="Script" uid="uid://bkqw7rl2ebuf7" path="res://generation/ship_room.gd" id="ship_room_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -44,6 +44,9 @@ emission = Color(0.67, 0.8, 1, 1)
 emission_energy_multiplier = 4.0
 
 [node name="segment_bridge" type="Node3D" unique_id=137978845]
+script = ExtResource("ship_room_script")
+room_kind = &"bridge"
+bounds = AABB(-9.45, -2.25, -7.45, 18.9, 5.3, 14.9)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=213685449]
 environment = SubResource("env")
@@ -359,7 +362,8 @@ light_color = Color(0.67, 0.8, 1, 1)
 light_energy = 0.6
 omni_range = 7.0
 
-[node name="Door_S" parent="." unique_id=563266050 instance=ExtResource("4_door")]
-transform = Transform3D(3.667, 0, 0, 0, 1.853, 0, 0, 0, 1.5, 0, 0, 7.225)
-script = ExtResource("3_door_gd")
-open_height = 3.0
+[node name="Doors" type="Node3D" parent="." unique_id=1805990451]
+
+[node name="S0" type="Marker3D" parent="Doors" unique_id=337622972]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 7.45)
+script = ExtResource("door_socket_script")

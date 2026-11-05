@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://bpt7g25d4scqd"]
+
+[ext_resource type="Script" uid="uid://b31u1gldr8qk6" path="res://generation/generated_ship.gd" id="1_level"]
+[ext_resource type="PackedScene" uid="uid://b1j33svxmsro6" path="res://New Controller/SourceFPSController.tscn" id="2_player"]
+[ext_resource type="Script" uid="uid://et1g3x4ylw0v" path="res://generation/ship_generator.gd" id="3_generator"]
+[ext_resource type="Script" uid="uid://c12f0r7hl8gvu" path="res://generation/room_visibility.gd" id="4_visibility"]
+[ext_resource type="Script" uid="uid://np05n6315io2" path="res://generation/ship_map.gd" id="5_map"]
+
+[sub_resource type="Environment" id="Environment_ship"]
+background_mode = 1
+background_color = Color(0.025, 0.03, 0.04, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.45, 0.5, 0.6, 1)
+ambient_light_energy = 0.35
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="GeneratedShip" type="Node3D" unique_id=2129767306]
+script = ExtResource("1_level")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=792534604]
+environment = SubResource("Environment_ship")
+
+[node name="Player" parent="." unique_id=1591037852 instance=ExtResource("2_player")]
+thruster_max_db = -10.0
+
+[node name="Ship" type="Node3D" parent="." unique_id=2093084406]
+script = ExtResource("3_generator")
+
+[node name="RoomVisibility" type="Node" parent="." unique_id=1089170974]
+script = ExtResource("4_visibility")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=131107186]
+
+[node name="Status" type="Label" parent="HUD" unique_id=177277002]
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 616.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0.88, 0.92, 0.96, 0.85)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 14
+text = "Generating ship..."
+
+[node name="MapHint" type="Label" parent="HUD" unique_id=1388888377]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -36.0
+offset_right = 316.0
+offset_bottom = -12.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.8, 0.8, 0.76, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 14
+text = "[TAB] Map - reveals as you explore"
+
+[node name="ShipMap" type="Control" parent="HUD" unique_id=2076184540]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_map")

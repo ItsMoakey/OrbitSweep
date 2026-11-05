@@ -18,7 +18,7 @@ material = SubResource("StandardMaterial3D_jyf5k")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xsp0g"]
 albedo_texture = ExtResource("2_varjv")
 
-[node name="CharacterBody3DSource\'" type="CharacterBody3D" unique_id=605111965]
+[node name="CharacterBody3DSource" type="CharacterBody3D" unique_id=605111965]
 script = ExtResource("1_xqcc5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1099664219]

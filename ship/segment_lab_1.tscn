@@ -1,5 +1,8 @@
 [gd_scene format=3]
 
+[ext_resource type="Script" path="res://generation/ship_room.gd" id="ship_room_script"]
+[ext_resource type="Script" path="res://generation/door_socket.gd" id="door_socket_script"]
+
 [ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="1_panel"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
@@ -61,6 +64,10 @@ emission = Color(0.67, 0.8, 1, 1)
 emission_energy_multiplier = 4
 
 [node name="segment_lab_1" type="Node3D"]
+script = ExtResource("ship_room_script")
+room_kind = &"lab"
+bounds = AABB(-6.45, -2.25, -7.45, 12.9, 4.5, 14.9)
+selection_weight = 1.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("env")
@@ -310,3 +317,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.3, 3.5)
 light_energy = 0.6
 omni_range = 7
 light_color = Color(0.67, 0.8, 1, 1)
+
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="N0" type="Marker3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.45)
+script = ExtResource("door_socket_script")
+opening_size = Vector2(5.4, 3.6)
+
+[node name="S1" type="Marker3D" parent="Doors"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 7.45)
+script = ExtResource("door_socket_script")
+opening_size = Vector2(5.4, 3.6)

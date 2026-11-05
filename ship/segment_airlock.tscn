@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="2_idohb"]
 [ext_resource type="PackedScene" uid="uid://dvmlqtuaebo0v" path="res://util/fanblade.tscn" id="3_x66p3"]
-[ext_resource type="PackedScene" uid="uid://c1u6e2e6lvwe4" path="res://util/door_airlock.tscn" id="4_coiu6"]
 [ext_resource type="PackedScene" uid="uid://dtsvogyxv35kk" path="res://util/tubes.tscn" id="4_idohb"]
-[ext_resource type="Script" uid="uid://cq6v31x6kyxfs" path="res://util/door_airlock.gd" id="4_x66p3"]
+[ext_resource type="Script" uid="uid://k6nyes4faobv" path="res://generation/door_socket.gd" id="door_socket_script"]
+[ext_resource type="Script" uid="uid://bkqw7rl2ebuf7" path="res://generation/ship_room.gd" id="ship_room_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lwwqe"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,6 +27,9 @@ transparency = 1
 albedo_color = Color(0, 0, 0, 0.9411765)
 
 [node name="segment_airlock" type="Node3D" unique_id=1411259013]
+script = ExtResource("ship_room_script")
+room_kind = &"airlock"
+bounds = AABB(-4.5, -2.25, -4.5, 9, 5.33, 9)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1981777638]
 environment = SubResource("Environment_f2xa5")
@@ -203,20 +206,18 @@ transform = Transform3D(0.49999988, 0, 0, 0, 0.49999988, 0, 0, 0, 0.49999988, 0,
 [node name="fanblade2" parent="Airlock" unique_id=720743509 instance=ExtResource("3_x66p3")]
 transform = Transform3D(0.49999988, 0, 0, 0, 0.49999988, 0, 0, 0, 0.49999988, 0, 2.3, -2)
 
-[node name="Door_Airlock" parent="Airlock" unique_id=1005227444 instance=ExtResource("4_coiu6")]
-transform = Transform3D(4.0749483, 0, 0, 0, 2.0594144, 0, 0, 0, 1.6666665, 0, 0, 4.482705)
-script = ExtResource("4_x66p3")
-open_height = 3.0
-open_range = 2.0
-
-[node name="Door_Airlock2" parent="Airlock" unique_id=965177558 instance=ExtResource("4_coiu6")]
-transform = Transform3D(4.0749483, 0, 0, 0, 2.0594144, 0, 0, 0, 1.6666665, 0, 0, -4.464163)
-script = ExtResource("4_x66p3")
-open_height = 3.0
-open_range = 2.0
-
 [node name="Tubes" parent="Airlock" unique_id=2108472694 instance=ExtResource("4_idohb")]
 transform = Transform3D(0, 5.5732386e-08, 1.0000001, 1, -8.364233e-08, -3.7515733e-08, 2.9802322e-08, 1.8700686, 0, -0.75, 1.2, 0)
 
 [node name="Tubes2" parent="Airlock" unique_id=310617130 instance=ExtResource("4_idohb")]
 transform = Transform3D(0, -2.1921898e-07, -1.0000001, 1, 2.7822445e-08, -3.7515736e-08, 2.9802322e-08, -1.8700686, 8.7422784e-08, 0.75, 1.2, 0)
+
+[node name="Doors" type="Node3D" parent="." unique_id=2022912415]
+
+[node name="N0" type="Marker3D" parent="Doors" unique_id=788646656]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.5)
+script = ExtResource("door_socket_script")
+
+[node name="S1" type="Marker3D" parent="Doors" unique_id=644679282]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 4.5)
+script = ExtResource("door_socket_script")

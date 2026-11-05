@@ -1,5 +1,8 @@
 [gd_scene format=3]
 
+[ext_resource type="Script" path="res://generation/ship_room.gd" id="ship_room_script"]
+[ext_resource type="Script" path="res://generation/door_socket.gd" id="door_socket_script"]
+
 [ext_resource type="PackedScene" uid="uid://cyexfbwusy7pf" path="res://util/CSGStairMaker3D.tscn" id="1_stairs"]
 [ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="2_panel"]
 
@@ -31,6 +34,10 @@ emission = Color(0.67, 0.8, 1, 1)
 emission_energy_multiplier = 4
 
 [node name="segment_stairs" type="Node3D"]
+script = ExtResource("ship_room_script")
+room_kind = &"stairs"
+bounds = AABB(-4.45, -2.25, -9.45, 8.9, 8.5, 18.9)
+selection_weight = 1.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("env")
@@ -178,3 +185,15 @@ transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 3.65,
 
 [node name="LightPanelR1" parent="." instance=ExtResource("2_panel")]
 transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 3.65, 5.45, 4.5)
+
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="S0" type="Marker3D" parent="Doors"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 9.45)
+script = ExtResource("door_socket_script")
+opening_size = Vector2(5.4, 3.6)
+
+[node name="N1" type="Marker3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -9.45)
+script = ExtResource("door_socket_script")
+opening_size = Vector2(5.4, 3.6)

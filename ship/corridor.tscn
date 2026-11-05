@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://7qu4vypudlrl"]
 
 [ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="1_1y3cd"]
+[ext_resource type="Script" uid="uid://k6nyes4faobv" path="res://generation/door_socket.gd" id="door_socket_script"]
+[ext_resource type="PackedScene" uid="uid://dvmlqtuaebo0v" path="res://util/fanblade.tscn" id="fanblade"]
+[ext_resource type="Script" uid="uid://bkqw7rl2ebuf7" path="res://generation/ship_room.gd" id="ship_room_script"]
+
+[sub_resource type="StandardMaterial3D" id="vent_dark"]
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1y3cd"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -19,6 +25,9 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="corridor" type="Node3D" unique_id=676950306]
+script = ExtResource("ship_room_script")
+room_kind = &"corridor"
+bounds = AABB(-4.5, -2.25, -9.675, 9, 5.33, 19.35)
 
 [node name="Airlock" type="CSGBox3D" parent="." unique_id=148128361]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
@@ -30,25 +39,17 @@ transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0,
 operation = 2
 size = Vector3(6, 4, 22)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Airlock" unique_id=1211333093]
-transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, -3, 2, -5.555556)
-size = Vector3(1, 3, 10)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Airlock" unique_id=1291278177]
-transform = Transform3D(-0.70710677, 0.70710677, 0, -0.70710677, -0.70710677, 0, 0, 0, 1, 3, 2, -5.555556)
-size = Vector3(1, 3, 10)
-
 [node name="LightPanel2" parent="Airlock" unique_id=1430555084 instance=ExtResource("1_1y3cd")]
-transform = Transform3D(-4.3711392e-08, 0.70710677, 0.70710677, 0, 0.70710677, -0.70710677, -1, -3.090862e-08, -3.090862e-08, 2.5, 1.7, -8.555555)
+transform = Transform3D(0, 0.4596194, 0.4596194, 0, 0.4596194, -0.4596194, -0.65, 0, 0, 2.5, 1.53, -8.555555)
 
 [node name="LightPanel3" parent="Airlock" unique_id=1112041674 instance=ExtResource("1_1y3cd")]
-transform = Transform3D(-4.3711385e-08, -0.70710677, 0.7071067, 0, 0.7071067, 0.70710677, -0.99999994, 3.090862e-08, -3.090862e-08, -2.4999998, 1.7, -8.555555)
+transform = Transform3D(0, -0.4596194, 0.4596194, 0, 0.4596194, 0.4596194, -0.65, 0, 0, -2.5, 1.53, -8.555555)
 
 [node name="LightPanel4" parent="Airlock" unique_id=230515932 instance=ExtResource("1_1y3cd")]
-transform = Transform3D(-4.3711385e-08, 0.7071067, 0.7071067, 0, 0.7071067, -0.7071067, -0.99999976, -3.090862e-08, -3.090862e-08, 2.5, 1.7, -2.5555558)
+transform = Transform3D(0, 0.4596194, 0.4596194, 0, 0.4596194, -0.4596194, -0.65, 0, 0, 2.5, 1.53, -2.5555558)
 
 [node name="LightPanel5" parent="Airlock" unique_id=1517636460 instance=ExtResource("1_1y3cd")]
-transform = Transform3D(-4.3711385e-08, -0.7071067, 0.7071067, 0, 0.7071067, 0.7071067, -0.99999976, 3.090862e-08, -3.090862e-08, -2.5, 1.7, -2.5555558)
+transform = Transform3D(0, -0.4596194, 0.4596194, 0, 0.4596194, 0.4596194, -0.65, 0, 0, -2.5, 1.53, -2.5555558)
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="Airlock" unique_id=1305879557]
 transform = Transform3D(0.70710665, -3.0908613e-08, 0.70710665, -0.70710665, -3.0908613e-08, 0.70710665, 0, -0.99999976, -4.3711385e-08, -2.4, 1.6, -5.555556)
@@ -80,25 +81,17 @@ transform = Transform3D(0.70710665, -3.0908613e-08, 0.70710665, -0.70710665, -3.
 radius = 0.05
 height = 3.7
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="Airlock" unique_id=1358893289]
-transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, -3, 2, 5.555556)
-size = Vector3(1, 3, 10)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Airlock" unique_id=1368786334]
-transform = Transform3D(-0.70710677, 0.70710677, 0, -0.70710677, -0.70710677, 0, 0, 0, 1, 3, 2, 5.555556)
-size = Vector3(1, 3, 10)
-
 [node name="LightPanel6" parent="Airlock" unique_id=320919386 instance=ExtResource("1_1y3cd")]
-transform = Transform3D(-4.3711392e-08, 0.70710677, 0.70710677, 0, 0.70710677, -0.70710677, -1, -3.090862e-08, -3.090862e-08, 2.5, 1.7, 2.5555558)
+transform = Transform3D(0, 0.4596194, 0.4596194, 0, 0.4596194, -0.4596194, -0.65, 0, 0, 2.5, 1.53, 2.5555558)
 
 [node name="LightPanel7" parent="Airlock" unique_id=1309875781 instance=ExtResource("1_1y3cd")]
-transform = Transform3D(-4.3711385e-08, -0.70710677, 0.7071067, 0, 0.7071067, 0.70710677, -0.99999994, 3.090862e-08, -3.090862e-08, -2.4999998, 1.7, 2.5555558)
+transform = Transform3D(0, -0.4596194, 0.4596194, 0, 0.4596194, 0.4596194, -0.65, 0, 0, -2.5, 1.53, 2.5555558)
 
 [node name="LightPanel8" parent="Airlock" unique_id=578872823 instance=ExtResource("1_1y3cd")]
-transform = Transform3D(-4.3711385e-08, 0.7071067, 0.7071067, 0, 0.7071067, -0.7071067, -0.99999976, -3.090862e-08, -3.090862e-08, 2.5, 1.7, 8.555555)
+transform = Transform3D(0, 0.4596194, 0.4596194, 0, 0.4596194, -0.4596194, -0.65, 0, 0, 2.5, 1.53, 8.555555)
 
 [node name="LightPanel9" parent="Airlock" unique_id=1846817759 instance=ExtResource("1_1y3cd")]
-transform = Transform3D(-4.3711385e-08, -0.7071067, 0.7071067, 0, 0.7071067, 0.7071067, -0.99999976, 3.090862e-08, -3.090862e-08, -2.5, 1.7, 8.555555)
+transform = Transform3D(0, -0.4596194, 0.4596194, 0, 0.4596194, 0.4596194, -0.65, 0, 0, -2.5, 1.53, 8.555555)
 
 [node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Airlock" unique_id=1108295513]
 transform = Transform3D(0.70710665, -3.0908613e-08, 0.70710665, -0.70710665, -3.0908613e-08, 0.70710665, 0, -0.99999976, -4.3711385e-08, -2.4, 1.6, 5.555556)
@@ -130,5 +123,191 @@ transform = Transform3D(0.70710665, -3.0908613e-08, 0.70710665, -0.70710665, -3.
 radius = 0.05
 height = 3.7
 
+[node name="CornerBevels" type="CSGCombiner3D" parent="Airlock" unique_id=1069910173]
+
+[node name="WestLower" type="CSGBox3D" parent="Airlock/CornerBevels" unique_id=586429368]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, -3, -2, 0)
+size = Vector3(1, 1, 20.9)
+
+[node name="WestUpper" type="CSGBox3D" parent="Airlock/CornerBevels" unique_id=297252118]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, -3, 2, 0)
+size = Vector3(1, 1, 20.9)
+
+[node name="EastLower" type="CSGBox3D" parent="Airlock/CornerBevels" unique_id=920998151]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 3, -2, 0)
+size = Vector3(1, 1, 20.9)
+
+[node name="EastUpper" type="CSGBox3D" parent="Airlock/CornerBevels" unique_id=325093296]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 3, 2, 0)
+size = Vector3(1, 1, 20.9)
+
+[node name="ShellEnvelope" type="CSGBox3D" parent="Airlock/CornerBevels" unique_id=1255178557]
+operation = 1
+size = Vector3(10, 5, 20.9)
+
+[node name="WestFloorChannel" type="CSGBox3D" parent="Airlock" unique_id=1808005871]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -2.08, 0)
+operation = 2
+size = Vector3(0.6, 0.18, 20.3)
+
+[node name="WestFloorStrip" type="CSGBox3D" parent="Airlock" unique_id=317047066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -2.125, 0)
+size = Vector3(0.6, 0.05, 20.3)
+
+[node name="WestWallNiche0" type="CSGBox3D" parent="Airlock" unique_id=716083851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -5.555556)
+operation = 2
+size = Vector3(1, 1, 7)
+
+[node name="WestWallNiche1" type="CSGBox3D" parent="Airlock" unique_id=504585852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 5.555556)
+operation = 2
+size = Vector3(1, 1, 7)
+
+[node name="EastFloorChannel" type="CSGBox3D" parent="Airlock" unique_id=380873378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -2.08, 0)
+operation = 2
+size = Vector3(0.6, 0.18, 20.3)
+
+[node name="EastFloorStrip" type="CSGBox3D" parent="Airlock" unique_id=105032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -2.125, 0)
+size = Vector3(0.6, 0.05, 20.3)
+
+[node name="EastWallNiche0" type="CSGBox3D" parent="Airlock" unique_id=1942398289]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5.555556)
+operation = 2
+size = Vector3(1, 1, 7)
+
+[node name="EastWallNiche1" type="CSGBox3D" parent="Airlock" unique_id=21429687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 5.555556)
+operation = 2
+size = Vector3(1, 1, 7)
+
+[node name="CeilingVentCut0" type="CSGCylinder3D" parent="Airlock" unique_id=1752150060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.175, -6)
+operation = 2
+radius = 1.08
+height = 0.45
+sides = 16
+
+[node name="CeilingVentRim0" type="CSGCylinder3D" parent="Airlock" unique_id=1551420933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.18, -6)
+radius = 1.2
+height = 0.32
+sides = 16
+
+[node name="Recess" type="CSGCylinder3D" parent="Airlock/CeilingVentRim0" unique_id=835012306]
+operation = 2
+radius = 1.08
+height = 0.5
+sides = 16
+
+[node name="CeilingVentBacking0" type="CSGCylinder3D" parent="Airlock" unique_id=1802497837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, -6)
+radius = 1.08
+height = 0.1
+sides = 16
+material = SubResource("vent_dark")
+
+[node name="CeilingFan0" parent="Airlock" unique_id=241463519 instance=ExtResource("fanblade")]
+transform = Transform3D(0.5, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 2.08, -6)
+
+[node name="CeilingVentCut1" type="CSGCylinder3D" parent="Airlock" unique_id=1687900574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.175, -2)
+operation = 2
+radius = 1.08
+height = 0.45
+sides = 16
+
+[node name="CeilingVentRim1" type="CSGCylinder3D" parent="Airlock" unique_id=1839189383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.18, -2)
+radius = 1.2
+height = 0.32
+sides = 16
+
+[node name="Recess" type="CSGCylinder3D" parent="Airlock/CeilingVentRim1" unique_id=192172525]
+operation = 2
+radius = 1.08
+height = 0.5
+sides = 16
+
+[node name="CeilingVentBacking1" type="CSGCylinder3D" parent="Airlock" unique_id=1608830168]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, -2)
+radius = 1.08
+height = 0.1
+sides = 16
+material = SubResource("vent_dark")
+
+[node name="CeilingFan1" parent="Airlock" unique_id=773734417 instance=ExtResource("fanblade")]
+transform = Transform3D(0.5, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 2.08, -2)
+
+[node name="CeilingVentCut2" type="CSGCylinder3D" parent="Airlock" unique_id=1369907542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.175, 2)
+operation = 2
+radius = 1.08
+height = 0.45
+sides = 16
+
+[node name="CeilingVentRim2" type="CSGCylinder3D" parent="Airlock" unique_id=344378393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.18, 2)
+radius = 1.2
+height = 0.32
+sides = 16
+
+[node name="Recess" type="CSGCylinder3D" parent="Airlock/CeilingVentRim2" unique_id=391568730]
+operation = 2
+radius = 1.08
+height = 0.5
+sides = 16
+
+[node name="CeilingVentBacking2" type="CSGCylinder3D" parent="Airlock" unique_id=377413824]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, 2)
+radius = 1.08
+height = 0.1
+sides = 16
+material = SubResource("vent_dark")
+
+[node name="CeilingFan2" parent="Airlock" unique_id=1183295450 instance=ExtResource("fanblade")]
+transform = Transform3D(0.5, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 2.08, 2)
+
+[node name="CeilingVentCut3" type="CSGCylinder3D" parent="Airlock" unique_id=387758957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.175, 6)
+operation = 2
+radius = 1.08
+height = 0.45
+sides = 16
+
+[node name="CeilingVentRim3" type="CSGCylinder3D" parent="Airlock" unique_id=1647813945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.18, 6)
+radius = 1.2
+height = 0.32
+sides = 16
+
+[node name="Recess" type="CSGCylinder3D" parent="Airlock/CeilingVentRim3" unique_id=212714856]
+operation = 2
+radius = 1.08
+height = 0.5
+sides = 16
+
+[node name="CeilingVentBacking3" type="CSGCylinder3D" parent="Airlock" unique_id=254699419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, 6)
+radius = 1.08
+height = 0.1
+sides = 16
+material = SubResource("vent_dark")
+
+[node name="CeilingFan3" parent="Airlock" unique_id=625446014 instance=ExtResource("fanblade")]
+transform = Transform3D(0.5, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 2.08, 6)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1575740758]
 environment = SubResource("Environment_xi61o")
+
+[node name="Doors" type="Node3D" parent="." unique_id=116054141]
+
+[node name="N0" type="Marker3D" parent="Doors" unique_id=977177468]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.675)
+script = ExtResource("door_socket_script")
+
+[node name="S1" type="Marker3D" parent="Doors" unique_id=1578048024]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 9.675)
+script = ExtResource("door_socket_script")

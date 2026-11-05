@@ -1,5 +1,14 @@
 [gd_scene format=3 uid="uid://bo0nsh2wg1wlk"]
 
+[ext_resource type="PackedScene" uid="uid://dvmlqtuaebo0v" path="res://util/fanblade.tscn" id="airlock_fan"]
+[ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="airlock_light"]
+[ext_resource type="Script" uid="uid://k6nyes4faobv" path="res://generation/door_socket.gd" id="door_socket_script"]
+[ext_resource type="Script" uid="uid://bkqw7rl2ebuf7" path="res://generation/ship_room.gd" id="ship_room_script"]
+
+[sub_resource type="StandardMaterial3D" id="AirlockVentBacking"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.9411765)
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_idjqc"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -18,6 +27,10 @@ glow_enabled = true
 
 [node name="CorridorL" type="Node3D" unique_id=1826814691]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("ship_room_script")
+room_kind = &"corridor"
+bounds = AABB(-4.5, -2.25, -4.5, 9, 4.5, 9)
+selection_weight = 2.5
 
 [node name="Airlock" type="CSGBox3D" parent="." unique_id=1776104763]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
@@ -25,14 +38,345 @@ use_collision = true
 size = Vector3(10, 5, 10)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Airlock" unique_id=848822294]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -1.6819879e-14, 0, 0.014985535)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.014985535)
 operation = 2
 size = Vector3(6, 4, 12)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Airlock" unique_id=37097793]
-transform = Transform3D(-3.934025e-08, 0, -0.9, 0, 0.9, 0, 0.9, 0, -3.934025e-08, -0.036613148, 0, -5.991141e-08)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.036613148, 0, 0)
 operation = 2
 size = Vector3(6, 4, 12)
 
+[node name="CrossFloorChannelNorth" type="CSGBox3D" parent="Airlock" unique_id=1000892523]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.045, -1.5)
+operation = 2
+size = Vector3(8.8, 0.11, 0.6)
+
+[node name="ThroughFloorChannelWest" type="CSGBox3D" parent="Airlock" unique_id=1764432581]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -2.045, 0)
+operation = 2
+size = Vector3(0.6, 0.11, 8.8)
+
+[node name="CrossFloorChannelSouth" type="CSGBox3D" parent="Airlock" unique_id=742195589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.045, 1.5)
+operation = 2
+size = Vector3(8.8, 0.11, 0.6)
+
+[node name="ThroughFloorChannelEast" type="CSGBox3D" parent="Airlock" unique_id=1107271670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -2.045, 0)
+operation = 2
+size = Vector3(0.6, 0.11, 8.8)
+
+[node name="NorthWestUpperChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1525861659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+polygon = PackedVector2Array(-3, 2, -2.292893, 2, -3, 1.292893)
+depth = 1.7
+
+[node name="NorthWestLowerChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1951116072]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+polygon = PackedVector2Array(-3, -2, -2.292893, -2, -3, -1.292893)
+depth = 1.7
+
+[node name="NorthWestRecess1" type="CSGBox3D" parent="Airlock" unique_id=1008242401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.15, 0, -3.85)
+operation = 2
+size = Vector3(0.5, 1, 1.3)
+
+[node name="NorthWestLight1" parent="Airlock" unique_id=1203999403 instance=ExtResource("airlock_light")]
+transform = Transform3D(0, -0.4596194, 0.4596194, 0, 0.4596194, 0.4596194, -0.65, 0, 0, -2.5, 1.53, -3.85)
+
+[node name="NorthWestConduit1" type="CSGCylinder3D" parent="Airlock" unique_id=1352758903]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -2.232, 1.768, -3.85)
+radius = 0.04
+height = 1.6
+
+[node name="NorthWestConduit2" type="CSGCylinder3D" parent="Airlock" unique_id=638384570]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -2.4, 1.6, -3.85)
+radius = 0.04
+height = 1.6
+
+[node name="NorthWestConduit3" type="CSGCylinder3D" parent="Airlock" unique_id=950783303]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -2.568, 1.432, -3.85)
+radius = 0.04
+height = 1.6
+
+[node name="NorthEastUpperChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1881367463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+polygon = PackedVector2Array(3, 2, 2.292893, 2, 3, 1.292893)
+depth = 1.7
+
+[node name="NorthEastLowerChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1490574224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+polygon = PackedVector2Array(3, -2, 2.292893, -2, 3, -1.292893)
+depth = 1.7
+
+[node name="NorthEastRecess1" type="CSGBox3D" parent="Airlock" unique_id=1382741690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.15, 0, -3.85)
+operation = 2
+size = Vector3(0.5, 1, 1.3)
+
+[node name="NorthEastLight1" parent="Airlock" unique_id=785266860 instance=ExtResource("airlock_light")]
+transform = Transform3D(0, 0.4596194, 0.4596194, 0, 0.4596194, -0.4596194, -0.65, 0, 0, 2.5, 1.53, -3.85)
+
+[node name="NorthEastConduit1" type="CSGCylinder3D" parent="Airlock" unique_id=1073611779]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 2.232, 1.768, -3.85)
+radius = 0.04
+height = 1.6
+
+[node name="NorthEastConduit2" type="CSGCylinder3D" parent="Airlock" unique_id=802035040]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 2.4, 1.6, -3.85)
+radius = 0.04
+height = 1.6
+
+[node name="NorthEastConduit3" type="CSGCylinder3D" parent="Airlock" unique_id=373217904]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 2.568, 1.432, -3.85)
+radius = 0.04
+height = 1.6
+
+[node name="EastNorthUpperChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1708021678]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4.7, 0, 0)
+polygon = PackedVector2Array(3, 2, 2.292893, 2, 3, 1.292893)
+depth = 1.7
+
+[node name="EastNorthLowerChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=800795838]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4.7, 0, 0)
+polygon = PackedVector2Array(3, -2, 2.292893, -2, 3, -1.292893)
+depth = 1.7
+
+[node name="EastNorthRecess1" type="CSGBox3D" parent="Airlock" unique_id=1608811616]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.85, 0, -3.15)
+operation = 2
+size = Vector3(1.3, 1, 0.5)
+
+[node name="EastNorthLight1" parent="Airlock" unique_id=1227287662 instance=ExtResource("airlock_light")]
+transform = Transform3D(0.65, 0, 0, 0, 0.4596194, 0.4596194, 0, -0.4596194, 0.4596194, 3.85, 1.53, -2.5)
+
+[node name="EastNorthConduit1" type="CSGCylinder3D" parent="Airlock" unique_id=2113179954]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 3.85, 1.768, -2.232)
+radius = 0.04
+height = 1.6
+
+[node name="EastNorthConduit2" type="CSGCylinder3D" parent="Airlock" unique_id=335427669]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 3.85, 1.6, -2.4)
+radius = 0.04
+height = 1.6
+
+[node name="EastNorthConduit3" type="CSGCylinder3D" parent="Airlock" unique_id=682419141]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 3.85, 1.432, -2.568)
+radius = 0.04
+height = 1.6
+
+[node name="EastSouthUpperChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1539627658]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4.7, 0, 0)
+polygon = PackedVector2Array(-3, 2, -2.292893, 2, -3, 1.292893)
+depth = 1.7
+
+[node name="EastSouthLowerChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=744889771]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 4.7, 0, 0)
+polygon = PackedVector2Array(-3, -2, -2.292893, -2, -3, -1.292893)
+depth = 1.7
+
+[node name="EastSouthRecess1" type="CSGBox3D" parent="Airlock" unique_id=1876300384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.85, 0, 3.15)
+operation = 2
+size = Vector3(1.3, 1, 0.5)
+
+[node name="EastSouthLight1" parent="Airlock" unique_id=1920549267 instance=ExtResource("airlock_light")]
+transform = Transform3D(0.65, 0, 0, 0, 0.4596194, -0.4596194, 0, 0.4596194, 0.4596194, 3.85, 1.53, 2.5)
+
+[node name="EastSouthConduit1" type="CSGCylinder3D" parent="Airlock" unique_id=263092050]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 3.85, 1.768, 2.232)
+radius = 0.04
+height = 1.6
+
+[node name="EastSouthConduit2" type="CSGCylinder3D" parent="Airlock" unique_id=504952963]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 3.85, 1.6, 2.4)
+radius = 0.04
+height = 1.6
+
+[node name="EastSouthConduit3" type="CSGCylinder3D" parent="Airlock" unique_id=362534787]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 3.85, 1.432, 2.568)
+radius = 0.04
+height = 1.6
+
+[node name="WestNorthUpperChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=560824046]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3, 0, 0)
+polygon = PackedVector2Array(3, 2, 2.292893, 2, 3, 1.292893)
+depth = 1.7
+
+[node name="WestNorthLowerChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1686560033]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3, 0, 0)
+polygon = PackedVector2Array(3, -2, 2.292893, -2, 3, -1.292893)
+depth = 1.7
+
+[node name="WestNorthRecess1" type="CSGBox3D" parent="Airlock" unique_id=1250252845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.85, 0, -3.15)
+operation = 2
+size = Vector3(1.3, 1, 0.5)
+
+[node name="WestNorthLight1" parent="Airlock" unique_id=1500630967 instance=ExtResource("airlock_light")]
+transform = Transform3D(0.65, 0, 0, 0, 0.4596194, 0.4596194, 0, -0.4596194, 0.4596194, -3.85, 1.53, -2.5)
+
+[node name="WestNorthConduit1" type="CSGCylinder3D" parent="Airlock" unique_id=883812777]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, -3.85, 1.768, -2.232)
+radius = 0.04
+height = 1.6
+
+[node name="WestNorthConduit2" type="CSGCylinder3D" parent="Airlock" unique_id=285334440]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, -3.85, 1.6, -2.4)
+radius = 0.04
+height = 1.6
+
+[node name="WestNorthConduit3" type="CSGCylinder3D" parent="Airlock" unique_id=1619677868]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, -3.85, 1.432, -2.568)
+radius = 0.04
+height = 1.6
+
+[node name="WestSouthUpperChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=2003876477]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3, 0, 0)
+polygon = PackedVector2Array(-3, 2, -2.292893, 2, -3, 1.292893)
+depth = 1.7
+
+[node name="WestSouthLowerChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1948486364]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3, 0, 0)
+polygon = PackedVector2Array(-3, -2, -2.292893, -2, -3, -1.292893)
+depth = 1.7
+
+[node name="WestSouthRecess1" type="CSGBox3D" parent="Airlock" unique_id=879164025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.85, 0, 3.15)
+operation = 2
+size = Vector3(1.3, 1, 0.5)
+
+[node name="WestSouthLight1" parent="Airlock" unique_id=499361988 instance=ExtResource("airlock_light")]
+transform = Transform3D(0.65, 0, 0, 0, 0.4596194, -0.4596194, 0, 0.4596194, 0.4596194, -3.85, 1.53, 2.5)
+
+[node name="WestSouthConduit1" type="CSGCylinder3D" parent="Airlock" unique_id=1557974008]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, -3.85, 1.768, 2.232)
+radius = 0.04
+height = 1.6
+
+[node name="WestSouthConduit2" type="CSGCylinder3D" parent="Airlock" unique_id=241892231]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, -3.85, 1.6, 2.4)
+radius = 0.04
+height = 1.6
+
+[node name="WestSouthConduit3" type="CSGCylinder3D" parent="Airlock" unique_id=1709178632]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, -3.85, 1.432, 2.568)
+radius = 0.04
+height = 1.6
+
+[node name="SouthWestUpperChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1248677885]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.7)
+polygon = PackedVector2Array(-3, 2, -2.292893, 2, -3, 1.292893)
+depth = 1.7
+
+[node name="SouthWestLowerChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=2001344001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.7)
+polygon = PackedVector2Array(-3, -2, -2.292893, -2, -3, -1.292893)
+depth = 1.7
+
+[node name="SouthWestRecess1" type="CSGBox3D" parent="Airlock" unique_id=1851282073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.15, 0, 3.85)
+operation = 2
+size = Vector3(0.5, 1, 1.3)
+
+[node name="SouthWestLight1" parent="Airlock" unique_id=63616065 instance=ExtResource("airlock_light")]
+transform = Transform3D(0, -0.4596194, 0.4596194, 0, 0.4596194, 0.4596194, -0.65, 0, 0, -2.5, 1.53, 3.85)
+
+[node name="SouthWestConduit1" type="CSGCylinder3D" parent="Airlock" unique_id=964352250]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -2.232, 1.768, 3.85)
+radius = 0.04
+height = 1.6
+
+[node name="SouthWestConduit2" type="CSGCylinder3D" parent="Airlock" unique_id=1564084520]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -2.4, 1.6, 3.85)
+radius = 0.04
+height = 1.6
+
+[node name="SouthWestConduit3" type="CSGCylinder3D" parent="Airlock" unique_id=1608595093]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -2.568, 1.432, 3.85)
+radius = 0.04
+height = 1.6
+
+[node name="SouthEastUpperChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1363916049]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.7)
+polygon = PackedVector2Array(3, 2, 2.292893, 2, 3, 1.292893)
+depth = 1.7
+
+[node name="SouthEastLowerChamfer" type="CSGPolygon3D" parent="Airlock" unique_id=1115365758]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.7)
+polygon = PackedVector2Array(3, -2, 2.292893, -2, 3, -1.292893)
+depth = 1.7
+
+[node name="SouthEastRecess1" type="CSGBox3D" parent="Airlock" unique_id=641442344]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.15, 0, 3.85)
+operation = 2
+size = Vector3(0.5, 1, 1.3)
+
+[node name="SouthEastLight1" parent="Airlock" unique_id=864789203 instance=ExtResource("airlock_light")]
+transform = Transform3D(0, 0.4596194, 0.4596194, 0, 0.4596194, -0.4596194, -0.65, 0, 0, 2.5, 1.53, 3.85)
+
+[node name="SouthEastConduit1" type="CSGCylinder3D" parent="Airlock" unique_id=1484082084]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 2.232, 1.768, 3.85)
+radius = 0.04
+height = 1.6
+
+[node name="SouthEastConduit2" type="CSGCylinder3D" parent="Airlock" unique_id=860198972]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 2.4, 1.6, 3.85)
+radius = 0.04
+height = 1.6
+
+[node name="SouthEastConduit3" type="CSGCylinder3D" parent="Airlock" unique_id=93660804]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 2.568, 1.432, 3.85)
+radius = 0.04
+height = 1.6
+
+[node name="CeilingVentRecess" type="CSGCylinder3D" parent="Airlock" unique_id=1017237500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14, 0)
+operation = 2
+radius = 0.9
+height = 0.4
+sides = 24
+
+[node name="CeilingVentBacking" type="CSGCylinder3D" parent="Airlock" unique_id=14390269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.33, 0)
+radius = 0.89
+height = 0.02
+sides = 24
+material = SubResource("AirlockVentBacking")
+
+[node name="CeilingVentRim" type="CSGCylinder3D" parent="Airlock" unique_id=1883057915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.03, 0)
+radius = 1.04
+height = 0.12
+sides = 24
+
+[node name="VentOpening" type="CSGCylinder3D" parent="Airlock/CeilingVentRim" unique_id=2130289776]
+operation = 2
+radius = 0.9
+height = 0.16
+sides = 24
+
+[node name="CeilingFan" parent="Airlock" unique_id=1421440244 instance=ExtResource("airlock_fan")]
+transform = Transform3D(0.32, 0, 0, 0, 0.32, 0, 0, 0, 0.32, 0, 2.1, 0)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=282146352]
 environment = SubResource("Environment_3ei7m")
+
+[node name="Doors" type="Node3D" parent="." unique_id=818833412]
+
+[node name="N0" type="Marker3D" parent="Doors" unique_id=1753798393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.5)
+script = ExtResource("door_socket_script")
+
+[node name="E1" type="Marker3D" parent="Doors" unique_id=2132899590]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 4.5, 0, 0)
+script = ExtResource("door_socket_script")
+
+[node name="W2" type="Marker3D" parent="Doors" unique_id=2100439590]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -4.5, 0, 0)
+script = ExtResource("door_socket_script")
+
+[node name="S3" type="Marker3D" parent="Doors" unique_id=1811799636]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 4.5)
+script = ExtResource("door_socket_script")

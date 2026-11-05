@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://0mexes4lhltp"]
+
+[ext_resource type="Script" uid="uid://k6nyes4faobv" path="res://generation/door_socket.gd" id="door_socket_script"]
+[ext_resource type="PackedScene" uid="uid://dvmlqtuaebo0v" path="res://util/fanblade.tscn" id="fanblade"]
+[ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="light_panel"]
+[ext_resource type="Script" uid="uid://bkqw7rl2ebuf7" path="res://generation/ship_room.gd" id="ship_room_script"]
+
+[sub_resource type="StandardMaterial3D" id="vent_dark"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="CorridorShort" type="Node3D" unique_id=1140927432]
+script = ExtResource("ship_room_script")
+room_kind = &"corridor"
+bounds = AABB(-4.5, -2.25, -4.5, 9, 4.5, 9)
+
+[node name="Airlock" type="CSGBox3D" parent="." unique_id=130906324]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+use_collision = true
+size = Vector3(10, 5, 10)
+
+[node name="Passage" type="CSGBox3D" parent="Airlock" unique_id=1342060527]
+operation = 2
+size = Vector3(6, 4, 12)
+
+[node name="CornerBevels" type="CSGCombiner3D" parent="Airlock" unique_id=1080447856]
+
+[node name="WestLower" type="CSGBox3D" parent="Airlock/CornerBevels" unique_id=1472595695]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, -3, -2, 0)
+size = Vector3(1, 1, 9.4)
+
+[node name="WestUpper" type="CSGBox3D" parent="Airlock/CornerBevels" unique_id=84234615]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, -3, 2, 0)
+size = Vector3(1, 1, 9.4)
+
+[node name="EastLower" type="CSGBox3D" parent="Airlock/CornerBevels" unique_id=1785095981]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 3, -2, 0)
+size = Vector3(1, 1, 9.4)
+
+[node name="EastUpper" type="CSGBox3D" parent="Airlock/CornerBevels" unique_id=1364542806]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 3, 2, 0)
+size = Vector3(1, 1, 9.4)
+
+[node name="ShellEnvelope" type="CSGBox3D" parent="Airlock/CornerBevels" unique_id=156041741]
+operation = 1
+size = Vector3(10, 5, 9.4)
+
+[node name="WestFloorChannel" type="CSGBox3D" parent="Airlock" unique_id=2084385637]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -2.08, 0)
+operation = 2
+size = Vector3(0.6, 0.18, 8.8)
+
+[node name="WestFloorStrip" type="CSGBox3D" parent="Airlock" unique_id=14382890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -2.125, 0)
+size = Vector3(0.6, 0.05, 8.8)
+
+[node name="WestWallNiche0" type="CSGBox3D" parent="Airlock" unique_id=201242267]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+operation = 2
+size = Vector3(1, 1, 7)
+
+[node name="EastFloorChannel" type="CSGBox3D" parent="Airlock" unique_id=2010172670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -2.08, 0)
+operation = 2
+size = Vector3(0.6, 0.18, 8.8)
+
+[node name="EastFloorStrip" type="CSGBox3D" parent="Airlock" unique_id=338619807]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -2.125, 0)
+size = Vector3(0.6, 0.05, 8.8)
+
+[node name="EastWallNiche0" type="CSGBox3D" parent="Airlock" unique_id=329397349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+operation = 2
+size = Vector3(1, 1, 7)
+
+[node name="CeilingVentCut0" type="CSGCylinder3D" parent="Airlock" unique_id=1814692918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.175, -2)
+operation = 2
+radius = 1.08
+height = 0.45
+sides = 16
+
+[node name="CeilingVentRim0" type="CSGCylinder3D" parent="Airlock" unique_id=1929734425]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.18, -2)
+radius = 1.2
+height = 0.32
+sides = 16
+
+[node name="Recess" type="CSGCylinder3D" parent="Airlock/CeilingVentRim0" unique_id=1287658284]
+operation = 2
+radius = 1.08
+height = 0.5
+sides = 16
+
+[node name="CeilingVentBacking0" type="CSGCylinder3D" parent="Airlock" unique_id=2030553611]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, -2)
+radius = 1.08
+height = 0.1
+sides = 16
+material = SubResource("vent_dark")
+
+[node name="CeilingFan0" parent="Airlock" unique_id=707253130 instance=ExtResource("fanblade")]
+transform = Transform3D(0.5, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 2.08, -2)
+
+[node name="CeilingVentCut1" type="CSGCylinder3D" parent="Airlock" unique_id=1060561195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.175, 2)
+operation = 2
+radius = 1.08
+height = 0.45
+sides = 16
+
+[node name="CeilingVentRim1" type="CSGCylinder3D" parent="Airlock" unique_id=34788903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.18, 2)
+radius = 1.2
+height = 0.32
+sides = 16
+
+[node name="Recess" type="CSGCylinder3D" parent="Airlock/CeilingVentRim1" unique_id=83820909]
+operation = 2
+radius = 1.08
+height = 0.5
+sides = 16
+
+[node name="CeilingVentBacking1" type="CSGCylinder3D" parent="Airlock" unique_id=1803437280]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42, 2)
+radius = 1.08
+height = 0.1
+sides = 16
+material = SubResource("vent_dark")
+
+[node name="CeilingFan1" parent="Airlock" unique_id=136935305 instance=ExtResource("fanblade")]
+transform = Transform3D(0.5, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 2.08, 2)
+
+[node name="LightPanel-1_0" parent="Airlock" unique_id=400451870 instance=ExtResource("light_panel")]
+transform = Transform3D(0, -0.4596194, 0.4596194, 0, 0.4596194, 0.4596194, -0.65, 0, 0, -2.5, 1.53, -3)
+
+[node name="LightPanel-1_1" parent="Airlock" unique_id=1515625344 instance=ExtResource("light_panel")]
+transform = Transform3D(0, -0.4596194, 0.4596194, 0, 0.4596194, 0.4596194, -0.65, 0, 0, -2.5, 1.53, 3)
+
+[node name="Conduit-1_0" type="CSGCylinder3D" parent="Airlock" unique_id=765273232]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -2.4, 1.6, 0)
+radius = 0.05
+height = 3.7
+
+[node name="Conduit-1_1" type="CSGCylinder3D" parent="Airlock" unique_id=83178797]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -2.567, 1.431, 0)
+radius = 0.05
+height = 3.7
+
+[node name="Conduit-1_2" type="CSGCylinder3D" parent="Airlock" unique_id=1838346315]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -2.232, 1.768, 0)
+radius = 0.05
+height = 3.7
+
+[node name="LightPanel1_0" parent="Airlock" unique_id=461553825 instance=ExtResource("light_panel")]
+transform = Transform3D(0, 0.4596194, 0.4596194, 0, 0.4596194, -0.4596194, -0.65, 0, 0, 2.5, 1.53, -3)
+
+[node name="LightPanel1_1" parent="Airlock" unique_id=512740180 instance=ExtResource("light_panel")]
+transform = Transform3D(0, 0.4596194, 0.4596194, 0, 0.4596194, -0.4596194, -0.65, 0, 0, 2.5, 1.53, 3)
+
+[node name="Conduit1_0" type="CSGCylinder3D" parent="Airlock" unique_id=1621390632]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 2.4, 1.6, 0)
+radius = 0.05
+height = 3.7
+
+[node name="Conduit1_1" type="CSGCylinder3D" parent="Airlock" unique_id=794460482]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 2.567, 1.431, 0)
+radius = 0.05
+height = 3.7
+
+[node name="Conduit1_2" type="CSGCylinder3D" parent="Airlock" unique_id=1313170533]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 2.232, 1.768, 0)
+radius = 0.05
+height = 3.7
+
+[node name="Doors" type="Node3D" parent="." unique_id=578329549]
+
+[node name="N0" type="Marker3D" parent="Doors" unique_id=1016131873]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.5)
+script = ExtResource("door_socket_script")
+
+[node name="S1" type="Marker3D" parent="Doors" unique_id=323266329]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 4.5)
+script = ExtResource("door_socket_script")

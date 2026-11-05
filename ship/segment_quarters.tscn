@@ -1,4 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bsbu8pkbjrh0a"]
+
+[ext_resource type="Script" path="res://generation/ship_room.gd" id="ship_room_script"]
+[ext_resource type="Script" path="res://generation/door_socket.gd" id="door_socket_script"]
 
 [ext_resource type="PackedScene" uid="uid://cxl65xg26yvny" path="res://util/light_panel.tscn" id="1_panel"]
 
@@ -25,7 +28,6 @@ roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="m_fabric"]
 albedo_color = Color(0.18, 0.27, 0.45, 1)
-roughness = 1
 
 [sub_resource type="StandardMaterial3D" id="m_white"]
 albedo_color = Color(0.82, 0.83, 0.86, 1)
@@ -44,670 +46,673 @@ roughness = 0.6
 albedo_color = Color(0.67, 0.8, 1, 1)
 emission_enabled = true
 emission = Color(0.67, 0.8, 1, 1)
-emission_energy_multiplier = 4
+emission_energy_multiplier = 4.0
 
-[node name="segment_quarters" type="Node3D"]
+[node name="segment_quarters" type="Node3D" unique_id=1903406780]
+script = ExtResource("ship_room_script")
+room_kind = &"quarters"
+bounds = AABB(-8.45, -2.25, -5.95, 16.9, 4.5, 11.9)
+selection_weight = 1.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1061783770]
 environment = SubResource("env")
 
-[node name="Shell" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="Shell" type="CSGBox3D" parent="." unique_id=1661695251]
 use_collision = true
 size = Vector3(16.9, 4.5, 11.9)
 
-[node name="Interior" type="CSGBox3D" parent="Shell"]
+[node name="Interior" type="CSGBox3D" parent="Shell" unique_id=2003825124]
 operation = 2
 size = Vector3(16, 3.6, 11)
 
-[node name="ChamferL" type="CSGPolygon3D" parent="Shell"]
+[node name="ChamferL" type="CSGPolygon3D" parent="Shell" unique_id=479904079]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.5)
 polygon = PackedVector2Array(-8.02, 1.82, -7.3, 1.82, -8.02, 1.1)
-depth = 11
+depth = 11.0
 
-[node name="ChamferR" type="CSGPolygon3D" parent="Shell"]
+[node name="ChamferR" type="CSGPolygon3D" parent="Shell" unique_id=850635394]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.5)
 polygon = PackedVector2Array(8.02, 1.82, 7.3, 1.82, 8.02, 1.1)
-depth = 11
+depth = 11.0
 
-[node name="Doorway_N0" type="CSGBox3D" parent="Shell"]
+[node name="Doorway_N0" type="CSGBox3D" parent="Shell" unique_id=2027260584]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.375)
 operation = 2
 size = Vector3(5.4, 3.6, 1.35)
 
-[node name="Doorway_S1" type="CSGBox3D" parent="Shell"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.375)
-operation = 2
-size = Vector3(5.4, 3.6, 1.35)
-
-[node name="Props" type="CSGCombiner3D" parent="."]
+[node name="Props" type="CSGCombiner3D" parent="." unique_id=334146841]
 use_collision = true
 
-[node name="Glass" type="CSGCombiner3D" parent="."]
-use_collision = true
-
-[node name="BunkFrame" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame" type="CSGBox3D" parent="Props" unique_id=1772975273]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -1.39, -3.9)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress" type="CSGBox3D" parent="Props"]
+[node name="Mattress" type="CSGBox3D" parent="Props" unique_id=563977432]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -1.26, -3.9)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="BunkFrame2" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame2" type="CSGBox3D" parent="Props" unique_id=1188817729]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -0.29, -3.9)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress2" type="CSGBox3D" parent="Props"]
+[node name="Mattress2" type="CSGBox3D" parent="Props" unique_id=1696972458]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -0.16, -3.9)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="Pillow" type="CSGBox3D" parent="Props"]
+[node name="Pillow" type="CSGBox3D" parent="Props" unique_id=1410413710]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7, -1.14, -3.9)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="Pillow2" type="CSGBox3D" parent="Props"]
+[node name="Pillow2" type="CSGBox3D" parent="Props" unique_id=1401975163]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7, -0.04, -3.9)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="BunkPost" type="CSGBox3D" parent="Props"]
+[node name="BunkPost" type="CSGBox3D" parent="Props" unique_id=1152133105]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95, -0.825, -4.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost2" type="CSGBox3D" parent="Props"]
+[node name="BunkPost2" type="CSGBox3D" parent="Props" unique_id=1365998944]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95, -0.825, -3.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost3" type="CSGBox3D" parent="Props"]
+[node name="BunkPost3" type="CSGBox3D" parent="Props" unique_id=1712514296]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95, -0.825, -4.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost4" type="CSGBox3D" parent="Props"]
+[node name="BunkPost4" type="CSGBox3D" parent="Props" unique_id=569373092]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95, -0.825, -3.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkFrame3" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame3" type="CSGBox3D" parent="Props" unique_id=549110320]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -1.39, -1.3)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress3" type="CSGBox3D" parent="Props"]
+[node name="Mattress3" type="CSGBox3D" parent="Props" unique_id=1743722713]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -1.26, -1.3)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="BunkFrame4" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame4" type="CSGBox3D" parent="Props" unique_id=1391428222]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -0.29, -1.3)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress4" type="CSGBox3D" parent="Props"]
+[node name="Mattress4" type="CSGBox3D" parent="Props" unique_id=63239872]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -0.16, -1.3)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="Pillow3" type="CSGBox3D" parent="Props"]
+[node name="Pillow3" type="CSGBox3D" parent="Props" unique_id=1031466451]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7, -1.14, -1.3)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="Pillow4" type="CSGBox3D" parent="Props"]
+[node name="Pillow4" type="CSGBox3D" parent="Props" unique_id=337671381]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7, -0.04, -1.3)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="BunkPost5" type="CSGBox3D" parent="Props"]
+[node name="BunkPost5" type="CSGBox3D" parent="Props" unique_id=147167545]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95, -0.825, -1.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost6" type="CSGBox3D" parent="Props"]
+[node name="BunkPost6" type="CSGBox3D" parent="Props" unique_id=1049667551]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95, -0.825, -0.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost7" type="CSGBox3D" parent="Props"]
+[node name="BunkPost7" type="CSGBox3D" parent="Props" unique_id=949710599]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95, -0.825, -1.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost8" type="CSGBox3D" parent="Props"]
+[node name="BunkPost8" type="CSGBox3D" parent="Props" unique_id=1528838499]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95, -0.825, -0.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkFrame5" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame5" type="CSGBox3D" parent="Props" unique_id=680462051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -1.39, 1.3)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress5" type="CSGBox3D" parent="Props"]
+[node name="Mattress5" type="CSGBox3D" parent="Props" unique_id=259406706]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -1.26, 1.3)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="BunkFrame6" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame6" type="CSGBox3D" parent="Props" unique_id=2128251898]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -0.29, 1.3)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress6" type="CSGBox3D" parent="Props"]
+[node name="Mattress6" type="CSGBox3D" parent="Props" unique_id=1277911640]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -0.16, 1.3)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="Pillow5" type="CSGBox3D" parent="Props"]
+[node name="Pillow5" type="CSGBox3D" parent="Props" unique_id=83385384]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7, -1.14, 1.3)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="Pillow6" type="CSGBox3D" parent="Props"]
+[node name="Pillow6" type="CSGBox3D" parent="Props" unique_id=2080446806]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7, -0.04, 1.3)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="BunkPost9" type="CSGBox3D" parent="Props"]
+[node name="BunkPost9" type="CSGBox3D" parent="Props" unique_id=858285059]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95, -0.825, 0.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost10" type="CSGBox3D" parent="Props"]
+[node name="BunkPost10" type="CSGBox3D" parent="Props" unique_id=1283067576]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95, -0.825, 1.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost11" type="CSGBox3D" parent="Props"]
+[node name="BunkPost11" type="CSGBox3D" parent="Props" unique_id=1293374921]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95, -0.825, 0.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost12" type="CSGBox3D" parent="Props"]
+[node name="BunkPost12" type="CSGBox3D" parent="Props" unique_id=719066662]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95, -0.825, 1.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkFrame7" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame7" type="CSGBox3D" parent="Props" unique_id=1182717571]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -1.39, 3.9)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress7" type="CSGBox3D" parent="Props"]
+[node name="Mattress7" type="CSGBox3D" parent="Props" unique_id=1229834701]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -1.26, 3.9)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="BunkFrame8" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame8" type="CSGBox3D" parent="Props" unique_id=636375836]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -0.29, 3.9)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress8" type="CSGBox3D" parent="Props"]
+[node name="Mattress8" type="CSGBox3D" parent="Props" unique_id=1038792120]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, -0.16, 3.9)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="Pillow7" type="CSGBox3D" parent="Props"]
+[node name="Pillow7" type="CSGBox3D" parent="Props" unique_id=650438718]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7, -1.14, 3.9)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="Pillow8" type="CSGBox3D" parent="Props"]
+[node name="Pillow8" type="CSGBox3D" parent="Props" unique_id=1154957859]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7, -0.04, 3.9)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="BunkPost13" type="CSGBox3D" parent="Props"]
+[node name="BunkPost13" type="CSGBox3D" parent="Props" unique_id=396653130]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95, -0.825, 3.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost14" type="CSGBox3D" parent="Props"]
+[node name="BunkPost14" type="CSGBox3D" parent="Props" unique_id=1830628688]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95, -0.825, 4.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost15" type="CSGBox3D" parent="Props"]
+[node name="BunkPost15" type="CSGBox3D" parent="Props" unique_id=970267543]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95, -0.825, 3.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost16" type="CSGBox3D" parent="Props"]
+[node name="BunkPost16" type="CSGBox3D" parent="Props" unique_id=1034655309]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95, -0.825, 4.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="RoundTable" type="CSGCylinder3D" parent="Props"]
+[node name="RoundTable" type="CSGCylinder3D" parent="Props" unique_id=1261858224]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, -1.045, 0)
 radius = 0.6
 height = 0.07
 sides = 20
 material = SubResource("m_wood")
 
-[node name="TableStem" type="CSGCylinder3D" parent="Props"]
+[node name="TableStem" type="CSGCylinder3D" parent="Props" unique_id=747414362]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, -1.44, 0)
 radius = 0.1
 height = 0.72
-sides = 8
 material = SubResource("m_dark")
 
-[node name="Stool" type="CSGCylinder3D" parent="Props"]
+[node name="Stool" type="CSGCylinder3D" parent="Props" unique_id=305518446]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, -1.575, -1)
 radius = 0.22
 height = 0.45
 sides = 12
 material = SubResource("m_dark")
 
-[node name="Stool2" type="CSGCylinder3D" parent="Props"]
+[node name="Stool2" type="CSGCylinder3D" parent="Props" unique_id=297630733]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4, -1.575, 1)
 radius = 0.22
 height = 0.45
 sides = 12
 material = SubResource("m_dark")
 
-[node name="LockerBank" type="CSGBox3D" parent="Props"]
+[node name="LockerBank" type="CSGBox3D" parent="Props" unique_id=375967427]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6, -0.8, -5.15)
 size = Vector3(3, 2, 0.7)
 material = SubResource("m_steel")
 
-[node name="LockerSeam" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam" type="CSGBox3D" parent="Props" unique_id=342672538]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, -0.8, -4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam2" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam2" type="CSGBox3D" parent="Props" unique_id=803638061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9, -0.8, -4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam3" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam3" type="CSGBox3D" parent="Props" unique_id=2140840805]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3, -0.8, -4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam4" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam4" type="CSGBox3D" parent="Props" unique_id=1208270941]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7, -0.8, -4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerBank2" type="CSGBox3D" parent="Props"]
+[node name="LockerBank2" type="CSGBox3D" parent="Props" unique_id=1906173642]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6, -0.8, 5.15)
 size = Vector3(3, 2, 0.7)
 material = SubResource("m_steel")
 
-[node name="LockerSeam5" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam5" type="CSGBox3D" parent="Props" unique_id=362653390]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, -0.8, 4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam6" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam6" type="CSGBox3D" parent="Props" unique_id=99701310]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9, -0.8, 4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam7" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam7" type="CSGBox3D" parent="Props" unique_id=1045697485]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3, -0.8, 4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam8" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam8" type="CSGBox3D" parent="Props" unique_id=1032845092]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7, -0.8, 4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="BunkFrame9" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame9" type="CSGBox3D" parent="Props" unique_id=807187291]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -1.39, -3.9)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress9" type="CSGBox3D" parent="Props"]
+[node name="Mattress9" type="CSGBox3D" parent="Props" unique_id=678672303]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -1.26, -3.9)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="BunkFrame10" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame10" type="CSGBox3D" parent="Props" unique_id=1479604111]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -0.29, -3.9)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress10" type="CSGBox3D" parent="Props"]
+[node name="Mattress10" type="CSGBox3D" parent="Props" unique_id=1366599147]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -0.16, -3.9)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="Pillow9" type="CSGBox3D" parent="Props"]
+[node name="Pillow9" type="CSGBox3D" parent="Props" unique_id=1689644925]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7, -1.14, -3.9)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="Pillow10" type="CSGBox3D" parent="Props"]
+[node name="Pillow10" type="CSGBox3D" parent="Props" unique_id=2143015121]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7, -0.04, -3.9)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="BunkPost17" type="CSGBox3D" parent="Props"]
+[node name="BunkPost17" type="CSGBox3D" parent="Props" unique_id=2002733773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95, -0.825, -4.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost18" type="CSGBox3D" parent="Props"]
+[node name="BunkPost18" type="CSGBox3D" parent="Props" unique_id=495765798]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95, -0.825, -3.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost19" type="CSGBox3D" parent="Props"]
+[node name="BunkPost19" type="CSGBox3D" parent="Props" unique_id=1610896116]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95, -0.825, -4.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost20" type="CSGBox3D" parent="Props"]
+[node name="BunkPost20" type="CSGBox3D" parent="Props" unique_id=1754209939]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95, -0.825, -3.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkFrame11" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame11" type="CSGBox3D" parent="Props" unique_id=43875296]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -1.39, -1.3)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress11" type="CSGBox3D" parent="Props"]
+[node name="Mattress11" type="CSGBox3D" parent="Props" unique_id=2053659679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -1.26, -1.3)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="BunkFrame12" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame12" type="CSGBox3D" parent="Props" unique_id=2094054806]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -0.29, -1.3)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress12" type="CSGBox3D" parent="Props"]
+[node name="Mattress12" type="CSGBox3D" parent="Props" unique_id=668856923]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -0.16, -1.3)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="Pillow11" type="CSGBox3D" parent="Props"]
+[node name="Pillow11" type="CSGBox3D" parent="Props" unique_id=1347492707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7, -1.14, -1.3)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="Pillow12" type="CSGBox3D" parent="Props"]
+[node name="Pillow12" type="CSGBox3D" parent="Props" unique_id=842916705]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7, -0.04, -1.3)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="BunkPost21" type="CSGBox3D" parent="Props"]
+[node name="BunkPost21" type="CSGBox3D" parent="Props" unique_id=2093159862]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95, -0.825, -1.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost22" type="CSGBox3D" parent="Props"]
+[node name="BunkPost22" type="CSGBox3D" parent="Props" unique_id=866246210]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95, -0.825, -0.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost23" type="CSGBox3D" parent="Props"]
+[node name="BunkPost23" type="CSGBox3D" parent="Props" unique_id=2086043063]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95, -0.825, -1.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost24" type="CSGBox3D" parent="Props"]
+[node name="BunkPost24" type="CSGBox3D" parent="Props" unique_id=1201960975]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95, -0.825, -0.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkFrame13" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame13" type="CSGBox3D" parent="Props" unique_id=1932300567]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -1.39, 1.3)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress13" type="CSGBox3D" parent="Props"]
+[node name="Mattress13" type="CSGBox3D" parent="Props" unique_id=51250664]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -1.26, 1.3)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="BunkFrame14" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame14" type="CSGBox3D" parent="Props" unique_id=1441884470]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -0.29, 1.3)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress14" type="CSGBox3D" parent="Props"]
+[node name="Mattress14" type="CSGBox3D" parent="Props" unique_id=1264250112]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -0.16, 1.3)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="Pillow13" type="CSGBox3D" parent="Props"]
+[node name="Pillow13" type="CSGBox3D" parent="Props" unique_id=1483450629]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7, -1.14, 1.3)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="Pillow14" type="CSGBox3D" parent="Props"]
+[node name="Pillow14" type="CSGBox3D" parent="Props" unique_id=65714349]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7, -0.04, 1.3)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="BunkPost25" type="CSGBox3D" parent="Props"]
+[node name="BunkPost25" type="CSGBox3D" parent="Props" unique_id=982576510]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95, -0.825, 0.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost26" type="CSGBox3D" parent="Props"]
+[node name="BunkPost26" type="CSGBox3D" parent="Props" unique_id=232919601]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95, -0.825, 1.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost27" type="CSGBox3D" parent="Props"]
+[node name="BunkPost27" type="CSGBox3D" parent="Props" unique_id=1766562272]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95, -0.825, 0.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost28" type="CSGBox3D" parent="Props"]
+[node name="BunkPost28" type="CSGBox3D" parent="Props" unique_id=691541057]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95, -0.825, 1.8)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkFrame15" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame15" type="CSGBox3D" parent="Props" unique_id=801195859]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -1.39, 3.9)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress15" type="CSGBox3D" parent="Props"]
+[node name="Mattress15" type="CSGBox3D" parent="Props" unique_id=1327959916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -1.26, 3.9)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="BunkFrame16" type="CSGBox3D" parent="Props"]
+[node name="BunkFrame16" type="CSGBox3D" parent="Props" unique_id=1953251827]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -0.29, 3.9)
 size = Vector3(2.1, 0.12, 1)
 material = SubResource("m_steel")
 
-[node name="Mattress16" type="CSGBox3D" parent="Props"]
+[node name="Mattress16" type="CSGBox3D" parent="Props" unique_id=388784069]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95, -0.16, 3.9)
 size = Vector3(2, 0.14, 0.9)
 material = SubResource("m_fabric")
 
-[node name="Pillow15" type="CSGBox3D" parent="Props"]
+[node name="Pillow15" type="CSGBox3D" parent="Props" unique_id=1895813086]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7, -1.14, 3.9)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="Pillow16" type="CSGBox3D" parent="Props"]
+[node name="Pillow16" type="CSGBox3D" parent="Props" unique_id=1343594985]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7, -0.04, 3.9)
 size = Vector3(0.4, 0.1, 0.6)
 material = SubResource("m_white")
 
-[node name="BunkPost29" type="CSGBox3D" parent="Props"]
+[node name="BunkPost29" type="CSGBox3D" parent="Props" unique_id=1045060610]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95, -0.825, 3.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost30" type="CSGBox3D" parent="Props"]
+[node name="BunkPost30" type="CSGBox3D" parent="Props" unique_id=778265325]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95, -0.825, 4.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost31" type="CSGBox3D" parent="Props"]
+[node name="BunkPost31" type="CSGBox3D" parent="Props" unique_id=347418342]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95, -0.825, 3.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="BunkPost32" type="CSGBox3D" parent="Props"]
+[node name="BunkPost32" type="CSGBox3D" parent="Props" unique_id=633111362]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95, -0.825, 4.4)
 size = Vector3(0.06, 1.95, 0.06)
 material = SubResource("m_steel")
 
-[node name="RoundTable2" type="CSGCylinder3D" parent="Props"]
+[node name="RoundTable2" type="CSGCylinder3D" parent="Props" unique_id=1555008855]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -1.045, 0)
 radius = 0.6
 height = 0.07
 sides = 20
 material = SubResource("m_wood")
 
-[node name="TableStem2" type="CSGCylinder3D" parent="Props"]
+[node name="TableStem2" type="CSGCylinder3D" parent="Props" unique_id=410476610]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -1.44, 0)
 radius = 0.1
 height = 0.72
-sides = 8
 material = SubResource("m_dark")
 
-[node name="Stool3" type="CSGCylinder3D" parent="Props"]
+[node name="Stool3" type="CSGCylinder3D" parent="Props" unique_id=175209494]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -1.575, -1)
 radius = 0.22
 height = 0.45
 sides = 12
 material = SubResource("m_dark")
 
-[node name="Stool4" type="CSGCylinder3D" parent="Props"]
+[node name="Stool4" type="CSGCylinder3D" parent="Props" unique_id=875085410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -1.575, 1)
 radius = 0.22
 height = 0.45
 sides = 12
 material = SubResource("m_dark")
 
-[node name="LockerBank3" type="CSGBox3D" parent="Props"]
+[node name="LockerBank3" type="CSGBox3D" parent="Props" unique_id=243564848]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, -0.8, -5.15)
 size = Vector3(3, 2, 0.7)
 material = SubResource("m_steel")
 
-[node name="LockerSeam9" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam9" type="CSGBox3D" parent="Props" unique_id=1169730704]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7, -0.8, -4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam10" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam10" type="CSGBox3D" parent="Props" unique_id=1304891799]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3, -0.8, -4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam11" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam11" type="CSGBox3D" parent="Props" unique_id=947456745]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, -0.8, -4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam12" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam12" type="CSGBox3D" parent="Props" unique_id=1464562593]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -0.8, -4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerBank4" type="CSGBox3D" parent="Props"]
+[node name="LockerBank4" type="CSGBox3D" parent="Props" unique_id=636595657]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, -0.8, 5.15)
 size = Vector3(3, 2, 0.7)
 material = SubResource("m_steel")
 
-[node name="LockerSeam13" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam13" type="CSGBox3D" parent="Props" unique_id=68554388]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7, -0.8, 4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam14" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam14" type="CSGBox3D" parent="Props" unique_id=919749455]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3, -0.8, 4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam15" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam15" type="CSGBox3D" parent="Props" unique_id=752138460]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, -0.8, 4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LockerSeam16" type="CSGBox3D" parent="Props"]
+[node name="LockerSeam16" type="CSGBox3D" parent="Props" unique_id=612866369]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -0.8, 4.79)
 size = Vector3(0.03, 1.9, 0.02)
 material = SubResource("m_dark")
 
-[node name="LightPanelL0" parent="." instance=ExtResource("1_panel")]
-transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -7.65, 1.45, 0)
-
-[node name="LightPanelR0" parent="." instance=ExtResource("1_panel")]
-transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 7.65, 1.45, 0)
-
-[node name="LampBody" type="CSGBox3D" parent="Props"]
+[node name="LampBody" type="CSGBox3D" parent="Props" unique_id=1657422033]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.75, -2.75)
 size = Vector3(2.2, 0.1, 0.7)
 material = SubResource("m_dark")
 
-[node name="LampGlow" type="CSGBox3D" parent="Props"]
+[node name="LampGlow" type="CSGBox3D" parent="Props" unique_id=547461858]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.68, -2.75)
 size = Vector3(2, 0.04, 0.5)
 material = SubResource("m_lamp")
 
-[node name="Light" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.3, -2.75)
-light_energy = 0.6
-omni_range = 7
-light_color = Color(0.67, 0.8, 1, 1)
-
-[node name="LampBody2" type="CSGBox3D" parent="Props"]
+[node name="LampBody2" type="CSGBox3D" parent="Props" unique_id=594181069]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.75, 2.75)
 size = Vector3(2.2, 0.1, 0.7)
 material = SubResource("m_dark")
 
-[node name="LampGlow2" type="CSGBox3D" parent="Props"]
+[node name="LampGlow2" type="CSGBox3D" parent="Props" unique_id=777903254]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.68, 2.75)
 size = Vector3(2, 0.04, 0.5)
 material = SubResource("m_lamp")
 
-[node name="Light2" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.3, 2.75)
-light_energy = 0.6
-omni_range = 7
-light_color = Color(0.67, 0.8, 1, 1)
-
-[node name="LampBody3" type="CSGBox3D" parent="Props"]
+[node name="LampBody3" type="CSGBox3D" parent="Props" unique_id=1972540970]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.75, -2.75)
 size = Vector3(2.2, 0.1, 0.7)
 material = SubResource("m_dark")
 
-[node name="LampGlow3" type="CSGBox3D" parent="Props"]
+[node name="LampGlow3" type="CSGBox3D" parent="Props" unique_id=1599261273]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.68, -2.75)
 size = Vector3(2, 0.04, 0.5)
 material = SubResource("m_lamp")
 
-[node name="Light3" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.3, -2.75)
-light_energy = 0.6
-omni_range = 7
-light_color = Color(0.67, 0.8, 1, 1)
-
-[node name="LampBody4" type="CSGBox3D" parent="Props"]
+[node name="LampBody4" type="CSGBox3D" parent="Props" unique_id=1527233415]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.75, 2.75)
 size = Vector3(2.2, 0.1, 0.7)
 material = SubResource("m_dark")
 
-[node name="LampGlow4" type="CSGBox3D" parent="Props"]
+[node name="LampGlow4" type="CSGBox3D" parent="Props" unique_id=1915864886]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.68, 2.75)
 size = Vector3(2, 0.04, 0.5)
 material = SubResource("m_lamp")
 
-[node name="Light4" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.3, 2.75)
-light_energy = 0.6
-omni_range = 7
+[node name="Glass" type="CSGCombiner3D" parent="." unique_id=1032719908]
+use_collision = true
+
+[node name="LightPanelL0" parent="." unique_id=276569517 instance=ExtResource("1_panel")]
+transform = Transform3D(0, -0.6364, 0.6364, 0, 0.6364, 0.6364, -0.9, 0, 0, -7.65, 1.45, 0)
+
+[node name="LightPanelR0" parent="." unique_id=1666509667 instance=ExtResource("1_panel")]
+transform = Transform3D(0, 0.6364, 0.6364, 0, 0.6364, -0.6364, -0.9, 0, 0, 7.65, 1.45, 0)
+
+[node name="Light" type="OmniLight3D" parent="." unique_id=914014356]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.3, -2.75)
 light_color = Color(0.67, 0.8, 1, 1)
+light_energy = 0.6
+omni_range = 7.0
+
+[node name="Light2" type="OmniLight3D" parent="." unique_id=1234395289]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.3, 2.75)
+light_color = Color(0.67, 0.8, 1, 1)
+light_energy = 0.6
+omni_range = 7.0
+
+[node name="Light3" type="OmniLight3D" parent="." unique_id=1680974849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.3, -2.75)
+light_color = Color(0.67, 0.8, 1, 1)
+light_energy = 0.6
+omni_range = 7.0
+
+[node name="Light4" type="OmniLight3D" parent="." unique_id=1732230667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.3, 2.75)
+light_color = Color(0.67, 0.8, 1, 1)
+light_energy = 0.6
+omni_range = 7.0
+
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="N0" type="Marker3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.95)
+script = ExtResource("door_socket_script")
+opening_size = Vector2(5.4, 3.6)
